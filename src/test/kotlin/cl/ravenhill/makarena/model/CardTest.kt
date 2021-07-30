@@ -15,6 +15,7 @@ class CardTest : StringSpec({
     }
   }
   "Cards with different parameters are not equal" {
+    val n = listOf(nameGenerator(), nameGenerator())
     val names = Pair(nameGenerator(), nameGenerator())
     val attacks = Pair(attackGenerator(), attackGenerator())
     forAll(names.first, names.second) { a, b ->

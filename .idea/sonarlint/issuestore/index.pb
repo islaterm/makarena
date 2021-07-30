@@ -2,8 +2,6 @@
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-@
-build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
 T
 $.idea/codeStyles/codeStyleConfig.xml,d\d\dd7b3350c29c49497756c7f32c69a3bed18b1cba
 A
@@ -14,11 +12,9 @@ X
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 ;
 gradlew.bat,2\a\2a45a911a8f1836b0b6c5b758962572012d8f8c3
-l
-<src/main/kotlin/cl/ravenhill/makarena/model/player/Player.kt,5\4\54bedb98d8e524719445562e6509f8ee4ca7376f
-L
-.idea/codeStyles/Project.xml,6\e\6ecd6000a7b6f4a2884412ff19f74193ed089648
 C
 settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
 c
 3src/main/kotlin/cl/ravenhill/makarena/model/Card.kt,b\1\b136a0daf8eb001e5daa8164d68daa5f61815ec8
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
