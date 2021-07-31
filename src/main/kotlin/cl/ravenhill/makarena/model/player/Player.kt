@@ -1,25 +1,30 @@
 package cl.ravenhill.makarena.model.player
 
 import cl.ravenhill.makarena.model.Card
+import java.util.*
 
 open class Player(val name: String) {
   private val rawDeck = mutableListOf<Card>()
-  val deck: List<Card>
+  val deck
     get() = rawDeck.toList()
-  val hand = mutableListOf<Card>()
+
+  private val rawHand = mutableListOf<Card>()
+  val hand
+    get() = rawHand.toList()
+
   val graveyard = mutableListOf<Card>()
 
-  override fun equals(other: Any?): Boolean {
-    return if (other is Player) {
-      this.name == other.name
-    } else false
-  }
+  override fun equals(other: Any?) = if (other is Player) {
+    this.name == other.name
+  } else false
 
   fun draw() {
-    TODO("Not yet implemented")
+    rawHand += rawDeck.removeFirst()
   }
 
   fun addToDeck(card: Card) {
-    rawDeck.add(card)
+    rawDeck += card
   }
+
+  override fun hashCode() = Objects.hash(Player::class, name)
 }
