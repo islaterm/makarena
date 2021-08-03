@@ -1,12 +1,12 @@
-package cl.ravenhill.makarena.model
+package cl.ravenhill.makarena.model.commons
 
+import cl.ravenhill.makarena.model.Card
+import cl.ravenhill.makarena.model.attackGenerator
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.property.Arb
-import io.kotest.property.Gen
-import io.kotest.property.arbitrary.*
+import io.kotest.property.arbitrary.codepoints
 import io.kotest.property.arbitrary.string
 import io.kotest.property.forAll
-import kotlin.random.nextInt
 
 class NamedComponentTest : StringSpec({
   "Cards with the same parameters are equal" {

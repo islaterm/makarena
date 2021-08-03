@@ -1,5 +1,6 @@
 package cl.ravenhill.makarena.model
 
+import cl.ravenhill.makarena.model.commons.nameGenerator
 import cl.ravenhill.makarena.model.player.Player
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldBeIn
@@ -11,6 +12,9 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
 import io.kotest.property.forAll
 
+/**
+ * Test suite for the players of the game.
+ */
 class PlayerTest : StringSpec({
   val cardGen = Arb.bind(nameGenerator(), attackGenerator()) { name, attack ->
     CardGen(name, attack)
@@ -55,8 +59,6 @@ fun `check draw`(player: Player) {
 /**
  * Adds a card to a list and check the result.
  *
- * @param player Player
- *    test player
  * @param cards List<Card>
  *    the list of cards to add
  */

@@ -2,6 +2,7 @@
 
 package cl.ravenhill.makarena.model
 
+import cl.ravenhill.makarena.model.commons.nameGenerator
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
