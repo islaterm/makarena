@@ -8,8 +8,8 @@ import io.kotest.property.forAll
 
 class NamedComponentTest : StringSpec({
   "Cards with the same parameters are equal" {
-    forAll(nameGenerator(), attackGenerator()) { a, b ->
-      Card(a, b) == Card(a, b)
+    forAll(nameGenerator()) { a ->
+      Card(a) == Card(a)
     }
   }
 })
