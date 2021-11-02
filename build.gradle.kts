@@ -1,11 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-val kotestVersion: String by project
-
-
-
 plugins {
-  kotlin("jvm") version "1.5.0"
+  kotlin("jvm") version "1.5.31"
 }
 
 group = "cl.ravenhill"
@@ -16,16 +10,11 @@ repositories {
 }
 
 dependencies {
-//    implementation("io.kotest:kotest-runner-junit5-jvm:4.1.1")
-  testImplementation(group = "io.kotest", name = "kotest-runner-junit5", version = kotestVersion)
-  implementation(group = "io.kotest", name = "kotest-assertions-core", version = kotestVersion)
-  testImplementation(group = "io.kotest", name = "kotest-property", version = kotestVersion)
+  testImplementation("io.kotest:kotest-runner-junit5:4.6.3")
+  implementation("io.kotest:kotest-assertions-core:4.6.3")
+  testImplementation("io.kotest:kotest-property:4.6.3")
 }
 
 tasks.test {
   useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-  kotlinOptions.jvmTarget = "13"
 }
