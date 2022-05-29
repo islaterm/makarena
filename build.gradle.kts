@@ -16,7 +16,6 @@ repositories {
 }
 
 dependencies {
-//    implementation("io.kotest:kotest-runner-junit5-jvm:4.1.1")
   testImplementation(group = "io.kotest", name = "kotest-runner-junit5", version = kotestVersion)
   implementation(group = "io.kotest", name = "kotest-assertions-core", version = kotestVersion)
   testImplementation(group = "io.kotest", name = "kotest-property", version = kotestVersion)
