@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotestVersion: String by project
@@ -5,7 +7,7 @@ val kotestVersion: String by project
 
 
 plugins {
-  kotlin("jvm") version "1.5.0"
+  kotlin("jvm") version "1.7.0"
 }
 
 group = "cl.ravenhill"
@@ -16,9 +18,9 @@ repositories {
 }
 
 dependencies {
-  testImplementation(group = "io.kotest", name = "kotest-runner-junit5", version = kotestVersion)
-  implementation(group = "io.kotest", name = "kotest-assertions-core", version = kotestVersion)
-  testImplementation(group = "io.kotest", name = "kotest-property", version = kotestVersion)
+  testImplementation("io.kotest:kotest-runner-junit5:5.3.1")
+  implementation("io.kotest:kotest-assertions-core:5.3.1")
+  testImplementation("io.kotest:kotest-property:5.3.1")
 }
 
 tasks.test {
