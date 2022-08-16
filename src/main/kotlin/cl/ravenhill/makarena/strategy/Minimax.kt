@@ -1,19 +1,23 @@
 package cl.ravenhill.makarena.strategy
 
-var player = 'x'
-var opponent = 'o'
-
 // This function returns true if there are moves
 // remaining on the board. It returns false if
 // there are no moves left to play.
-fun isMovesLeft(board: Array<CharArray>): Boolean {
-  for (i in 0..2) for (j in 0..2) if (board[i][j] == '_') return true
+fun checkMovesLeft(board: Board): Boolean {
+
+  for (i in 0..2) {
+    for (j in 0..2) {
+      if (board[i][j] == Marker.EMPTY) {
+        return true
+      }
+    }
+  }
   return false
 }
 
 // This is the evaluation function as discussed
 // in the previous article ( http://goo.gl/sJgv68 )
-fun evaluate(b: Array<CharArray>): Int {
+fun evaluate(b: Board): Int {
   // Checking for Rows for X or O victory.
   for (row in 0..2) {
     if (b[row][0] == b[row][1] &&
@@ -48,7 +52,7 @@ fun evaluate(b: Array<CharArray>): Int {
 // the possible ways the game can go and returns
 // the value of the board
 fun minimax(
-  board: Array<CharArray>,
+  board: Board,
   depth: Int, isMax: Boolean
 ): Int {
   val score = evaluate(board)
@@ -63,7 +67,7 @@ fun minimax(
 
   // If there are no more moves and
   // no winner then it is a tie
-  if (!isMovesLeft(board)) return 0
+  if (!checkMovesLeft(board)) return 0
 
   // If this maximizer's move
   return if (isMax) {
@@ -73,7 +77,7 @@ fun minimax(
     for (i in 0..2) {
       for (j in 0..2) {
         // Check if cell is empty
-        if (board[i][j] == '_') {
+        if (board[i][j] == Marker.EMPTY) {
           // Make the move
           board[i][j] = player
 
@@ -87,7 +91,7 @@ fun minimax(
           )
 
           // Undo the move
-          board[i][j] = '_'
+          board[i][j] = Marker.EMPTY
         }
       }
     }
@@ -99,7 +103,7 @@ fun minimax(
     for (i in 0..2) {
       for (j in 0..2) {
         // Check if cell is empty
-        if (board[i][j] == '_') {
+        if (board[i][j] == Marker.EMPTY) {
           // Make the move
           board[i][j] = opponent
 
@@ -113,7 +117,7 @@ fun minimax(
           )
 
           // Undo the move
-          board[i][j] = '_'
+          board[i][j] = Marker.EMPTY
         }
       }
     }
@@ -123,7 +127,7 @@ fun minimax(
 
 // This will return the best possible
 // move for the player
-fun findBestMove(board: Array<CharArray>): Move {
+fun findBestMove(board: Board): Move {
   var bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
 
   // Traverse all cells, evaluate minimax function
@@ -132,7 +136,7 @@ fun findBestMove(board: Array<CharArray>): Move {
   for (i in 0..2) {
     for (j in 0..2) {
       // Check if cell is empty
-      if (board[i][j] == '_') {
+      if (board[i][j] == Marker.EMPTY) {
         // Make the move
         board[i][j] = player
 
@@ -141,7 +145,7 @@ fun findBestMove(board: Array<CharArray>): Move {
         val moveVal = minimax(board, 0, false)
 
         // Undo the move
-        board[i][j] = '_'
+        board[i][j] = Marker.EMPTY
 
         // If the value of the current move is
         // more than the best value, then update
