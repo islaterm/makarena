@@ -5,19 +5,8 @@ import cl.ravenhill.makarena.model.Marker
 import cl.ravenhill.makarena.model.opponent
 import cl.ravenhill.makarena.model.player
 
-/**
- * Checks if there are moves left on the board.
- */
-fun checkMovesLeft(board: Board): Boolean {
-  for (i in 0..2) {
-    for (j in 0..2) {
-      if (board[i][j] == Marker.EMPTY) {
-        return true
-      }
-    }
-  }
-  return false
-}
+private fun <T> Array<Array<T>>.checkMovesLeft() =
+  this.any { row -> row.any { mark -> mark == Marker.EMPTY } }
 
 // This is the evaluation function as discussed
 // in the previous article ( http://goo.gl/sJgv68 )
@@ -71,7 +60,7 @@ fun minimax(
 
   // If there are no more moves and
   // no winner then it is a tie
-  if (!checkMovesLeft(board)) return 0
+  if (!board.checkMovesLeft()) return 0
 
   // If this maximizer's move
   return if (isMax) {

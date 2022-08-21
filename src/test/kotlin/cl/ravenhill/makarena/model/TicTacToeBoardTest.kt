@@ -16,14 +16,14 @@ import io.kotest.property.checkAll
 
 class TicTacToeBoardTest : StringSpec({
   "Builder instances are independent" {
-    TicTacToeBoard.builder shouldNotBeSameInstanceAs TicTacToeBoard.builder
+    TicTacToeBoard.builder() shouldNotBeSameInstanceAs TicTacToeBoard.builder()
   }
 
   "A board with an invalid number of rows should throw an exception" {
     checkAll<Marker, Marker, Marker, Marker, Marker, Marker> { a, b, c, d, e, f ->
       for (rows in 0..2) {
         shouldThrow<MakarenaException> {
-          with(TicTacToeBoard.builder) {
+          with(TicTacToeBoard.builder()) {
             if (rows > 1) {
               row(a, b, c)
             }

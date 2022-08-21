@@ -19,7 +19,7 @@ var opponent = Marker.O
 typealias Board = Array<Array<Marker>>
 typealias MarkerTriplet = Triple<Marker, Marker, Marker>
 
-class TicTacToeBoard private constructor(private val rows: List<MarkerTriplet>) {
+class TicTacToeBoard private constructor(private val rows: List<Array<Marker>>) {
 
   init {
     if (rows.size != 3) {
@@ -27,26 +27,26 @@ class TicTacToeBoard private constructor(private val rows: List<MarkerTriplet>) 
     }
   }
 
+  /**
+   * Checks if there are moves left on the board.
+   */
+  fun checkMovesLeft() = rows.any { row -> row.any { mark -> mark == Marker.EMPTY } }
+
+
   companion object {
     /**
      * Builder for a Tic-Tac-Toe board.
      */
-    val builder: TicTacToeBoardBuilder
-      get() {
-        return TicTacToeBoardBuilder()
-      }
+    val builder: () -> TicTacToeBoardBuilder
+      get() = { TicTacToeBoardBuilder() }
   }
 
   class TicTacToeBoardBuilder {
-    private val rows = mutableListOf<MarkerTriplet>()
+    private val rows = mutableListOf<Array<Marker>>()
 
-    fun row(first: Marker, second: Marker, third: Marker): TicTacToeBoardBuilder {
-      rows.add(Triple(first, second, third))
-      return this
-    }
+    fun row(first: Marker, second: Marker, third: Marker): TicTacToeBoardBuilder =
+      this.also { rows.add(arrayOf(first, second, third)) }
 
-    fun build(): TicTacToeBoard {
-      return TicTacToeBoard(rows)
-    }
+    fun build() = TicTacToeBoard(rows)
   }
 }
