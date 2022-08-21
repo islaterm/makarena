@@ -7,16 +7,26 @@
  */
 package cl.ravenhill.makarena.model
 
+import cl.ravenhill.makarena.MakarenaException
+
 enum class Marker {
   X, O, EMPTY
 }
+
 var player = Marker.X
 var opponent = Marker.O
 
 typealias Board = Array<Array<Marker>>
 typealias MarkerTriplet = Triple<Marker, Marker, Marker>
 
-class TicTacToeBoard private constructor() {
+class TicTacToeBoard private constructor(private val rows: List<MarkerTriplet>) {
+
+  init {
+    if (rows.size != 3) {
+      throw MakarenaException("TicTacToeBoard must have 3 rows")
+    }
+  }
+
   companion object {
     /**
      * Builder for a Tic-Tac-Toe board.
@@ -31,9 +41,6 @@ class TicTacToeBoard private constructor() {
     private val rows = mutableListOf<MarkerTriplet>()
 
     fun row(first: Marker, second: Marker, third: Marker): TicTacToeBoardBuilder {
-      if (rows.size == 3) {
-        throw IllegalArgumentException("Only 3 rows allowed")
-      }
       rows.add(Triple(first, second, third))
       return this
     }

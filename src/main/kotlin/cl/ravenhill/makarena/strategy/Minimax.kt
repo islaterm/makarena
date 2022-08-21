@@ -1,10 +1,14 @@
 package cl.ravenhill.makarena.strategy
 
-// This function returns true if there are moves
-// remaining on the board. It returns false if
-// there are no moves left to play.
-fun checkMovesLeft(board: Board): Boolean {
+import cl.ravenhill.makarena.model.Board
+import cl.ravenhill.makarena.model.Marker
+import cl.ravenhill.makarena.model.opponent
+import cl.ravenhill.makarena.model.player
 
+/**
+ * Checks if there are moves left on the board.
+ */
+fun checkMovesLeft(board: Board): Boolean {
   for (i in 0..2) {
     for (j in 0..2) {
       if (board[i][j] == Marker.EMPTY) {
