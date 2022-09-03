@@ -1,4 +1,12 @@
 /*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
+/*
  * "makarena" (c) by Ignacio Slater M.
  * "makarena" is licensed under a
  * Creative Commons Attribution 4.0 International License.
@@ -17,7 +25,7 @@ class MinimaxTest : StringSpec({
         val board = TicTacToeBoard.builder()
             .row('X', 'O', 'X')
             .row('O', 'O', 'X')
-            .row('_', '_', '_')
+            .row('O', 'X', '_')
             .build()
         val bestMove = findBestMove(board)
         bestMove shouldBe TicTacToeMove(2, 2, 10)

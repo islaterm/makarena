@@ -13,9 +13,6 @@ import cl.ravenhill.makarena.model.TicTacToeBoard
 var player = 'X'
 var opponent = 'O'
 
-/** Checks if all elements of a list are equal to a given value. */
-private fun <T> List<T>.allEqual() = this.all { it == this[0] }
-
 /**
  * Checks if a TicTacToe board is full.
  *
@@ -95,30 +92,3 @@ fun findBestMove(board: Board): Move {
 
 /** Representation of a 2D Tic Tac Toe board. */
 typealias Board = TicTacToeBoard
-
-/** Extension function to find all the possible moves on a Tic Tac Toe board.   */
-//private val Board.possibleMoves: List<TicTacToeMove>
-//    get() = mutableListOf<TicTacToeMove>().apply {
-//        for (i in 0..2) {
-//            for (j in 0..2) {
-//                if (this@possibleMoves[i][j] == '_') {
-//                    this.add(TicTacToeMove(i, j, 0))
-//                }
-//            }
-//        }
-//    }.toList()
-//
-///**
-// * Extension function to simulate a move on a Tic Tac Toe board.
-// * A simulation is a move that is not permanent, and will be undone after the block is executed.
-// *
-// * @receiver The board to simulate the move on.
-// * @param move  The move to simulate.
-// * @param mark  The marker of the player that is making the move.
-// * @param block The block to execute after the move is simulated.
-// */
-//private fun Board.simulateMove(move: TicTacToeMove, mark: Char, block: (TicTacToeMove) -> Unit) {
-//    this[move.row][move.column] = mark
-//    block(move)
-//    this[move.row][move.column] = '_'
-//}
