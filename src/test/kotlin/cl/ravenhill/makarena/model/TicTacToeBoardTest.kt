@@ -22,37 +22,41 @@ import io.kotest.property.checkAll
 
 
 class TicTacToeBoardTest : StringSpec({
-  "Builder instances are independent" {
-    TicTacToeBoard.builder() shouldNotBeSameInstanceAs TicTacToeBoard.builder()
-  }
-
-  "Building a board without 3 rows should throw an exception" {
-    checkAll(Arb.list(Arb.enum<Marker>(), 3..90)) { markers ->
-      assume(markers.size % 3 == 0)
-      assume(markers.size > 9)
-      val exception = shouldThrow<MakarenaException> {
-        with(TicTacToeBoard.builder()) {
-          markers.chunked(3).forEach { row ->
-            this.row(row[0], row[1], row[2])
-          }
-          build()
-        }
-      }
-      exception.message shouldBe "TicTacToeBoard can only have 3 rows"
+    "Builder instances are independent" {
+        TicTacToeBoard.builder() shouldNotBeSameInstanceAs TicTacToeBoard.builder()
     }
-  }
 
-  "Building a board with 3 rows should not throw an exception" {
-    checkAll(Arb.list(Arb.enum<Marker>())) { markers ->
-      assume(markers.size == 9)
-      shouldNotThrow<MakarenaException> {
-        with(TicTacToeBoard.builder()) {
-          markers.chunked(3).forEach { row ->
-            this.row(row[0], row[1], row[2])
-          }
-          build()
+    "Building a board without 3 rows should throw an exception" {
+        checkAll(Arb.list(Arb.enum<Marker>(), 3..90)) { markers ->
+            assume(markers.size % 3 == 0)
+            assume(markers.size > 9)
+            val exception = shouldThrow<MakarenaException> {
+                with(TicTacToeBoard.builder()) {
+                    markers.chunked(3).forEach { row ->
+                        this.row(row[0], row[1], row[2])
+                    }
+                    build()
+                }
+            }
+            exception.message shouldBe "TicTacToeBoard can only have 3 rows"
         }
-      }
     }
-  }
+
+    "Building a board with 3 rows should not throw an exception" {
+        checkAll(Arb.list(Arb.enum<Marker>())) { markers ->
+            assume(markers.size == 9)
+            shouldNotThrow<MakarenaException> {
+                with(TicTacToeBoard.builder()) {
+                    markers.chunked(3).forEach { row ->
+                        this.row(row[0], row[1], row[2])
+                    }
+                    build()
+                }
+            }
+        }
+    }
+
+    "" {
+
+    }
 })
