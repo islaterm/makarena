@@ -86,8 +86,18 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<Marker>
     private val rows = mutableListOf<MutableList<Marker>>()
 
     fun row(first: Marker, second: Marker, third: Marker): TicTacToeBoardBuilder =
-      this.also { rows.add(mutableListOf(first, second, third)) }
+      this.also {
+        if (rows.size == 3) {
+          throw MakarenaException("TicTacToeBoard can only have 3 rows")
+        }
+        rows.add(mutableListOf(first, second, third))
+      }
 
-    fun build() = TicTacToeBoard(rows)
+    fun build() =
+      TicTacToeBoard(rows).also {
+        if (it.rows.size != 3) {
+          throw MakarenaException("TicTacToeBoard can only have 3 rows")
+        }
+      }
   }
 }
