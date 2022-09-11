@@ -8,16 +8,16 @@
 package cl.ravenhill.makarena
 
 import cl.ravenhill.makarena.model.Marker
-import java.util.EnumMap
+import java.util.*
 
 
 interface Game {
-  val scores: Map<Marker, Int>
+    val scores: Map<Marker, Int>
 }
 
 object TicTacToeGame : Game {
-  override val scores = EnumMap<Marker, Int>(Marker::class.java).apply {
-    put(Marker.X, 0)
-    put(Marker.O, 0)
-  }
+    override val scores = EnumMap<Marker, Int>(Marker::class.java).apply {
+        put(Marker.X, 0)
+        put(Marker.O, 0)
+    }
 }

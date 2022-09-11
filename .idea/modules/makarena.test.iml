@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="makarena:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="cl.ravenhill" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="makarena:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="cl.ravenhill" external.system.module.type="sourceSet" external.system.module.version="0.2-ALPHA" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="5" platform="JVM 13" allPlatforms="JVM [13]" useProjectSettings="false">
+      <configuration version="5" platform="JVM 1.8" allPlatforms="JVM [1.8]" useProjectSettings="false">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
@@ -47,7 +47,7 @@
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../build/classes/kotlin/test" />
-            <stringArg name="jvmTarget" arg="13" />
+            <stringArg name="jvmTarget" arg="1.8" />
             <stringArg name="moduleName" arg="makarena" />
             <stringArg name="apiVersion" arg="1.7" />
             <stringArg name="languageVersion" arg="1.7" />
@@ -57,7 +57,7 @@
               <args>
                 <arg>$MODULE_DIR$/../../build/classes/java/main</arg>
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
-                <arg>$MODULE_DIR$/../../build/libs/makarena-1.0-SNAPSHOT.jar</arg>
+                <arg>$MODULE_DIR$/../../build/libs/makarena-0.2-ALPHA.jar</arg>
               </args>
             </arrayArg>
             <arrayArg name="pluginClasspaths">
