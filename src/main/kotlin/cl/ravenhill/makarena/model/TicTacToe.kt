@@ -76,6 +76,9 @@ class TicTacToeBoard private constructor(val rows: MutableList2d<Marker>) {
         }
     }
 
+    /** Returns a (flat) list of all the cells in the board. */
+    fun flatten() = rows.flatten()
+
     private fun <T> List<T>.allEqual() = this.all { it == this[0] }
 
     companion object {
