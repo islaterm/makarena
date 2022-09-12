@@ -1,6 +1,6 @@
 /*
- * "makarena" (c) by Ignacio Slater M.
- * "makarena" is licensed under a
+ * "Makarena" (c) by R8V
+ * "Makarena" is licensed under a
  * Creative Commons Attribution 4.0 International License.
  * You should have received a copy of the license along with this
  * work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
@@ -22,6 +22,17 @@ import io.kotest.property.checkAll
 
 
 class TicTacToeBoardTest : StringSpec({
+    lateinit var emptyBoard: TicTacToeBoard
+
+    beforeEach {
+        emptyBoard = with(TicTacToeBoard.builder()) {
+            row(Marker.EMPTY, Marker.EMPTY, Marker.EMPTY)
+            row(Marker.EMPTY, Marker.EMPTY, Marker.EMPTY)
+            row(Marker.EMPTY, Marker.EMPTY, Marker.EMPTY)
+            build()
+        }
+    }
+
     "Builder instances are independent" {
         TicTacToeBoard.builder() shouldNotBeSameInstanceAs TicTacToeBoard.builder()
     }
@@ -31,12 +42,7 @@ class TicTacToeBoardTest : StringSpec({
             assume(markers.size % 3 == 0)
             assume(markers.size > 9)
             val exception = shouldThrow<MakarenaException> {
-                with(TicTacToeBoard.builder()) {
-                    markers.chunked(3).forEach { row ->
-                        this.row(row[0], row[1], row[2])
-                    }
-                    build()
-                }
+                buildBoardWith(markers)
             }
             exception.message shouldBe "TicTacToeBoard can only have 3 rows"
         }
@@ -46,17 +52,25 @@ class TicTacToeBoardTest : StringSpec({
         checkAll(Arb.list(Arb.enum<Marker>())) { markers ->
             assume(markers.size == 9)
             shouldNotThrow<MakarenaException> {
-                with(TicTacToeBoard.builder()) {
-                    markers.chunked(3).forEach { row ->
-                        this.row(row[0], row[1], row[2])
-                    }
-                    build()
-                }
+                buildBoardWith(markers)
             }
         }
     }
 
-    "" {
-
+    "An empty board can be created" {
+        emptyBoard.checkMovesLeft() shouldBe true
+        emptyBoard.rows.forEach { row ->
+            row.forEach { marker ->
+                marker shouldBe Marker.EMPTY
+            }
+        }
     }
 })
+
+/**  Creates a board with the given markers. The markers are assigned to the board row by row. */
+fun buildBoardWith(markers: List<Marker>) = with(TicTacToeBoard.builder()) {
+    markers.chunked(3).forEach { row ->
+        this.row(row[0], row[1], row[2])
+    }
+    build()
+}

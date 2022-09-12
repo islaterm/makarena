@@ -1,5 +1,5 @@
 /*
- * "makarena" (c) by Ignacio Slater M.
+ * "makarena" (c) by R8V.
  * "makarena" is licensed under a
  * Creative Commons Attribution 4.0 International License.
  * You should have received a copy of the license along with this

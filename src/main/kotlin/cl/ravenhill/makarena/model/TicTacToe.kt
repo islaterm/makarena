@@ -5,10 +5,16 @@
  * You should have received a copy of the license along with this
  * work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
  */
+
+/**
+ *  This file contains the model of the Tic-Tac-Toe game.
+ */
+
 package cl.ravenhill.makarena.model
 
 import cl.ravenhill.makarena.MakarenaException
 
+/** Enum that represents all possible "values" that a cell can have. */
 enum class Marker {
     X, O, EMPTY
 }
@@ -16,16 +22,15 @@ enum class Marker {
 var player = Marker.X
 var opponent = Marker.O
 
-typealias MutableList2D<T> = MutableList<MutableList<T>>
+typealias MutableList2d<T> = MutableList<MutableList<T>>
 
 /**
  * A Tic-Tac-Toe board.
  *
  * @property rows   The rows of the board with the [Marker]s.
- * @property winner The winner of the game.
  *                  ``Marker.EMPTY`` if the game is not over.
  */
-class TicTacToeBoard private constructor(private val rows: MutableList2D<Marker>) {
+class TicTacToeBoard private constructor(val rows: MutableList2d<Marker>) {
     private val _size = rows.size
     private val columns = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
     private val diagonals = mutableListOf(
@@ -35,7 +40,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<Marker>
 
     private val winner: Marker
         get() {
-            val searchWinnerIn = { l: MutableList2D<Marker> ->
+            val searchWinnerIn = { l: MutableList2d<Marker> ->
                 try {
                     l.first { it.allEqual() && it.first() != Marker.EMPTY }.first()
                 } catch (e: NoSuchElementException) {
