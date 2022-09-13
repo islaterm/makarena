@@ -81,6 +81,22 @@ class TicTacToeBoard private constructor(val rows: MutableList2d<Marker>) {
 
     private fun <T> List<T>.allEqual() = this.all { it == this[0] }
 
+    /**
+     * Clears all cells of the board.
+     *
+     * This operation is done __in-place__.
+     */
+    fun empty() = rows.forEach { it.replaceAll { Marker.EMPTY } }
+
+    /**
+     * Checks if the board is empty.
+     *
+     * @return  ``true`` when all cells on the board are ``Marker.EMPTY``.
+     */
+    fun isEmpty() = rows.all { row ->
+        row.all { it == Marker.EMPTY }
+    }
+
     companion object {
         /**
          * Builder for a Tic-Tac-Toe board.

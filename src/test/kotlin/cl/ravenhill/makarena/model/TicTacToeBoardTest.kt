@@ -60,6 +60,19 @@ class TicTacToeBoardTest : StringSpec({
             board.flatten() shouldBe markers
         }
     }
+
+    "A board can be cleared" {
+        checkAll(Arb.list(Arb.enum<Marker>())) { markers ->
+            assume(markers.size == 9)
+            val board = buildBoardWith(markers)
+            board.empty()
+            board.flatten().all { it == Marker.EMPTY } shouldBe true
+        }
+    }
+
+    "A board is empty if all cells are empty" {
+        emptyBoard.isEmpty() shouldBe true
+    }
 })
 
 /**  Creates a board with the given markers. The markers are assigned to the board row by row. */
