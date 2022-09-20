@@ -64,7 +64,7 @@ class TicTacToeBoard private constructor(val rows: MutableList2d<Marker>) {
     fun checkMovesLeft() = rows.any { row -> row.any { mark -> mark == Marker.EMPTY } }
 
     /**
-     * Returns the possible moves on the board for a player.
+     * Returns the possible moves on the board for a cl.ravenhill.makarena.strategy.getPlayer.
      */
     fun getPossibleMoves() = mutableListOf<Pair<Int, Int>>().apply {
         for (i in 0 until _size) {

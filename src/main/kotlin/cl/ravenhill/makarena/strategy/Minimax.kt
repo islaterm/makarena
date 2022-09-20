@@ -1,111 +1,168 @@
 package cl.ravenhill.makarena.strategy
 
-import cl.ravenhill.makarena.TicTacToeGame
-import cl.ravenhill.makarena.model.Marker
-import cl.ravenhill.makarena.model.MutableList2d
-import cl.ravenhill.makarena.model.player
+// Java program to find the
+// next optimal move for a cl.ravenhill.makarena.strategy.getPlayer
+var player = 'x'
+var opponent = 'o'
 
-private val MutableList2d<Marker>.diagonals: MutableList2d<Marker>
-    get() = mutableListOf(
-        MutableList(size) { i -> this[i][i] },
-        MutableList(size) { i -> this[i][size - 1 - i] }
-    )
-
-private val MutableList2d<Marker>.columns: MutableList2d<Marker>
-    get() = MutableList(size) { i -> MutableList(size) { j -> this[j][i] } }
-
-private val MutableList2d<Marker>.winner: Marker
-    get() {
-        val searchWinnerIn = { l: MutableList2d<Marker> ->
-            try {
-                l.first { it.allEqual() && it.first() != Marker.EMPTY }.first()
-            } catch (e: NoSuchElementException) {
-                Marker.EMPTY
-            }
-        }
-        return searchWinnerIn(this).takeIf { it != Marker.EMPTY }
-            ?: searchWinnerIn(this.columns).takeIf { it != Marker.EMPTY }
-      ?: searchWinnerIn(this.diagonals)
-  }
-
-private fun <T> List<T>.allEqual() = this.all { it == this[0] }
-private fun <T> MutableList2d<T>.checkMovesLeft() =
-    this.any { row -> row.any { mark -> mark == Marker.EMPTY } }
+// This function returns true if there are moves
+// remaining on the board. It returns false if
+// there are no moves left to play.
+fun isMovesLeft(board: Array<CharArray>): Boolean {
+    for (i in 0..2) for (j in 0..2) if (board[i][j] == '_') return true
+    return false
+}
 
 // This is the evaluation function as discussed
 // in the previous article ( http://goo.gl/sJgv68 )
-fun evaluate(b: MutableList2d<Marker>) = when (b.winner) {
-    Marker.X -> 10
-    Marker.O -> -10
-    else -> 0
-}
+fun evaluate(b: Array<CharArray>): Int {
+    // Checking for Rows for X or O victory.
+    for (row in 0..2) {
+        if (b[row][0] == b[row][1] &&
+            b[row][1] == b[row][2]
+        ) {
+            if (b[row][0] == player) return +10 else if (b[row][0] == opponent) return -10
+        }
+    }
 
-private fun Int.matchPredicate(predicate: (Int) -> Boolean) = predicate(this)
+    // Checking for Columns for X or O victory.
+    for (col in 0..2) {
+        if (b[0][col] == b[1][col] &&
+            b[1][col] == b[2][col]
+        ) {
+            if (b[0][col] == player) return +10 else if (b[0][col] == opponent) return -10
+        }
+    }
+
+    // Checking for Diagonals for X or O victory.
+    if (b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
+        if (b[0][0] == player) return +10 else if (b[0][0] == opponent) return -10
+    }
+    if (b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
+        if (b[0][2] == player) return +10 else if (b[0][2] == opponent) return -10
+    }
+
+    // Else if none of them have won then return 0
+    return 0
+}
 
 // This is the minimax function. It considers all
 // the possible ways the game can go and returns
 // the value of the board
 fun minimax(
-    board: MutableList2d<Marker>,
+    board: Array<CharArray>,
     depth: Int, isMax: Boolean
-): Int = when {
-  evaluate(board).matchPredicate { it == 10 || it == -10 } -> TicTacToeGame.scores[player]!!
-  !board.checkMovesLeft() -> 0
-  else -> {
-    val moves = board.possibleMoves()
-    var best = if (isMax) Int.MIN_VALUE else Int.MAX_VALUE
-    val coerceFn = if (isMax) best::coerceAtLeast else best::coerceAtMost
-    for (move in moves) {
-      board[move.first][move.second] = if (isMax) Marker.X else Marker.O
-      val value = minimax(board, depth + 1, !isMax)
-      best = coerceFn(value)
-      board[move.first][move.second] = Marker.EMPTY
-    }
-    best
-  }
-}
+): Int {
+    val score = evaluate(board)
 
-private fun MutableList2d<Marker>.possibleMoves() = mutableListOf<Pair<Int, Int>>().apply {
-    val size = this@possibleMoves.size
-    for (i in 0 until size) {
-        for (j in 0 until size) {
-            if (this@possibleMoves[i][j] == Marker.EMPTY) {
-                this.add(Pair(i, j))
+    // If Maximizer has won the game
+    // return his/her evaluated score
+    if (score == 10) return score
+
+    // If Minimizer has won the game
+    // return his/her evaluated score
+    if (score == -10) return score
+
+    // If there are no more moves and
+    // no winner then it is a tie
+    if (isMovesLeft(board) == false) return 0
+
+    // If this maximizer's move
+    return if (isMax) {
+        var best = -1000
+
+        // Traverse all cells
+        for (i in 0..2) {
+            for (j in 0..2) {
+                // Check if cell is empty
+                if (board[i][j] == '_') {
+                    // Make the move
+                    board[i][j] = player
+
+                    // Call minimax recursively and choose
+                    // the maximum value
+                    best = Math.max(
+                        best, minimax(
+                            board,
+                            depth + 1, !isMax
+                        )
+                    )
+
+                    // Undo the move
+                    board[i][j] = '_'
+                }
             }
         }
+        best
+    } else {
+        var best = 1000
+
+        // Traverse all cells
+        for (i in 0..2) {
+            for (j in 0..2) {
+                // Check if cell is empty
+                if (board[i][j] == '_') {
+                    // Make the move
+                    board[i][j] = opponent
+
+                    // Call minimax recursively and choose
+                    // the minimum value
+                    best = Math.min(
+                        best, minimax(
+                            board,
+                            depth + 1, !isMax
+                        )
+                    )
+
+                    // Undo the move
+                    board[i][j] = '_'
+                }
+            }
+        }
+        best
     }
 }
 
 // This will return the best possible
-// move for the player
-fun findBestMove(board: MutableList2d<Marker>): Move {
-    var bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
+// move for the cl.ravenhill.makarena.strategy.getPlayer
+fun findBestMove(board: Array<CharArray>): Move {
+    val bestMove = Move(-1, -1)
 
-    // Traverse all cells, evaluate minimax function
+    // Traverse all cells, cl.ravenhill.makarena.strategy.evaluate minimax function
     // for all empty cells. And return the cell
     // with optimal value.
     for (i in 0..2) {
         for (j in 0..2) {
             // Check if cell is empty
-            if (board[i][j] == Marker.EMPTY) {
+            if (board[i][j] == '_') {
                 // Make the move
-        board[i][j] = player
+                board[i][j] = player
 
-        // compute evaluation function for this
-        // move.
-        val moveVal = minimax(board, 0, false)
+                // compute evaluation function for this
+                // move.
+                val moveVal = minimax(board, 0, false)
 
-        // Undo the move
-        board[i][j] = Marker.EMPTY
+                // Undo the move
+                board[i][j] = '_'
 
-        // If the value of the current move is
-        // more than the best value, then update
-        // best/
-        if (moveVal > bestMove.score) {
-          bestMove = TicTacToeMove(i, j, moveVal)
+                // If the value of the current move is
+                // more than the best value, then update
+                // best/
+                if (moveVal > bestMove.score) {
+                    bestMove.row = i
+                    bestMove.col = j
+                    bestMove.score = moveVal
+                }
+            }
         }
-      }
     }
-  }
-  return bestMove
+    return bestMove
 }
+
+class Board {
+    operator fun get(i: Int): List<String> {
+        TODO("Not yet implemented")
+    }
+}
+
+data class Move(var row: Int = -1, var col: Int = -1, var score: Int = Int.MIN_VALUE)
