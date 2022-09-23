@@ -13,9 +13,9 @@ package cl.ravenhill.makarena.strategy
  * @property score Double:
  *    a numerical value indicating how "good" the move is.
  */
-//interface Move {
-//  val score: Int
-//}
+interface Move {
+  val score: Int
+}
 
 /**
  * Data class representing a move on the board of a Tic-Tac-Toe game.
@@ -28,4 +28,4 @@ package cl.ravenhill.makarena.strategy
  *    a numerical value indicating how "good" the move is.
  * @constructor Creates a new move.
  */
-//data class TicTacToeMove(val row: Int, val column: Int, override val score: Int) : Move
+data class TicTacToeMove(val row: Int, val column: Int, override val score: Int) : Move

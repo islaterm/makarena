@@ -11,7 +11,8 @@ import java.util.EnumMap
 /** This represents a generic game. */
 interface Game {
     /** Scoreboard of the game. */
-    val scores: Map<Marker, Int>
+    val scores: MutableMap<Marker, Int>
+    fun reset() = scores.keys.forEach { scores[it] = 0 }
 }
 
 /** This represents a Tic-Tac-Toe game. */

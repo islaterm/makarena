@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/makarena.iml" filepath="$PROJECT_DIR$/.idea/modules/makarena.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/makarena.main.iml" filepath="$PROJECT_DIR$/.idea/modules/makarena.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/makarena.test.iml" filepath="$PROJECT_DIR$/.idea/modules/makarena.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Makarena.iml" filepath="$PROJECT_DIR$/.idea/modules/Makarena.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Makarena.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Makarena.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Makarena.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Makarena.test.iml" />
     </modules>
   </component>
 </project>
