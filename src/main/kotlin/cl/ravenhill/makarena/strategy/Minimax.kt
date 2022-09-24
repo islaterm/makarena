@@ -21,6 +21,14 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
+
+/*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
 package cl.ravenhill.makarena.strategy
 
 
@@ -71,60 +79,24 @@ fun evaluate(b: Array<CharArray>): Int {
 // This is the minimax function. It considers all
 // the possible ways the game can go and returns
 // the value of the board
-fun minimax(board: Array<CharArray>, depth: Int, isMax: Boolean): Int =
+fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
     evaluate(board).let { score ->
         if (score == 10 || score == -10 || !isMovesLeft(board)) {
             score
         } else if (isMax) {
             var best = Int.MIN_VALUE
-
-            // Traverse all cells
-            for (i in 0..2) {
-                for (j in 0..2) {
-                    // Check if cell is empty
-                    if (board[i][j] == '_') {
-                        // Make the move
-                        board[i][j] = player
-
-                        // Call minimax recursively and choose
-                        // the maximum value
-                        best = Math.max(
-                            best, minimax(
-                                board,
-                                depth + 1, !isMax
-                            )
-                        )
-
-                        // Undo the move
-                        board[i][j] = '_'
-                    }
-                }
+            board.possibleMoves.forEach {
+                board[it.row][it.column] = player
+                best = best.coerceAtLeast(minimax(board, depth + 1, false))
+                board[it.row][it.column] = '_'
             }
             best
         } else {
-            var best = 1000
-
-            // Traverse all cells
-            for (i in 0..2) {
-                for (j in 0..2) {
-                    // Check if cell is empty
-                    if (board[i][j] == '_') {
-                        // Make the move
-                        board[i][j] = opponent
-
-                        // Call minimax recursively and choose
-                        // the minimum value
-                        best = Math.min(
-                            best, minimax(
-                                board,
-                                depth + 1, !isMax
-                            )
-                        )
-
-                        // Undo the move
-                        board[i][j] = '_'
-                    }
-                }
+            var best = Int.MAX_VALUE
+            board.possibleMoves.forEach {
+                board[it.row][it.column] = opponent
+                best = best.coerceAtMost(minimax(board, depth + 1, true))
+                board[it.row][it.column] = '_'
             }
             best
         }
