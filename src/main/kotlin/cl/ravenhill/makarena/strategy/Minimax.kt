@@ -13,15 +13,6 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
-
-/*
- * "Makarena" (c) by R8V.
- * "Makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
- */
-
 package cl.ravenhill.makarena.strategy
 
 
@@ -77,21 +68,9 @@ fun minimax(
     depth: Int, isMax: Boolean
 ): Int {
     val score = evaluate(board)
-
-    // If Maximizer has won the game
-    // return his/her evaluated score
-    if (score == 10) return score
-
-    // If Minimizer has won the game
-    // return his/her evaluated score
-    if (score == -10) return score
-
-    // If there are no more moves and
-    // no winner then it is a tie
-    if (isMovesLeft(board) == false) return 0
-
-    // If this maximizer's move
-    return if (isMax) {
+    return if (score == 10 || score == -10 || !isMovesLeft(board)) {
+        score
+    } else if (isMax) {
         var best = -1000
 
         // Traverse all cells
