@@ -7,7 +7,6 @@
  */
 package cl.ravenhill.makarena.strategy
 
-import cl.ravenhill.makarena.strategy.GFG.findBestMove
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
@@ -20,7 +19,6 @@ class MinimaxTest : StringSpec({
       charArrayOf('_', '_', '_')
     )
     val bestMove = findBestMove(board)
-    bestMove.col shouldBe 2
-    bestMove.row shouldBe 2
+    bestMove shouldBe TicTacToeMove(2, 2, Int.MIN_VALUE)
   }
 })

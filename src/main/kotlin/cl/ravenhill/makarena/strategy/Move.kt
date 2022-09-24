@@ -28,4 +28,4 @@ interface Move {
  *    a numerical value indicating how "good" the move is.
  * @constructor Creates a new move.
  */
-data class TicTacToeMove(val row: Int, val column: Int, override val score: Int) : Move
+data class TicTacToeMove(var row: Int, var column: Int, override val score: Int) : Move
