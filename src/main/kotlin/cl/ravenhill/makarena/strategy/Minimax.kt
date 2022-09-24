@@ -14,6 +14,14 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
+/*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
 package cl.ravenhill.makarena.strategy
 
 
@@ -138,58 +146,35 @@ fun minimax(
     }
 }
 
-// This will return the best possible
-// move for the player
+/**
+ * Finds the best move for the player on a Tic Tac Toe board.
+ *
+ * @param board The board to evaluate.
+ * @return The best move for the player.
+ */
 fun findBestMove(board: Board): Move {
-    var bestVal = -1000
-    val bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
-    val possibleMoves = board.possibleMoves()
-    // Traverse all cells, evaluate minimax function
-    // for all empty cells. And return the cell
-    // with optimal value.
-    for (i in 0..2) {
-        for (j in 0..2) {
-            // Check if cell is empty
-            if (board[i][j] == '_') {
-                // Make the move
-                board[i][j] = player
-
-                // compute evaluation function for this
-                // move.
-                val moveVal = minimax(board, 0, false)
-
-                // Undo the move
-                board[i][j] = '_'
-
-                // If the value of the current move is
-                // more than the best value, then update
-                // best/
-                if (moveVal > bestVal) {
-                    bestMove.row = i
-                    bestMove.column = j
-                    bestVal = moveVal
-                }
-            }
+    var bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
+    board.possibleMoves.forEach {
+        board[it.row][it.column] = player
+        it.score = minimax(board, 0, false)
+        board[it.row][it.column] = '_'
+        if (it.score > bestMove.score) {
+            bestMove = it
         }
     }
-    System.out.printf(
-        """
-            The value of the best Move is : %d
-            
-            
-            """.trimIndent(), bestVal
-    )
     return bestMove
 }
 
-private fun Board.possibleMoves() = mutableListOf<Move>().apply {
-    for (i in 0..2) {
-        for (j in 0..2) {
-            if (this@possibleMoves[i][j] == '_') {
-                this.add(TicTacToeMove(i, j, 0))
-            }
-        }
-    }
-}.toList()
 
 typealias Board = Array<CharArray>
+
+private val Board.possibleMoves: List<TicTacToeMove>
+    get() = mutableListOf<TicTacToeMove>().apply {
+        for (i in 0..2) {
+            for (j in 0..2) {
+                if (this@possibleMoves[i][j] == '_') {
+                    this.add(TicTacToeMove(i, j, 0))
+                }
+            }
+        }
+    }.toList()
