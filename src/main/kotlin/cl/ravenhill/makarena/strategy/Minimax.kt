@@ -1,3 +1,11 @@
+/*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
 package cl.ravenhill.makarena.strategy
 
 
@@ -124,7 +132,7 @@ fun minimax(
 
 // This will return the best possible
 // move for the player
-fun findBestMove(board: Array<CharArray>): Move {
+fun findBestMove(board: Board): Move {
     var bestVal = -1000
     val bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
 
@@ -165,3 +173,5 @@ fun findBestMove(board: Array<CharArray>): Move {
     )
     return bestMove
 }
+
+typealias Board = Array<CharArray>

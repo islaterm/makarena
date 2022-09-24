@@ -1,3 +1,11 @@
+/*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
 /**
  * This file provides interfaces to represent games.
  */
@@ -16,7 +24,7 @@ interface Game {
 }
 
 /** This represents a Tic-Tac-Toe game. */
-object TicTacToeGame : Game {
+class TicTacToeGame : Game {
     override val scores = EnumMap<Marker, Int>(Marker::class.java).apply {
         put(Marker.X, 0)
         put(Marker.O, 0)
