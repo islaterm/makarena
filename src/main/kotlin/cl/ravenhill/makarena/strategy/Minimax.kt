@@ -6,6 +6,14 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
+/*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
 package cl.ravenhill.makarena.strategy
 
 
@@ -135,7 +143,7 @@ fun minimax(
 fun findBestMove(board: Board): Move {
     var bestVal = -1000
     val bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
-
+    val possibleMoves = board.possibleMoves()
     // Traverse all cells, evaluate minimax function
     // for all empty cells. And return the cell
     // with optimal value.
@@ -173,5 +181,15 @@ fun findBestMove(board: Board): Move {
     )
     return bestMove
 }
+
+private fun Board.possibleMoves() = mutableListOf<Move>().apply {
+    for (i in 0..2) {
+        for (j in 0..2) {
+            if (this@possibleMoves[i][j] == '_') {
+                this.add(TicTacToeMove(i, j, 0))
+            }
+        }
+    }
+}.toList()
 
 typealias Board = Array<CharArray>
