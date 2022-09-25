@@ -13,22 +13,6 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
-
-/*
- * "Makarena" (c) by R8V.
- * "Makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
- */
-
-/*
- * "Makarena" (c) by R8V.
- * "Makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
- */
 package cl.ravenhill.makarena.strategy
 
 
@@ -80,25 +64,20 @@ fun evaluate(b: Array<CharArray>): Int {
 // the possible ways the game can go and returns
 // the value of the board
 fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
-    evaluate(board).let { score ->
+    evaluate(board).let { score ->  // First we evaluate the score of the board
         if (score == 10 || score == -10 || !isMovesLeft(board)) {
-            score
-        } else if (isMax) {
-            var best = Int.MIN_VALUE
-            board.possibleMoves.forEach {
-                board[it.row][it.column] = player
-                best = best.coerceAtLeast(minimax(board, depth + 1, false))
-                board[it.row][it.column] = '_'
-            }
-            best
+            score   // If the game is over we return the score
         } else {
-            var best = Int.MAX_VALUE
-            board.possibleMoves.forEach {
-                board[it.row][it.column] = opponent
-                best = best.coerceAtMost(minimax(board, depth + 1, true))
-                board[it.row][it.column] = '_'
+            var best = (if (isMax) Int.MIN_VALUE else Int.MAX_VALUE)
+            // If we are maximizing: best is lower bound; if we are minimizing: best is upper bound
+            (if (isMax) best::coerceAtLeast else best::coerceAtMost).let { bound ->
+                board.possibleMoves.forEach {
+                    board[it.row][it.column] = if (isMax) player else opponent
+                    best = bound(minimax(board, depth + 1, !isMax))
+                    board[it.row][it.column] = '_'
+                }
+                best
             }
-            best
         }
     }
 
@@ -121,9 +100,10 @@ fun findBestMove(board: Board): Move {
     return bestMove
 }
 
-
+/** Representation of a 2D Tic Tac Toe board. */
 typealias Board = Array<CharArray>
 
+/** Extension function to find all the possible moves on a Tic Tac Toe board.   */
 private val Board.possibleMoves: List<TicTacToeMove>
     get() = mutableListOf<TicTacToeMove>().apply {
         for (i in 0..2) {
