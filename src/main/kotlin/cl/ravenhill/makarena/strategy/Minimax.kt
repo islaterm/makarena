@@ -60,9 +60,15 @@ fun evaluate(b: Array<CharArray>): Int {
     return 0
 }
 
-// This is the minimax function. It considers all
-// the possible ways the game can go and returns
-// the value of the board
+/**
+ * Recursively evaluates all possible moves and returns the score of the best move.
+ *
+ * @param board The board to evaluate
+ * @param depth The depth of the tree to evaluate
+ * @param isMax True if the current player is the maximizer, false otherwise
+ *
+ * @return The score of the best move
+ */
 fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
     evaluate(board).let { score ->  // First we evaluate the score of the board
         if (score == 10 || score == -10 || !isMovesLeft(board)) {
@@ -72,9 +78,9 @@ fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
             // If we are maximizing: best is lower bound; if we are minimizing: best is upper bound
             (if (isMax) best::coerceAtLeast else best::coerceAtMost).let { bound ->
                 board.possibleMoves.forEach {
-                    board[it.row][it.column] = if (isMax) player else opponent
-                    best = bound(minimax(board, depth + 1, !isMax))
-                    board[it.row][it.column] = '_'
+                    board.simulateMove(it, if (isMax) player else opponent) {
+                        best = bound(minimax(board, depth + 1, !isMax))
+                    }
                 }
                 best
             }
@@ -89,12 +95,12 @@ fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
  */
 fun findBestMove(board: Board): Move {
     var bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
-    board.possibleMoves.forEach {
-        board[it.row][it.column] = player
-        it.score = minimax(board, 0, false)
-        board[it.row][it.column] = '_'
-        if (it.score > bestMove.score) {
-            bestMove = it
+    board.possibleMoves.forEach { move ->
+        board.simulateMove(move, player) {
+            it.score = minimax(board, 0, false)
+            if (it.score > bestMove.score) {
+                bestMove = it
+            }
         }
     }
     return bestMove
@@ -114,3 +120,18 @@ private val Board.possibleMoves: List<TicTacToeMove>
             }
         }
     }.toList()
+
+/**
+ * Extension function to simulate a move on a Tic Tac Toe board.
+ * A simulation is a move that is not permanent, and will be undone after the block is executed.
+ *
+ * @receiver The board to simulate the move on.
+ * @param move  The move to simulate.
+ * @param mark  The marker of the player that is making the move.
+ * @param block The block to execute after the move is simulated.
+ */
+private fun Board.simulateMove(move: TicTacToeMove, mark: Char, block: (TicTacToeMove) -> Unit) {
+    this[move.row][move.column] = mark
+    block(move)
+    this[move.row][move.column] = '_'
+}

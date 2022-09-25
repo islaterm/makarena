@@ -7,6 +7,14 @@
  */
 
 /*
+ * "Makarena" (c) by R8V.
+ * "Makarena" is licensed under a
+ * Creative Commons Attribution 4.0 International License.
+ * You should have received a copy of the license along with this
+ *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
+ */
+
+/*
  * "makarena" (c) by Ignacio Slater M.
  * "makarena" is licensed under a
  * Creative Commons Attribution 4.0 International License.
@@ -22,7 +30,7 @@ package cl.ravenhill.makarena.strategy
  *    a numerical value indicating how "good" the move is.
  */
 interface Move {
-  val score: Int
+  var score: Int
 }
 
 /**
@@ -36,4 +44,4 @@ interface Move {
  *    a numerical value indicating how "good" the move is.
  * @constructor Creates a new move.
  */
-data class TicTacToeMove(var row: Int, var column: Int, override var score: Int) : Move
+data class TicTacToeMove(val row: Int, val column: Int, override var score: Int) : Move
