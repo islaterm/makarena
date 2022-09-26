@@ -21,10 +21,10 @@ import io.kotest.matchers.shouldBe
 
 class MinimaxTest : StringSpec({
   "Minimax algorithm can find the best move for a given Tic-Tac-Toe board" {
-    val board = arrayOf(
-      charArrayOf('x', 'o', 'x'),
-      charArrayOf('o', 'o', 'x'),
-      charArrayOf('_', '_', '_')
+    val board = mutableListOf(
+      mutableListOf('x', 'o', 'x'),
+      mutableListOf('o', 'o', 'x'),
+      mutableListOf('_', '_', '_')
     )
     val bestMove = findBestMove(board)
     bestMove shouldBe TicTacToeMove(2, 2, 10)

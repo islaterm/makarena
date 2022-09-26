@@ -22,14 +22,14 @@ var opponent = 'o'
 // This function returns true if there are moves
 // remaining on the board. It returns false if
 // there are no moves left to play.
-fun isMovesLeft(board: Array<CharArray>): Boolean {
+fun isMovesLeft(board: Board): Boolean {
     for (i in 0..2) for (j in 0..2) if (board[i][j] == '_') return true
     return false
 }
 
 // This is the evaluation function as discussed
 // in the previous article ( http://goo.gl/sJgv68 )
-fun evaluate(b: Array<CharArray>): Int {
+fun evaluate(b: Board): Int {
     // Checking for Rows for X or O victory.
     for (row in 0..2) {
         if (b[row][0] == b[row][1] &&
@@ -107,7 +107,7 @@ fun findBestMove(board: Board): Move {
 }
 
 /** Representation of a 2D Tic Tac Toe board. */
-typealias Board = Array<CharArray>
+typealias Board = MutableList<MutableList<Char>>
 
 /** Extension function to find all the possible moves on a Tic Tac Toe board.   */
 private val Board.possibleMoves: List<TicTacToeMove>
