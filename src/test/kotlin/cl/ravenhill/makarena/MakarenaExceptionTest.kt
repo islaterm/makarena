@@ -11,11 +11,14 @@ package cl.ravenhill.makarena
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.property.checkAll
 
 class MakarenaExceptionTest : StringSpec({
     "The exception can be created with a message" {
-        shouldThrow<MakarenaException> {
-            throw MakarenaException("This is a test")
-        }.message shouldBe "This is a test"
+        checkAll<String> { message ->
+            shouldThrow<MakarenaException> {
+                throw MakarenaException(message)
+            }.message shouldBe message
+        }
     }
 })
