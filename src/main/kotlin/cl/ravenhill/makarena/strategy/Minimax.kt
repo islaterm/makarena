@@ -15,9 +15,35 @@
  */
 package cl.ravenhill.makarena.strategy
 
-
 var player = 'x'
 var opponent = 'o'
+
+private val Board.diagonals: Board
+    get() = mutableListOf(
+        MutableList(size) { i -> this[i][i] },
+        MutableList(size) { i -> this[i][size - 1 - i] }
+    )
+
+private val Board.columns: Board
+    get() = MutableList(size) { i -> MutableList(size) { j -> this[j][i] } }
+
+private val Board.winner: Char
+    get() {
+        val searchWinnerIn = { l: Board ->
+            try {
+                l.first { it.allEqual() && it.first() != '_' }.first()
+            } catch (e: NoSuchElementException) {
+                '_'
+            }
+        }
+        return searchWinnerIn(this).takeIf { it != '_' }
+            ?: searchWinnerIn(this.columns).takeIf { it != '_' }
+            ?: searchWinnerIn(this.diagonals)
+    }
+
+private fun <T> List<T>.allEqual() = this.all { it == this[0] }
+private fun Board.checkMovesLeft() =
+    this.any { row -> row.any { mark -> mark == '_' } }
 
 // This function returns true if there are moves
 // remaining on the board. It returns false if
