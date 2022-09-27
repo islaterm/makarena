@@ -5,28 +5,24 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
-
-/*
- * "Makarena" (c) by R8V.
- * "Makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
- */
 package cl.ravenhill.makarena.strategy
+
 
 var player = 'x'
 var opponent = 'o'
 
+/** Extension property a TicTacToe board diagonals. */
 private val Board.diagonals: Board
     get() = mutableListOf(
         MutableList(size) { i -> this[i][i] },
         MutableList(size) { i -> this[i][size - 1 - i] }
     )
 
+/** Extension property a TicTacToe board columns. */
 private val Board.columns: Board
     get() = MutableList(size) { i -> MutableList(size) { j -> this[j][i] } }
 
+/** Extension property to determine if the game of TicTacToe has a winner. */
 private val Board.winner: Char
     get() {
         val searchWinnerIn = { l: Board ->
@@ -41,49 +37,23 @@ private val Board.winner: Char
             ?: searchWinnerIn(this.diagonals)
     }
 
+/** Checks if all elements of a list are equal to a given value. */
 private fun <T> List<T>.allEqual() = this.all { it == this[0] }
+
+/**
+ * Checks if a TicTacToe board is full.
+ *
+ * @return `true` if the board is not full, `false` otherwise.
+ */
 private fun Board.checkMovesLeft() =
     this.any { row -> row.any { mark -> mark == '_' } }
 
-// This function returns true if there are moves
-// remaining on the board. It returns false if
-// there are no moves left to play.
-fun isMovesLeft(board: Board): Boolean {
-    for (i in 0..2) for (j in 0..2) if (board[i][j] == '_') return true
-    return false
-}
-
 // This is the evaluation function as discussed
 // in the previous article ( http://goo.gl/sJgv68 )
-fun evaluate(b: Board): Int {
-    // Checking for Rows for X or O victory.
-    for (row in 0..2) {
-        if (b[row][0] == b[row][1] &&
-            b[row][1] == b[row][2]
-        ) {
-            if (b[row][0] == player) return +10 else if (b[row][0] == opponent) return -10
-        }
-    }
-
-    // Checking for Columns for X or O victory.
-    for (col in 0..2) {
-        if (b[0][col] == b[1][col] &&
-            b[1][col] == b[2][col]
-        ) {
-            if (b[0][col] == player) return +10 else if (b[0][col] == opponent) return -10
-        }
-    }
-
-    // Checking for Diagonals for X or O victory.
-    if (b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
-        if (b[0][0] == player) return +10 else if (b[0][0] == opponent) return -10
-    }
-    if (b[0][2] == b[1][1] && b[1][1] == b[2][0]) {
-        if (b[0][2] == player) return +10 else if (b[0][2] == opponent) return -10
-    }
-
-    // Else if none of them have won then return 0
-    return 0
+fun evaluate(b: Board) = when (b.winner) {
+    player -> 10
+    opponent -> -10
+    else -> 0
 }
 
 /**
@@ -97,7 +67,7 @@ fun evaluate(b: Board): Int {
  */
 fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
     evaluate(board).let { score ->  // First we evaluate the score of the board
-        if (score == 10 || score == -10 || !isMovesLeft(board)) {
+        if (score == 10 || score == -10 || !board.checkMovesLeft()) {
             score   // If the game is over we return the score
         } else {
             var best = (if (isMax) Int.MIN_VALUE else Int.MAX_VALUE)
