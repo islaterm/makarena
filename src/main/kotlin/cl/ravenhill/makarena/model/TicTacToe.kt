@@ -14,7 +14,9 @@ typealias MutableList2D<T> = MutableList<MutableList<T>>
 
 /** A possible move (mark) in a tic-tac-toe board.  */
 enum class TicTacToeMark {
-    X, O, EMPTY
+    X, O, EMPTY {
+        override fun toString(): String = " "
+    }
 }
 
 /**
@@ -37,6 +39,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
         }
     }
 
+    // region : Properties
     val winner: TicTacToeMark
         get() { // FIXME: This isn't working uwu
             val searchWinnerIn: (MutableList2D<TicTacToeMark>) -> TicTacToeMark =
@@ -46,6 +49,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                         val first = line.first()
                         if (first != TicTacToeMark.EMPTY && line.all { it == first }) {
                             winner = first
+                            break
                         }
                     }
                     winner
@@ -55,34 +59,6 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                 ?: searchWinnerIn(this.diagonals)
         }
 
-
-    /**
-     * Checks if there are moves left on the board.
-     */
-    fun checkMovesLeft() = rows.any { row -> row.any { mark -> mark == TicTacToeMark.EMPTY } }
-
-    /**
-     * Returns the possible moves on the board for a player.
-     */
-//    fun getPossibleMoves() = mutableListOf<Pair<Int, Int>>().apply {
-//        for (i in 0 until _size) {
-//            for (j in 0 until _size) {
-//                if (rows[i][j] == _root_ide_package_.cl.ravenhill.makarena.model.TicTacToeMark.EMPTY) {
-//                    this.add(Pair(i, j))
-//                }
-//            }
-//        }
-//    }
-
-    fun simulateMove(move: TicTacToeMove, mark: TicTacToeMark, block: (TicTacToeMove) -> Unit) {
-        makeMove(move.row, move.column, mark)
-        block(move)
-        makeMove(move.row, move.column, TicTacToeMark.EMPTY)
-    }
-
-    private fun makeMove(row: Int, column: Int, mark: TicTacToeMark) {
-        this[row][column] = mark
-    }
 
     val possibleMoves: List<TicTacToeMove>
         get() = mutableListOf<TicTacToeMove>().apply {
@@ -94,9 +70,34 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                 }
             }
         }.toList()
+    // endregion
 
-    private fun <T> List<T>.allEqual() = this.all { it == this[0] }
+    /**
+     * Checks if there are moves left on the board.
+     */
+    fun checkMovesLeft() = rows.any { row -> row.any { mark -> mark == TicTacToeMark.EMPTY } }
 
+    fun simulateMove(move: TicTacToeMove, mark: TicTacToeMark, block: (TicTacToeMove) -> Unit) {
+        makeMove(move.row, move.column, mark)
+        block(move)
+        makeMove(move.row, move.column, TicTacToeMark.EMPTY)
+    }
+
+    private fun makeMove(row: Int, column: Int, mark: TicTacToeMark) {
+        this[row][column] = mark
+    }
+
+    /** Empties the board.  */
+    fun empty() {
+        for (i in 0..2) {
+            for (j in 0..2) {
+                setMark(i, j, TicTacToeMark.EMPTY)
+            }
+        }
+    }
+
+    // region :     ACCESSORS
+    /** Gets the mark at the given position. */
     operator fun get(row: Int): MutableList<TicTacToeMark> = rows[row]
 
     /**
@@ -109,7 +110,17 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
     fun setMark(row: Int, column: Int, mark: TicTacToeMark) {
         rows[row][column] = mark
     }
+    // endregion
 
+    // region :     UTILITY
+    override fun toString() =
+        """| ${rows[0][0]} | ${rows[0][1]} | ${rows[0][2]} |
+           |---+---+---|
+           | ${rows[1][0]} | ${rows[1][1]} | ${rows[1][2]} |
+           |---+---+---|
+           | ${rows[2][0]} | ${rows[2][1]} | ${rows[2][2]} |""".trimMargin()
+
+    // endregion    UTILITY
     companion object {
         /**
          * Builder for a Tic-Tac-Toe board.
