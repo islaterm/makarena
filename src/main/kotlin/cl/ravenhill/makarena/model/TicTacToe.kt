@@ -80,6 +80,15 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
      */
     fun checkMovesLeft() = rows.any { row -> row.any { mark -> mark == TicTacToeMark.EMPTY } }
 
+    /**
+     * Simulates a move on the board.
+     * A simulation is a move that is reverted after the simulation is done.
+     *
+     * @param move  the move to simulate.
+     * @param mark  the mark to simulate.
+     * @param block a function to execute after making the move (the move is reverted after the
+     *              function is executed).
+     */
     fun simulateMove(move: TicTacToeMove, mark: TicTacToeMark, block: (TicTacToeMove) -> Unit) {
         makeMove(move.row, move.column, mark)
         block(move)
