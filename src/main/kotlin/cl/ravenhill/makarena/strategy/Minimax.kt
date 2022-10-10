@@ -8,36 +8,13 @@
 package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
+import cl.ravenhill.makarena.model.TicTacToeMark
 
 
-var player = 'X'
-var opponent = 'O'
+var player = TicTacToeMark.X
+var opponent = TicTacToeMark.O
 
-/**
- * Checks if a TicTacToe board is full.
- *
- * @return `true` if the board is not full, `false` otherwise.
- */
-//private fun Board.checkMovesLeft() =
-//    this.any { row -> row.any { mark -> mark == '_' } }
-
-/** Extension property to determine if the game of TicTacToe has a winner. */
-//private val Board.winner: Char
-//    get() {
-//        val searchWinnerIn = { l: Board ->
-//            try {
-//                l.first { it.allEqual() && it.first() != '_' }.first()
-//            } catch (e: NoSuchElementException) {
-//                '_'
-//            }
-//        }
-//        return searchWinnerIn(this).takeIf { it != '_' }
-//            ?: searchWinnerIn(this.columns).takeIf { it != '_' }
-//            ?: searchWinnerIn(this.diagonals)
-//    }
-
-// This is the evaluation function as discussed
-// in the previous article ( http://goo.gl/sJgv68 )
+/** This is the evaluation function as discussed in the previous article (http://goo.gl/sJgv68) */
 fun evaluate(b: Board) = when (b.winner) {
     player -> 10
     opponent -> -10
