@@ -30,10 +30,11 @@ class TicTacToeBoardSpec : WordSpec({
     }
 
     "An empty board" should {
-        "Have no winner" {
+        "have no winner" {
             board.winner shouldBe EMPTY
         }
-        "Give all cells as possible moves" {
+
+        "give all cells as possible moves" {
             board.possibleMoves.size shouldBe 9
             board.possibleMoves shouldBe listOf(
                 TicTacToeMove(0, 0, 0),
@@ -46,6 +47,10 @@ class TicTacToeBoardSpec : WordSpec({
                 TicTacToeMove(2, 1, 0),
                 TicTacToeMove(2, 2, 0)
             )
+        }
+
+        "have moves left" {
+            board.checkMovesLeft() shouldBe true
         }
     }
 
