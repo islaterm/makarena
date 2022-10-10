@@ -1,7 +1,6 @@
 package cl.ravenhill.makarena.model
 
 import cl.ravenhill.makarena.model.TicTacToeMark.EMPTY
-import io.kotest.assertions.failure
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Exhaustive
@@ -50,7 +49,18 @@ class TicTacToeBoardSpec : StringSpec({
         }
     }
 
-    "!A board with a single diagonal of the same mark should have that mark as winner" {
-        failure("Not implemented")
+    "A board with a single diagonal of the same mark should have that mark as winner" {
+        checkAll(Exhaustive.enum<TicTacToeMark>()) { mark ->
+            checkWinner(board, mark) {
+                board.setMark(0, 0, mark)
+                board.setMark(1, 1, mark)
+                board.setMark(2, 2, mark)
+            }
+            checkWinner(board, mark) {
+                board.setMark(0, 2, mark)
+                board.setMark(1, 1, mark)
+                board.setMark(2, 0, mark)
+            }
+        }
     }
 })
