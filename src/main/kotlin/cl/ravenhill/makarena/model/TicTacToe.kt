@@ -22,8 +22,9 @@ enum class TicTacToeMark {
 /**
  * A Tic-Tac-Toe board.
  *
- * @property rows   The rows of the board with the [TicTacToeMark]s.
- * @property winner The winner of the game. ``TicTacToeMark.EMPTY`` if the game is not over.
+ * @property rows           The rows of the board with the [TicTacToeMark]s.
+ * @property winner         The winner of the game. ``TicTacToeMark.EMPTY`` if the game is not over.
+ * @property possibleMoves  The possible moves in the board.
  */
 class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacToeMark>) {
     private val _size = rows.size

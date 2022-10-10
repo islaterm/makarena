@@ -63,4 +63,8 @@ class TicTacToeBoardSpec : StringSpec({
             }
         }
     }
+
+    "An empty board have as many empty moves as empty cells" {
+        board.possibleMoves.size shouldBe 9
+    }
 })
