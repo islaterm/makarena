@@ -40,8 +40,14 @@ class TicTacToeBoardSpec : StringSpec({
         }
     }
 
-    "!A board with a single column of the same mark should have that mark as winner" {
-        failure("Not implemented")
+    "A board with a single column of the same mark should have that mark as winner" {
+        checkAll(Exhaustive.enum<TicTacToeMark>(), Exhaustive.ints(0..2)) { mark, column ->
+            checkWinner(board, mark) {
+                board.setMark(0, column, mark)
+                board.setMark(1, column, mark)
+                board.setMark(2, column, mark)
+            }
+        }
     }
 
     "!A board with a single diagonal of the same mark should have that mark as winner" {

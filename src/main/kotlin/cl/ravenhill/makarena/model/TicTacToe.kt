@@ -27,11 +27,13 @@ enum class TicTacToeMark {
  */
 class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacToeMark>) {
     private val _size = rows.size
-    private val columns = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
-    private val diagonals = mutableListOf(
-        MutableList(_size) { i -> rows[i][i] },
-        MutableList(_size) { i -> rows[i][_size - 1 - i] }
-    )
+    private val columns: MutableList2D<TicTacToeMark>
+        get() = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
+    private val diagonals: MutableList2D<TicTacToeMark>
+        get() = mutableListOf(
+            MutableList(_size) { i -> rows[i][i] },
+            MutableList(_size) { i -> rows[i][_size - 1 - i] }
+        )
 
     init {
         if (rows.any { it.size != rows[0].size }) {
