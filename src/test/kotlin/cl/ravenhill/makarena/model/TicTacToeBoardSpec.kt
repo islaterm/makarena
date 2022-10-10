@@ -8,6 +8,7 @@ import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.enum
 import io.kotest.property.arbitrary.list
+import io.kotest.property.assume
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.enum
 import io.kotest.property.exhaustive.ints
@@ -16,6 +17,13 @@ fun checkWinner(board: TicTacToeBoard, mark: TicTacToeMark, block: () -> Unit) {
     board.empty()
     block()
     board.winner shouldBe mark
+}
+
+fun fillBoard(board: TicTacToeBoard, marks: List<TicTacToeMark>) {
+    board.empty()
+    marks.forEachIndexed { index, mark ->
+        board.setMark(index / 3, index % 3, mark)
+    }
 }
 
 class TicTacToeBoardSpec : WordSpec({
@@ -51,6 +59,24 @@ class TicTacToeBoardSpec : WordSpec({
 
         "have moves left" {
             board.checkMovesLeft() shouldBe true
+        }
+    }
+
+    "A full board" should {
+        "have no possible moves" {
+            checkAll(Arb.list(Arb.enum<TicTacToeMark>(), 9..9)) { marks ->
+                assume(marks.all { it != EMPTY })
+                fillBoard(board, marks)
+                board.possibleMoves.size shouldBe 0
+            }
+        }
+
+        "have no moves left" {
+            checkAll(Arb.list(Arb.enum<TicTacToeMark>(), 9..9)) { marks ->
+                assume(marks.all { it != EMPTY })
+                fillBoard(board, marks)
+                board.checkMovesLeft() shouldBe false
+            }
         }
     }
 
@@ -96,10 +122,7 @@ class TicTacToeBoardSpec : WordSpec({
             checkAll(
                 Arb.list(Arb.enum<TicTacToeMark>(), 9..9)
             ) { marks ->
-                board.empty()
-                marks.forEachIndexed { index, mark ->
-                    board.setMark(index / 3, index % 3, mark)
-                }
+                fillBoard(board, marks)
                 board.possibleMoves.size shouldBe marks.count { it == EMPTY }
                 board.possibleMoves shouldBe marks.mapIndexedNotNull { index, mark ->
                     if (mark == EMPTY) TicTacToeMove(index / 3, index % 3, 0) else null
