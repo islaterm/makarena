@@ -26,7 +26,9 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    implementation("io.jenetics:jenetics:7.1.1")
     implementation("io.kotest:kotest-framework-datatest:5.5.1")
+    implementation("io.jenetics:jenetics.prog:7.1.1")
     testImplementation("io.kotest:kotest-runner-junit5:5.5.1")
     implementation("io.kotest:kotest-assertions-core:5.5.1")
     testImplementation("io.kotest:kotest-property:5.5.1")

@@ -15,6 +15,9 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics.prog/7.1.1/919a4ed28b9ccece824cb4db961e2b62c9c21c1b/jenetics.prog-7.1.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics.ext/7.1.1/119a8391f4e484338abb6ec22fa809cbbb031915/jenetics.ext-7.1.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics/7.1.1/bdd9f990dcdaef7839e108e3dc228b5cc3f4d4f7/jenetics-7.1.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-runner-junit5-jvm/5.5.1/b1bc9c79a6d185e75c5cb6bfd30cc21f4764f97b/kotest-runner-junit5-jvm-5.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.1/d6c38ec0f0f3ef23b1b10294392e9a0750a6b6b0/kotest-framework-datatest-jvm-5.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.1/836c1ff4a7099eb65e98c737fd4d54ab1a2b0784/kotest-assertions-core-jvm-5.5.1.jar</arg>
@@ -104,8 +107,11 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Makarena.main" />
+    <orderEntry type="library" name="Gradle: io.jenetics:jenetics.prog:7.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.jenetics:jenetics:7.1.1" level="project" />
     <orderEntry type="library" name="Gradle: io.kotest:kotest-runner-junit5-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
+    <orderEntry type="library" name="Gradle: io.jenetics:jenetics.ext:7.1.1" level="project" />
     <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.platform:junit-platform-suite-api:1.7.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.7.2" level="project" />
