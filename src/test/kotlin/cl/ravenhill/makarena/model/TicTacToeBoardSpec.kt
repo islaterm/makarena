@@ -9,6 +9,12 @@ import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.enum
 import io.kotest.property.exhaustive.ints
 
+fun checkWinner(board: TicTacToeBoard, mark: TicTacToeMark, block: () -> Unit) {
+    board.empty()
+    block()
+    board.winner shouldBe mark
+}
+
 class TicTacToeBoardSpec : StringSpec({
     lateinit var board: TicTacToeBoard
 
@@ -26,11 +32,11 @@ class TicTacToeBoardSpec : StringSpec({
 
     "A board with a single row of the same mark should have that mark as winner" {
         checkAll(Exhaustive.enum<TicTacToeMark>(), Exhaustive.ints(0..2)) { mark, row ->
-            board.empty()
-            board.setMark(row, 0, mark)
-            board.setMark(row, 1, mark)
-            board.setMark(row, 2, mark)
-            board.winner shouldBe mark
+            checkWinner(board, mark) {
+                board.setMark(row, 0, mark)
+                board.setMark(row, 1, mark)
+                board.setMark(row, 2, mark)
+            }
         }
     }
 
