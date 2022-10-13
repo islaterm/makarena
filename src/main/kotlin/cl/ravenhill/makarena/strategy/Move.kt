@@ -30,7 +30,7 @@ package cl.ravenhill.makarena.strategy
  *    a numerical value indicating how "good" the move is.
  */
 interface Move {
-  var score: Int
+    var score: Int
 }
 
 /**
@@ -44,4 +44,42 @@ interface Move {
  *    a numerical value indicating how "good" the move is.
  * @constructor Creates a new move.
  */
-data class TicTacToeMove(val row: Int, val column: Int, override var score: Int) : Move
+sealed interface TicTacToeMove : Move {
+    val row: Int
+    val column: Int
+    override var score: Int
+
+    /**
+     * This class represents a move of the player X on a Tic-Tac-Toe game.
+     *
+     * @property row    the row of the move.
+     * @property column the column of the move.
+     * @property score  a numerical value indicating how "good" the move is.
+     * @constructor Creates a new move.
+     */
+    data class X(override val row: Int, override val column: Int, override var score: Int) :
+        TicTacToeMove
+
+    /**
+     * This class represents a move of the player X on a Tic-Tac-Toe game.
+     *
+     * @property row    the row of the move.
+     * @property column the column of the move.
+     * @property score  a numerical value indicating how "good" the move is.
+     * @constructor Creates a new move.
+     */
+    data class O(override val row: Int, override val column: Int, override var score: Int) :
+        TicTacToeMove
+
+    /**
+     * This class represents a move of the player X on a Tic-Tac-Toe game.
+     *
+     * @property row    the row of the move.
+     * @property column the column of the move.
+     * @property score  a numerical value indicating how "good" the move is.
+     * @constructor Creates a new move.
+     */
+    data class Empty(override val row: Int, override val column: Int, override var score: Int) :
+        TicTacToeMove
+}
+

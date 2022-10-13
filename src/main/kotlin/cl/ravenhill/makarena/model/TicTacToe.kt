@@ -12,6 +12,19 @@ import cl.ravenhill.makarena.strategy.TicTacToeMove
 
 typealias MutableList2D<T> = MutableList<MutableList<T>>
 
+interface Move
+
+sealed class TicTacToeMove : Move {
+    abstract val row: Int
+    abstract val column: Int
+}
+
+sealed class Mark {
+    object X : Mark()
+    object O : Mark()
+    object EMPTY : Mark()
+}
+
 /** A possible move (mark) in a tic-tac-toe board.  */
 enum class TicTacToeMark {
     X, O, EMPTY {
