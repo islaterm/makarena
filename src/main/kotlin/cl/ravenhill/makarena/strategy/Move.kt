@@ -5,22 +5,6 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
-
-/*
- * "Makarena" (c) by R8V.
- * "Makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
- */
-
-/*
- * "makarena" (c) by Ignacio Slater M.
- * "makarena" is licensed under a
- * Creative Commons Attribution 4.0 International License.
- * You should have received a copy of the license along with this
- * work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
- */
 package cl.ravenhill.makarena.strategy
 
 /**
@@ -31,6 +15,7 @@ package cl.ravenhill.makarena.strategy
  */
 interface Move {
     var score: Int
+    val id: Id
 }
 
 /**
@@ -49,16 +34,8 @@ sealed interface TicTacToeMove : Move {
     val column: Int
     override var score: Int
 
-    /**
-     * This class represents a move of the player X on a Tic-Tac-Toe game.
-     *
-     * @property row    the row of the move.
-     * @property column the column of the move.
-     * @property score  a numerical value indicating how "good" the move is.
-     * @constructor Creates a new move.
-     */
-    data class X(override val row: Int, override val column: Int, override var score: Int) :
-        TicTacToeMove
+    /** Indicates if this move is an empty move.    */
+    fun isEmpty(): Boolean = false
 
     /**
      * This class represents a move of the player X on a Tic-Tac-Toe game.
@@ -68,8 +45,10 @@ sealed interface TicTacToeMove : Move {
      * @property score  a numerical value indicating how "good" the move is.
      * @constructor Creates a new move.
      */
-    data class O(override val row: Int, override val column: Int, override var score: Int) :
-        TicTacToeMove
+    data class XMove(override val row: Int, override val column: Int, override var score: Int) :
+        TicTacToeMove {
+        override val id = TicTacToeMark.X
+    }
 
     /**
      * This class represents a move of the player X on a Tic-Tac-Toe game.
@@ -79,7 +58,25 @@ sealed interface TicTacToeMove : Move {
      * @property score  a numerical value indicating how "good" the move is.
      * @constructor Creates a new move.
      */
-    data class Empty(override val row: Int, override val column: Int, override var score: Int) :
-        TicTacToeMove
+    data class OMove(override val row: Int, override val column: Int, override var score: Int) :
+        TicTacToeMove {
+        override val id = TicTacToeMark.O
+    }
+
+    /**
+     * This class represents a move of the player X on a Tic-Tac-Toe game.
+     *
+     * @property row    the row of the move.
+     * @property column the column of the move.
+     * @property score  a numerical value indicating how "good" the move is.
+     * @constructor Creates a new move.
+     */
+    data class EmptyMove(
+        override val row: Int = Int.MIN_VALUE,
+        override val column: Int = Int.MIN_VALUE,
+        override var score: Int = Int.MIN_VALUE
+    ) : TicTacToeMove {
+        override val id = TicTacToeMark.Empty
+    }
 }
 

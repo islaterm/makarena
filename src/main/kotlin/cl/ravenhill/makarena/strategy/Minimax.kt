@@ -8,7 +8,6 @@
 package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
-import cl.ravenhill.makarena.model.TicTacToeMark
 
 
 var player = TicTacToeMark.X
@@ -39,7 +38,7 @@ fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
             // If we are maximizing: best is lower bound; if we are minimizing: best is upper bound
             (if (isMax) best::coerceAtLeast else best::coerceAtMost).let { bound ->
                 board.possibleMoves.forEach {
-                    board.simulateMove(it, if (isMax) player else opponent) {
+                    board.simulateMove(it) {
                         best = bound(minimax(board, depth + 1, !isMax))
                     }
                 }
@@ -55,9 +54,9 @@ fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
  * @return The best move for the player.
  */
 fun findBestMove(board: Board): Move {
-    var bestMove = TicTacToeMove(-1, -1, Int.MIN_VALUE)
+    var bestMove: TicTacToeMove = TicTacToeMove.EmptyMove()
     board.possibleMoves.forEach { move ->
-        board.simulateMove(move, player) {
+        board.simulateMove(move) {
             it.score = minimax(board, 0, false)
             if (it.score > bestMove.score) {
                 bestMove = it

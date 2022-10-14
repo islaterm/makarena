@@ -16,9 +16,7 @@
 package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
-import cl.ravenhill.makarena.model.TicTacToeMark.EMPTY
-import cl.ravenhill.makarena.model.TicTacToeMark.O
-import cl.ravenhill.makarena.model.TicTacToeMark.X
+import cl.ravenhill.makarena.strategy.TicTacToeMark.*
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
@@ -28,9 +26,9 @@ class MinimaxTest : StringSpec({
         val board = TicTacToeBoard.builder()
             .row(X, O, X)
             .row(O, O, X)
-            .row(O, X, EMPTY)
+            .row(O, X, Empty)
             .build()
         val bestMove = findBestMove(board)
-        bestMove shouldBe TicTacToeMove(2, 2, 10)
+        bestMove shouldBe TicTacToeMove.XMove(2, 2, 10)
     }
 })
