@@ -7,11 +7,13 @@
  */
 package cl.ravenhill.makarena.model
 
+import cl.ravenhill.makarena.driver.GameWinnerObserver
 import cl.ravenhill.makarena.driver.exceptions.InvalidMoveException
 import cl.ravenhill.makarena.driver.exceptions.MakarenaException
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
+import kotlin.properties.Delegates.observable
 
 /** A 2D Mutable list, or matrix if you prefer.*/
 typealias MutableList2D<T> = MutableList<MutableList<T>>
@@ -25,6 +27,8 @@ typealias MutableList2D<T> = MutableList<MutableList<T>>
  * @property currentPlayer  The player that is currently playing.
  */
 class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacToeMark>) {
+    private val gameWinnerObservers = mutableListOf<GameWinnerObserver>()
+
     private val _size = rows.size
     private val columns: MutableList2D<TicTacToeMark>
         get() = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
@@ -42,24 +46,9 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
     }
 
     // region : Properties
-    val winner: TicTacToeMark
-        get() {
-            val searchWinnerIn: (MutableList2D<TicTacToeMark>) -> TicTacToeMark =
-                { lines: MutableList2D<TicTacToeMark> ->
-                    var winner: TicTacToeMark = TicTacToeMark.Empty
-                    for (line in lines) {
-                        val first = line.first()
-                        if (first != TicTacToeMark.Empty && line.all { it == first }) {
-                            winner = currentPlayer
-                            break
-                        }
-                    }
-                    winner
-                }
-            return searchWinnerIn(this.rows).takeIf { it != TicTacToeMark.Empty }
-                ?: searchWinnerIn(this.columns).takeIf { it != TicTacToeMark.Empty }
-                ?: searchWinnerIn(this.diagonals)
-        }
+    val winner: TicTacToeMark by observable(TicTacToeMark.Empty) { _, _, new ->
+        gameWinnerObservers.parallelStream().map { it.onValueChange(new) }
+    }
 
 
     val possibleMoves: List<TicTacToeMove>
@@ -100,7 +89,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
         } else {
             this[row][column] = player
             player.move(row, column, 0)
-        }
+        }.also { winner }
 
     /** Empties the board.  */
     fun empty() {

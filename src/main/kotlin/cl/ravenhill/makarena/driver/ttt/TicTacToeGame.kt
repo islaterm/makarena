@@ -8,9 +8,16 @@
 
 package cl.ravenhill.makarena.driver.ttt
 
+import cl.ravenhill.makarena.driver.GameWinnerObserver
+import cl.ravenhill.makarena.driver.ttt.TicTacToeGame.player
 import cl.ravenhill.makarena.model.TicTacToeBoard
 
-object TicTacToeGame {
+/**
+ * Driver for a Tic-Tac-Toe game.
+ *
+ * @property player The player that is playing the game.
+ */
+object TicTacToeGame : GameWinnerObserver {
     private val board = TicTacToeBoard.builder()
         .emptyRow()
         .emptyRow()
@@ -20,8 +27,13 @@ object TicTacToeGame {
     val player: TicTacToeMark
         get() = board.currentPlayer
 
+    /** Makes a move on the board and changes the current player to the other one.  */
     fun move(i: Int, j: Int) {
         board.makeMove(i, j)
         board.changePlayer()
+    }
+
+    override fun onValueChange(new: TicTacToeMark) {
+        throw Throwable("A player winned")
     }
 }
