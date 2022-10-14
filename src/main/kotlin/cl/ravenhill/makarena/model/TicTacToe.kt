@@ -12,9 +12,7 @@ import cl.ravenhill.makarena.strategy.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
 
-/**
- * A 2D Mutable list, or matrix if you prefer.
- */
+/** A 2D Mutable list, or matrix if you prefer.*/
 typealias MutableList2D<T> = MutableList<MutableList<T>>
 
 /**
@@ -51,7 +49,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                     for (line in lines) {
                         val first = line.first()
                         if (first != TicTacToeMark.Empty && line.all { it == first }) {
-                            winner = player
+                            winner = currentPlayer
                             break
                         }
                     }
@@ -95,8 +93,9 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
         makeMove(move.row, move.column)
     }
 
-    private fun makeMove(row: Int, column: Int) {
+    fun makeMove(row: Int, column: Int): TicTacToeMove {
         this[row][column] = player
+        return player.move(row, column, 0)
     }
 
     /** Empties the board.  */
