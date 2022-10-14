@@ -22,22 +22,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import cl.ravenhill.makarena.strategy.TicTacToeMark
-import cl.ravenhill.makarena.strategy.TicTacToeMark.Empty
-
-data class GameViewState(
-    val isLoading: Boolean,
-    val error: Error?,
-    val nextPlayer: Player,
-    val winner: Player,
-    val board: List<List<Player>>
-)
-
-sealed class Player {
-    object X : Player()
-    object O : Player()
-    object Nobody : Player()
-}
+import cl.ravenhill.makarena.driver.ttt.TicTacToeGame
+import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
+import cl.ravenhill.makarena.driver.ttt.TicTacToeMark.Empty
 
 fun main() = application {
     Window(
@@ -61,16 +48,11 @@ fun main() = application {
                         .height(50.dp)
                         .width(50.dp),
                     onClick = {
-                        cells[0] = TicTacToeMark.X
+                        cells[0] = TicTacToeGame.player
+                        TicTacToeGame.move(0, 0)
                     }) {
                     Text("${cells[0]}", fontSize = 30.sp)
                 }
-//                Button(modifier = Modifier.align(Alignment.CenterHorizontally),
-//                    onClick = {
-//                        count.value = 0
-//                    }) {
-//                    Text("Reset")
-//                }
             }
         }
     }

@@ -7,6 +7,7 @@
  */
 package cl.ravenhill.makarena.strategy
 
+import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.model.TicTacToeBoard
 
 

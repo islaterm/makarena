@@ -7,6 +7,8 @@
  */
 package cl.ravenhill.makarena.strategy
 
+import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
+
 /**
  * This interface represents a generic move for a game.
  *

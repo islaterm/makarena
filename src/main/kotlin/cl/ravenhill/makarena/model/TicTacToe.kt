@@ -7,8 +7,9 @@
  */
 package cl.ravenhill.makarena.model
 
-import cl.ravenhill.makarena.MakarenaException
-import cl.ravenhill.makarena.strategy.TicTacToeMark
+import cl.ravenhill.makarena.driver.exceptions.InvalidMoveException
+import cl.ravenhill.makarena.driver.exceptions.MakarenaException
+import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
 
@@ -93,10 +94,13 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
         makeMove(move.row, move.column)
     }
 
-    fun makeMove(row: Int, column: Int): TicTacToeMove {
-        this[row][column] = player
-        return player.move(row, column, 0)
-    }
+    fun makeMove(row: Int, column: Int) =
+        if (this[row][column] != TicTacToeMark.Empty) {
+            throw InvalidMoveException("Position already taken.")
+        } else {
+            this[row][column] = player
+            player.move(row, column, 0)
+        }
 
     /** Empties the board.  */
     fun empty() {
@@ -131,6 +135,10 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
            |---+---+---|
            | ${rows[2][0]} | ${rows[2][1]} | ${rows[2][2]} |""".trimMargin()
 
+    fun changePlayer() {
+        currentPlayer = currentPlayer.opponent
+    }
+
     // endregion    UTILITY
     companion object {
         /**
@@ -149,6 +157,17 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
             third: TicTacToeMark
         ): TicTacToeBoardBuilder =
             this.also { rows.add(mutableListOf(first, second, third)) }
+
+        fun emptyRow(): TicTacToeBoardBuilder =
+            this.also {
+                rows.add(
+                    mutableListOf(
+                        TicTacToeMark.Empty,
+                        TicTacToeMark.Empty,
+                        TicTacToeMark.Empty
+                    )
+                )
+            }
 
         fun build() = TicTacToeBoard(rows)
     }
