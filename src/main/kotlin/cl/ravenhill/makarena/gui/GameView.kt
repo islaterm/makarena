@@ -43,9 +43,22 @@ fun main() = application {
             )
         }
         MaterialTheme {
-            Column(Modifier.fillMaxSize(), Arrangement.spacedBy(5.dp)) {
-                CellButton(cells, 0, 0)
-                CellButton(cells, 0, 1)
+            Row {
+                Column {
+                    CellButton(cells, 0, 0)
+                    CellButton(cells, 0, 1)
+                    CellButton(cells, 0, 2)
+                }
+                Column {
+                    CellButton(cells, 1, 0)
+                    CellButton(cells, 1, 1)
+                    CellButton(cells, 1, 2)
+                }
+                Column {
+                    CellButton(cells, 2, 0)
+                    CellButton(cells, 2, 1)
+                    CellButton(cells, 2, 2)
+                }
             }
         }
     }
