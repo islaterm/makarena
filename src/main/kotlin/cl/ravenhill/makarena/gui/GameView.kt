@@ -28,7 +28,12 @@ import cl.ravenhill.makarena.driver.exceptions.InvalidMoveException
 import cl.ravenhill.makarena.driver.ttt.TicTacToeGame
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark.Empty
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
+private val logger: Logger = LoggerFactory.getLogger("GameView")
+
+/** The main view of the game.  */
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
@@ -44,26 +49,36 @@ fun main() = application {
         }
         MaterialTheme {
             Row {
-                Column {
-                    CellButton(cells, 0, 0)
-                    CellButton(cells, 0, 1)
-                    CellButton(cells, 0, 2)
-                }
-                Column {
-                    CellButton(cells, 1, 0)
-                    CellButton(cells, 1, 1)
-                    CellButton(cells, 1, 2)
-                }
-                Column {
-                    CellButton(cells, 2, 0)
-                    CellButton(cells, 2, 1)
-                    CellButton(cells, 2, 2)
-                }
+                TicTacToeColumn(cells, 0)
+                TicTacToeColumn(cells, 1)
+                TicTacToeColumn(cells, 2)
             }
         }
     }
 }
 
+/**
+ * A column of the Tic-Tac-Toe board.
+ *
+ * @param cells The list of cells of the board as a [SnapshotStateList].
+ * @param i     The index of the column.
+ */
+@Composable
+fun TicTacToeColumn(cells: SnapshotStateList<TicTacToeMark>, i: Int) {
+    Column {
+        CellButton(cells, i, 0)
+        CellButton(cells, i, 1)
+        CellButton(cells, i, 2)
+    }
+}
+
+/**
+ * A button of that represents a cell of the Tic-Tac-Toe board.
+ *
+ * @param cells The list of cells of the button as a [SnapshotStateList].
+ * @param i     The index of the row.
+ * @param j     The index of the column.
+ */
 @Composable
 fun CellButton(cells: SnapshotStateList<TicTacToeMark>, i: Int, j: Int) {
     Button(
@@ -77,7 +92,7 @@ fun CellButton(cells: SnapshotStateList<TicTacToeMark>, i: Int, j: Int) {
                 TicTacToeGame.move(i, j)
                 cells[i * 3 + j] = player
             } catch (e: InvalidMoveException) {
-                println(e.localizedMessage) // TODO: Change for logger
+                logger.warn(e.localizedMessage) // TODO: Change for logger
             }
         }) {
         Text("${cells[i * 3 + j]}", fontSize = 30.sp)

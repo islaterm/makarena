@@ -15,3 +15,5 @@
   enabled: false
 - name: CONFUSING_IDENTIFIER_NAMING
   enabled: false
+- name: KDOC_WITHOUT_PARAM_TAG
+  enabled: false

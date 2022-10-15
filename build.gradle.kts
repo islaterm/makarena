@@ -25,13 +25,20 @@ repositories {
 }
 
 dependencies {
+    // GUI
     implementation(compose.desktop.currentOs)
+    // LOGGING
+    implementation("org.slf4j:slf4j-api:2.0.3")
+    implementation("ch.qos.logback:logback-classic:1.4.3")
+    implementation("ch.qos.logback:logback-core:1.4.3")
     implementation("io.kotest:kotest-framework-datatest:5.5.0")
+    // TESTING
     testImplementation("io.kotest:kotest-runner-junit5:5.5.0")
     implementation("io.kotest:kotest-assertions-core:5.5.0")
     testImplementation("io.kotest:kotest-property:5.5.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.0")
+
 }
 
 spotless {

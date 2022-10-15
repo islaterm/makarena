@@ -15,6 +15,9 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.4.3/86c2c467f0a370e3074ae0179d4f6e92ae3e5f49/logback-classic-1.4.3.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.3/deef7fc81f00bd5e6205bb097be1040b4094f007/slf4j-api-2.0.3.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.4.3/132d33d4548b5001deb9c52fb62e1488bda8ac64/logback-core-1.4.3.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-runner-junit5-jvm/5.5.0/6cf3a3ff92c7292a88d94c8e70f38dbef13d66ca/kotest-runner-junit5-jvm-5.5.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.0/fa278ec1719ad409ae454d5d3e7f9352c4a569bc/kotest-framework-datatest-jvm-5.5.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.0/632ffcb86d00e3c89a862fccb18156c4a8ec316f/kotest-assertions-core-jvm-5.5.0.jar</arg>
@@ -104,6 +107,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Makarena.main" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.4.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:2.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.4.3" level="project" />
     <orderEntry type="library" name="Gradle: io.kotest:kotest-runner-junit5-jvm:5.5.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.0" level="project" />
@@ -169,7 +175,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: net.bytebuddy:byte-buddy:1.12.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: net.bytebuddy:byte-buddy-agent:1.12.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter:5.8.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: junit:junit:4.13.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:atomicfu-jvm:0.17.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.mockk:mockk-dsl-jvm:1.13.1" level="project" />
