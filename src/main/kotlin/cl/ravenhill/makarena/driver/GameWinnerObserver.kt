@@ -12,5 +12,6 @@ import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 
 /** Observer for the game winner.  */
 interface GameWinnerObserver {
+    /** Called when the game winner changes.  */
     fun onValueChange(new: TicTacToeMark)
 }

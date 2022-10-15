@@ -6,7 +6,7 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.makarena.driver.exceptions
+package cl.ravenhill.makarena.driver.signals
 
 /**
  * Collection of exceptions used by the Makarena framework.

@@ -8,8 +8,8 @@
 package cl.ravenhill.makarena.model
 
 import cl.ravenhill.makarena.driver.GameWinnerObserver
-import cl.ravenhill.makarena.driver.exceptions.InvalidMoveException
-import cl.ravenhill.makarena.driver.exceptions.MakarenaException
+import cl.ravenhill.makarena.driver.signals.InvalidMoveException
+import cl.ravenhill.makarena.driver.signals.MakarenaException
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
@@ -27,18 +27,6 @@ typealias MutableList2D<T> = MutableList<MutableList<T>>
  * @property currentPlayer  The player that is currently playing.
  */
 class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacToeMark>) {
-    private val gameWinnerObservers = mutableListOf<GameWinnerObserver>()
-
-    private val _size = rows.size
-    private val columns: MutableList2D<TicTacToeMark>
-        get() = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
-    private val diagonals: MutableList2D<TicTacToeMark>
-        get() = mutableListOf(
-            MutableList(_size) { i -> rows[i][i] },
-            MutableList(_size) { i -> rows[i][_size - 1 - i] }
-        )
-    var currentPlayer: TicTacToeMark = TicTacToeMark.X
-
     init {
         if (rows.any { it.size != rows[0].size }) {
             throw MakarenaException("TickTacToeBoard must be square")
@@ -46,10 +34,23 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
     }
 
     // region : Properties
-    val winner: TicTacToeMark by observable(TicTacToeMark.Empty) { _, _, new ->
-        gameWinnerObservers.parallelStream().map { it.onValueChange(new) }
-    }
+    private val gameWinnerObservers = mutableListOf<GameWinnerObserver>()
 
+    private val _size = rows.size
+
+    private val columns: MutableList2D<TicTacToeMark>
+        get() = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
+
+    private val diagonals: MutableList2D<TicTacToeMark>
+        get() = mutableListOf(
+            MutableList(_size) { i -> rows[i][i] },
+            MutableList(_size) { i -> rows[i][_size - 1 - i] }
+        )
+    var currentPlayer: TicTacToeMark = TicTacToeMark.X
+
+    var winner: TicTacToeMark by observable(TicTacToeMark.Empty) { _, _, new ->
+        gameWinnerObservers.parallelStream().forEach { it.onValueChange(new) }
+    }
 
     val possibleMoves: List<TicTacToeMove>
         get() = mutableListOf<TicTacToeMove>().apply {
@@ -87,9 +88,29 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
         if (this[row][column] != TicTacToeMark.Empty) {
             throw InvalidMoveException("Position already taken.")
         } else {
-            this[row][column] = player
+            this[row][column] = currentPlayer
             player.move(row, column, 0)
-        }.also { winner }
+        }.also {
+            checkWinner().takeIf { it != TicTacToeMark.Empty }?.let { winner = it }
+        }
+
+    private fun checkWinner(): TicTacToeMark {
+        val searchWinnerIn: (MutableList2D<TicTacToeMark>) -> TicTacToeMark =
+            { lines: MutableList2D<TicTacToeMark> ->
+                var winner: TicTacToeMark = TicTacToeMark.Empty
+                for (line in lines) {
+                    val first = line.first()
+                    if (first != TicTacToeMark.Empty && line.all { it == first }) {
+                        winner = player
+                        break
+                    }
+                }
+                winner
+            }
+        return searchWinnerIn(this.rows).takeIf { it != TicTacToeMark.Empty }
+            ?: searchWinnerIn(this.columns).takeIf { it != TicTacToeMark.Empty }
+            ?: searchWinnerIn(this.diagonals)
+    }
 
     /** Empties the board.  */
     fun empty() {
@@ -117,6 +138,10 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
     // endregion
 
     // region :     UTILITY
+    fun addWinnerObserver(observer: GameWinnerObserver) {
+        gameWinnerObservers.add(observer)
+    }
+
     override fun toString() =
         """| ${rows[0][0]} | ${rows[0][1]} | ${rows[0][2]} |
            |---+---+---|

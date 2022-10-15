@@ -6,10 +6,9 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.makarena
+package cl.ravenhill.makarena.driver.signals
+
+import cl.ravenhill.makarena.strategy.Id
 
 
-/**
- * Documentation
- */
-
+class PlayerWonNotification(id: Id) : Throwable("$id won the game")

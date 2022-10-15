@@ -9,6 +9,7 @@
 package cl.ravenhill.makarena.driver.ttt
 
 import cl.ravenhill.makarena.driver.GameWinnerObserver
+import cl.ravenhill.makarena.driver.signals.PlayerWonNotification
 import cl.ravenhill.makarena.driver.ttt.TicTacToeGame.player
 import cl.ravenhill.makarena.model.TicTacToeBoard
 
@@ -23,10 +24,12 @@ object TicTacToeGame : GameWinnerObserver {
         .emptyRow()
         .emptyRow()
         .build()
+        .also {
+            it.addWinnerObserver(this)
+        }
 
     val player: TicTacToeMark
         get() = board.currentPlayer
-
     /** Makes a move on the board and changes the current player to the other one.  */
     fun move(i: Int, j: Int) {
         board.makeMove(i, j)
@@ -34,6 +37,6 @@ object TicTacToeGame : GameWinnerObserver {
     }
 
     override fun onValueChange(new: TicTacToeMark) {
-        throw Throwable("A player winned")
+        throw PlayerWonNotification(new)
     }
 }

@@ -24,7 +24,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import cl.ravenhill.makarena.driver.exceptions.InvalidMoveException
+import cl.ravenhill.makarena.driver.signals.InvalidMoveException
+import cl.ravenhill.makarena.driver.signals.PlayerWonNotification
 import cl.ravenhill.makarena.driver.ttt.TicTacToeGame
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark
 import cl.ravenhill.makarena.driver.ttt.TicTacToeMark.Empty
@@ -89,10 +90,13 @@ fun CellButton(cells: SnapshotStateList<TicTacToeMark>, i: Int, j: Int) {
         onClick = {
             val player = TicTacToeGame.player
             try {
-                TicTacToeGame.move(i, j)
+                TicTacToeGame.move(j, i)
                 cells[i * 3 + j] = player
             } catch (e: InvalidMoveException) {
-                logger.warn(e.localizedMessage) // TODO: Change for logger
+                logger.warn(e.localizedMessage)
+            } catch (e: PlayerWonNotification) {
+                cells[i * 3 + j] = player
+                throw PlayerWonNotification(player)
             }
         }) {
         Text("${cells[i * 3 + j]}", fontSize = 30.sp)
