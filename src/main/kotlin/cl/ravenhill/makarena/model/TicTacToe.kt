@@ -7,7 +7,7 @@
  */
 package cl.ravenhill.makarena.model
 
-import cl.ravenhill.makarena.MakarenaException
+import cl.ravenhill.makarena.driver.signals.MakarenaException
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 
 typealias MutableList2D<T> = MutableList<MutableList<T>>

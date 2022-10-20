@@ -117,17 +117,16 @@ class TicTacToeBoardSpec : WordSpec({
         }
     }
 
-    "The possible moves of a board" should {
-        "be obtainable for an arbitrary board" {
-            checkAll(
-                Arb.list(Arb.enum<TicTacToeMark>(), 9..9)
-            ) { marks ->
-                fillBoard(board, marks)
-                board.possibleMoves.size shouldBe marks.count { it == EMPTY }
-                board.possibleMoves shouldBe marks.mapIndexedNotNull { index, mark ->
-                    if (mark == EMPTY) TicTacToeMove(index / 3, index % 3, 0) else null
-                }
+    "The possible moves of a board should be obtainable for an arbitrary board" When {
+        checkAll(
+            Arb.list(Arb.enum<TicTacToeMark>(), 9..9)
+        ) { marks ->
+            fillBoard(board, marks)
+            board.possibleMoves.size shouldBe marks.count { it == EMPTY }
+            board.possibleMoves shouldBe marks.mapIndexedNotNull { index, mark ->
+                if (mark == EMPTY) TicTacToeMove(index / 3, index % 3, 0) else null
             }
         }
     }
+
 })
