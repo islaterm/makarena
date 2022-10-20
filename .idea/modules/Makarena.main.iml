@@ -14,10 +14,10 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.0/fa278ec1719ad409ae454d5d3e7f9352c4a569bc/kotest-framework-datatest-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.0/632ffcb86d00e3c89a862fccb18156c4a8ec316f/kotest-assertions-core-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.0/f8d38a89ec8c696cd556430a03bb5be10aae0b48/kotest-assertions-shared-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.0/202fd11b48a41f1996585d966ec86bd1a4dcbf95/kotest-assertions-api-jvm-5.5.0.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.1/d6c38ec0f0f3ef23b1b10294392e9a0750a6b6b0/kotest-framework-datatest-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.1/836c1ff4a7099eb65e98c737fd4d54ab1a2b0784/kotest-assertions-core-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.1/768d5f926f48ebd41882b9374e53abeb89729299/kotest-assertions-shared-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.1/70a7638b5e39857fbd349bd9e427fa8b570a0a1d/kotest-assertions-api-jvm-5.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.desktop/desktop-jvm/1.2.0/b40f90472dd0d318e490e9b42a45e1aa2787ea52/desktop-jvm-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.material/material-desktop/1.2.0/9da8852a7bb56d138959a798cea63c0ad3395b23/material-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.material/material-ripple-desktop/1.2.0/3c9c18fbfc5df768581e0ce73d114c9975cec011/material-ripple-desktop-1.2.0.jar</arg>
@@ -77,20 +77,20 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.desktop:desktop-jvm:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.foundation:foundation-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.runtime:runtime-desktop:1.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-ripple-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-icons-core-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-text-desktop:1.2.0" level="project" />
@@ -106,8 +106,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.34" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.6.21" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-common-jvm:5.5.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-common-jvm:5.5.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.compose.ui:ui-util-desktop:1.2.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.github.java-diff-utils:java-diff-utils:4.12" level="project" />

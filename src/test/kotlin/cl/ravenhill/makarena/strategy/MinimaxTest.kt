@@ -17,18 +17,34 @@ package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
 import cl.ravenhill.makarena.strategy.TicTacToeMark.*
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.WordSpec
+import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
-
-class MinimaxTest : StringSpec({
-    "Minimax algorithm can find the best move for a given Tic-Tac-Toe board" {
-        val board = TicTacToeBoard.builder()
-            .row(X, O, X)
-            .row(O, O, X)
-            .row(O, X, Empty)
+data class TttBoard(
+    val c00: TicTacToeMark, val c01: TicTacToeMark, val c02: TicTacToeMark,
+    val c10: TicTacToeMark, val c11: TicTacToeMark, val c12: TicTacToeMark,
+    val c20: TicTacToeMark, val c21: TicTacToeMark, val c22: TicTacToeMark,
+    val best: TicTacToeMove
+) {
+    fun asStandardBoard(): TicTacToeBoard {
+        return TicTacToeBoard.builder()
+            .row(c00, c01, c02)
+            .row(c10, c11, c12)
+            .row(c20, c21, c22)
             .build()
-        val bestMove = findBestMove(board)
-        bestMove shouldBe TicTacToeMove.XMove(2, 2, 10)
+    }
+}
+
+class MinimaxTest : WordSpec({
+    "Minimax algorithm can find the best move for a given Tic-Tac-Toe board" When {
+        withData(
+            TttBoard(Empty, X, X, X, O, O, O, O, X, TicTacToeMove.XMove(0, 0, 10)),
+            //TttBoard(X, X, X, O, X, Empty, O, X, Empty, TicTacToeMove.EmptyMove(-1, -1, 10)),     UNDEFINED
+            TttBoard(O, X, X, O, O, X, Empty, O, Empty, TicTacToeMove.XMove(2, 0, 10)),
+            TttBoard(X, X, O, X, X, O, O, O, Empty, TicTacToeMove.XMove(2, 2, 10))
+        ) {
+            findBestMove(it.asStandardBoard()) shouldBe it.best
+        }
     }
 })

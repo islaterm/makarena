@@ -15,16 +15,16 @@
             <stringArg name="classpath">
               <args>
                 <arg>$MODULE_DIR$/../../build/classes/kotlin/main</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-runner-junit5-jvm/5.5.0/6cf3a3ff92c7292a88d94c8e70f38dbef13d66ca/kotest-runner-junit5-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.0/fa278ec1719ad409ae454d5d3e7f9352c4a569bc/kotest-framework-datatest-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.0/632ffcb86d00e3c89a862fccb18156c4a8ec316f/kotest-assertions-core-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-property-jvm/5.5.0/c42c9992849e8a0f8de6af14591306b796365e3d/kotest-property-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-engine-jvm/5.5.0/41e082ba2dd07b258fd3cd69b2b5af7d64199de6/kotest-framework-engine-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-api-jvm/5.5.0/999d9414afe5641c0b0db86504826523dade71e1/kotest-framework-api-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-discovery-jvm/5.5.0/87daebac34ede5e02f5c5e47307540a320feb89a/kotest-framework-discovery-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-common-jvm/5.5.0/4ebeae3c0d22f494e2a5409e0e369363f292cca4/kotest-common-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-extensions-jvm/5.5.0/ffe8f71b54ffd3645627f8331e2564edae3e3d04/kotest-extensions-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-concurrency-jvm/5.5.0/a6141ec813d7f85b11a1112f12149b890cb8edb3/kotest-framework-concurrency-jvm-5.5.0.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-runner-junit5-jvm/5.5.1/b1bc9c79a6d185e75c5cb6bfd30cc21f4764f97b/kotest-runner-junit5-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.1/d6c38ec0f0f3ef23b1b10294392e9a0750a6b6b0/kotest-framework-datatest-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.1/836c1ff4a7099eb65e98c737fd4d54ab1a2b0784/kotest-assertions-core-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-property-jvm/5.5.1/fdecf9ae9738ec4c90dc774278a8860e9018501/kotest-property-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-engine-jvm/5.5.1/3b6d14d00bceda1c5f5b659847982cc02795c26a/kotest-framework-engine-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-api-jvm/5.5.1/8c58001a8f879fb011e2243ad19651941c9a06fb/kotest-framework-api-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-discovery-jvm/5.5.1/64eb738cf37952efed5c02399770866e27f5b4ba/kotest-framework-discovery-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-common-jvm/5.5.1/2b89eee8f90ec7878e41d46868dff149a93c5a20/kotest-common-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-extensions-jvm/5.5.1/d488298b0ebcbc1308954b4aac67f9d15d094ec0/kotest-extensions-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-concurrency-jvm/5.5.1/20c338ad8efb5eafa4510aa5a4f4533faa08e6c0/kotest-framework-concurrency-jvm-5.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-test-jvm/1.6.4/27cee4a22d4149a86095bb1b4f4c5f10fbd3be97/kotlinx-coroutines-test-jvm-1.6.4.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.desktop/desktop-jvm/1.2.0/b40f90472dd0d318e490e9b42a45e1aa2787ea52/desktop-jvm-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.material/material-desktop/1.2.0/9da8852a7bb56d138959a798cea63c0ad3395b23/material-desktop-1.2.0.jar</arg>
@@ -39,8 +39,8 @@
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.runtime/runtime-desktop/1.2.0/641ffea51b35e78dea52d93ab585c449f3e49284/runtime-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.animation/animation-core-desktop/1.2.0/ee6b2acbcb6876a522de6601b403b0a97e5e1146/animation-core-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.4/2c997cd1c0ef33f3e751d3831929aeff1390cb30/kotlinx-coroutines-core-jvm-1.6.4.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.0/f8d38a89ec8c696cd556430a03bb5be10aae0b48/kotest-assertions-shared-jvm-5.5.0.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.0/202fd11b48a41f1996585d966ec86bd1a4dcbf95/kotest-assertions-api-jvm-5.5.0.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.1/768d5f926f48ebd41882b9374e53abeb89729299/kotest-assertions-shared-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.1/70a7638b5e39857fbd349bd9e427fa8b570a0a1d/kotest-assertions-api-jvm-5.5.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.ui/ui-text-desktop/1.2.0/7577f6b3802042b1b0e74ae7348b90a865d42528/ui-text-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.ui/ui-graphics-desktop/1.2.0/c7810bc183bc3ef706ab4a711957bb6eee783e9d/ui-graphics-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.skiko/skiko-awt/0.7.34/47c3c84b38804bfd32167fad12ff81101e953c70/skiko-awt-0.7.34.jar</arg>
@@ -104,25 +104,25 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Makarena.main" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-runner-junit5-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-runner-junit5-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.platform:junit-platform-suite-api:1.7.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.7.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.platform:junit-platform-launcher:1.7.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.platform:junit-platform-engine:1.7.2" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-property-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-property-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.desktop:desktop-jvm:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-engine-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-discovery-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-common-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-extensions-jvm:5.5.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-concurrency-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-engine-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-discovery-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-common-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-extensions-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-concurrency-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.junit.platform:junit-platform-commons:1.7.2" level="project" />
@@ -131,7 +131,7 @@
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ajalt:mordant:1.2.1" level="project" />
     <orderEntry type="library" name="Gradle: io.github.classgraph:classgraph:4.8.149" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.foundation:foundation-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.2.0" level="project" />
@@ -139,7 +139,7 @@
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.runtime:runtime-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.ajalt:colormath:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.6.4" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-ripple-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-icons-core-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.animation:animation-core-desktop:1.2.0" level="project" />
