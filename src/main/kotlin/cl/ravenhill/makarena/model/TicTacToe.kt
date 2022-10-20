@@ -51,7 +51,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                     for (line in lines) {
                         val first = line.first()
                         if (first != TicTacToeMark.Empty && line.all { it == first }) {
-                            winner = player
+                            winner = first
                             break
                         }
                     }
