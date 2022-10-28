@@ -101,6 +101,19 @@ class KeenEngine<GENE : Gene<*, GENE>, DNA : Comparable<DNA>>(
             field = value
         }
 
+    /**
+     * The number of individuals which form the population.
+     *
+     * Default values is set to 50.
+     *
+     * @see JEngine.Builder.populationSize
+     */
+    var populationSize: Int = 50
+        set(value) {
+            builder.populationSize(value)
+            field = value
+        }
+
     private val builder = JEngine.builder(fitnessFunction, genotype.jenetics)
 
     fun stream(): EvolutionStream<GENE, DNA> = jenetics.stream()

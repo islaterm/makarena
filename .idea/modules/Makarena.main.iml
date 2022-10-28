@@ -17,10 +17,10 @@
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics.prog/7.1.1/919a4ed28b9ccece824cb4db961e2b62c9c21c1b/jenetics.prog-7.1.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics.ext/7.1.1/119a8391f4e484338abb6ec22fa809cbbb031915/jenetics.ext-7.1.1.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.jenetics/jenetics/7.1.1/bdd9f990dcdaef7839e108e3dc228b5cc3f4d4f7/jenetics-7.1.1.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.1/d6c38ec0f0f3ef23b1b10294392e9a0750a6b6b0/kotest-framework-datatest-jvm-5.5.1.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.1/836c1ff4a7099eb65e98c737fd4d54ab1a2b0784/kotest-assertions-core-jvm-5.5.1.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.1/768d5f926f48ebd41882b9374e53abeb89729299/kotest-assertions-shared-jvm-5.5.1.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.1/70a7638b5e39857fbd349bd9e427fa8b570a0a1d/kotest-assertions-api-jvm-5.5.1.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-framework-datatest-jvm/5.5.2/5cd5ad0c8faeb37a9fb18fd6e59c0b332fe07426/kotest-framework-datatest-jvm-5.5.2.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-core-jvm/5.5.2/892da4badbac0551117c9328acc29a94faec48e2/kotest-assertions-core-jvm-5.5.2.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-shared-jvm/5.5.2/119e49c27747188f81e8e24d8410cdcd10663037/kotest-assertions-shared-jvm-5.5.2.jar</arg>
+                <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/io.kotest/kotest-assertions-api-jvm/5.5.2/c092c7b605065edba768c07e90879ab19892927f/kotest-assertions-api-jvm-5.5.2.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.desktop/desktop-jvm/1.2.0/b40f90472dd0d318e490e9b42a45e1aa2787ea52/desktop-jvm-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.material/material-desktop/1.2.0/9da8852a7bb56d138959a798cea63c0ad3395b23/material-desktop-1.2.0.jar</arg>
                 <arg>$MODULE_DIR$/../../../../../.gradle/caches/modules-2/files-2.1/org.jetbrains.compose.material/material-ripple-desktop/1.2.0/3c9c18fbfc5df768581e0ce73d114c9975cec011/material-ripple-desktop-1.2.0.jar</arg>
@@ -83,20 +83,20 @@
     <orderEntry type="library" name="Gradle: io.jenetics:jenetics:7.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: io.jenetics:jenetics.ext:7.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-framework-datatest-jvm:5.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-core-jvm:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.desktop:desktop-jvm:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-shared-jvm:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.foundation:foundation-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.runtime:runtime-desktop:1.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.kotest:kotest-assertions-api-jvm:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-ripple-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.material:material-icons-core-desktop:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.compose.ui:ui-text-desktop:1.2.0" level="project" />
@@ -112,8 +112,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.34" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.6.21" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-common-jvm:5.5.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-framework-api-jvm:5.5.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.kotest:kotest-common-jvm:5.5.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.compose.ui:ui-util-desktop:1.2.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.github.java-diff-utils:java-diff-utils:4.12" level="project" />
