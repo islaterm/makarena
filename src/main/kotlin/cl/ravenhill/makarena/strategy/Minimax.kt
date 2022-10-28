@@ -8,6 +8,8 @@
 package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
+import kotlin.math.max
+import kotlin.math.min
 
 
 var player = TicTacToeMark.X
@@ -30,16 +32,29 @@ fun evaluate(b: Board) = when (b.winner) {
  * @return The score of the best move
  */
 fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
+    minimax(board, depth, isMax, Int.MIN_VALUE, Int.MAX_VALUE)
+
+fun minimax(board: Board, depth: Int, isMaximizing: Boolean, alpha: Int, beta: Int): Int =
     evaluate(board).let { score ->  // First we evaluate the score of the board
         if (score == 10 || score == -10 || !board.checkMovesLeft()) {
             score   // If the game is over we return the score
         } else {
-            var best = (if (isMax) Int.MIN_VALUE else Int.MAX_VALUE)
+            var best = (if (isMaximizing) Int.MIN_VALUE else Int.MAX_VALUE)
+            var newAlpha = alpha
+            var newBeta = beta
             // If we are maximizing: best is lower bound; if we are minimizing: best is upper bound
-            (if (isMax) best::coerceAtLeast else best::coerceAtMost).let { bound ->
+            (if (isMaximizing) best::coerceAtLeast else best::coerceAtMost).let { bound ->
                 board.possibleMoves.forEach {
                     board.simulateMove(it) {
-                        best = bound(minimax(board, depth + 1, !isMax))
+                        best = bound(minimax(board, depth + 1, !isMaximizing))
+                        if (isMaximizing) {
+                            newAlpha = max(alpha, best)
+                        } else {
+                            newBeta = min(beta, best)
+                        }
+                    }
+                    if (beta <= newAlpha) {
+                        return@forEach
                     }
                 }
                 best
