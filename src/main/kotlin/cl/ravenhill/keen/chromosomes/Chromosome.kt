@@ -8,51 +8,26 @@
 
 package cl.ravenhill.keen.chromosomes
 
-import io.jenetics.BitChromosome as JBitChromosome
-import io.jenetics.Chromosome as JChromosome
-import io.jenetics.Gene as JGene
-
+import cl.ravenhill.keen.Verifiable
+import cl.ravenhill.keen.genes.Gene
 
 /**
- * A chromosome consists of one or more genes.
+ * Sequence of genes.
  *
- * @see JChromosome
+ * @param DNA   The type of the genes' values.
+ *
+ * @property genes      The genes of the chromosome.
+ * @property isValid    Whether the chromosome is valid or not.
+ * @property size       The size of the chromosome.
+ *
+ * @author <a href="https://github.com/r8vnhill">R8V</a>
  */
-interface Chromosome<T : JGene<*, T>> {
-    /**
-     * The _Jenetics_ chromosome.
-     */
-    val jenetics: JChromosome<T>   // Gosh darn curiously recurring generics
+interface Chromosome<DNA> : Verifiable {
 
-    /**
-     * Return the value at the given `index`.
-     *
-     * @see JChromosome.get
-     */
-    operator fun get(index: Int): T = jenetics.get(index)
+    val genes: List<Gene<DNA>>
 
-    /**
-     * Create a new instance of type ``T``.
-     *
-     * @see JChromosome.newInstance
-     */
-    fun newInstance(): JChromosome<T> = jenetics.newInstance()
+    override fun verify() = genes.all { it.verify() }
 
-    fun toBitChromosome(): JBitChromosome
-
-    /**
-     * The first gene of this chromosome.
-     *
-     * @see JChromosome.gene
-     */
-    val gene: T
-        get() = jenetics.gene()
-
-    /**
-     * The length of this chromosome.
-     *
-     * @see JChromosome.length
-     */
-    val length: Int
-        get() = jenetics.length()
+    val size: Int
+        get() = genes.size
 }

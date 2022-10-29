@@ -5,13 +5,16 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
+
 package cl.ravenhill.keen
 
-import io.jenetics.prog.op.Op
+/**
+ * A verifiable object.
+ */
+interface Verifiable {
 
-object Ops {
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val op = Op.of("add", 2) { v: Array<Double> -> v[0] + v[1] }
-    }
+    /**
+     * Verifies the object's integrity (validity).
+     */
+    fun verify() = true
 }

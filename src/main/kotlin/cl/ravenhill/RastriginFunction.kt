@@ -6,11 +6,5 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.operations
+package cl.ravenhill
 
-import io.jenetics.prog.op.Op
-
-
-class AddOp<T> {
-    val jenetics: Op<Double> = Op.of("add", 2) { v: Array<Double> -> v[0] + v[1] }
-}

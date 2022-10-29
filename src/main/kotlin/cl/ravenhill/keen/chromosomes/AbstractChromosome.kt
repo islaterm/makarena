@@ -6,14 +6,9 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen
+package cl.ravenhill.keen.chromosomes
 
-/**
- * Atomic unit of a chromosome.
- *
- * @param DNA   The type of the gene's value.
- * @property dna    The gene's value.
- */
-interface Gene<DNA> {
-    val dna: DNA
-}
+import cl.ravenhill.keen.genes.Gene
+
+
+abstract class AbstractChromosome<T>(override val genes: List<Gene<T>>) : Chromosome<T>
