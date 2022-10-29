@@ -14,17 +14,15 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.genes
+package cl.ravenhill.keen.signals
 
-import cl.ravenhill.keen.Verifiable
+object Require {
+    class Parameter<T : Comparable<T>>(private val name: String, private val value: T) {
 
-/**
- * Atomic unit of a chromosome.
- *
- * @param DNA   The type of the gene's value.
- * @property dna        The gene's value.
- */
-interface Gene<DNA> : Verifiable {
-
-    val dna: DNA
+        infix fun atLeast(t: T) {
+            if (value < t) {
+                throw KeenException("Parameter $name must be at least $t")
+            }
+        }
+    }
 }

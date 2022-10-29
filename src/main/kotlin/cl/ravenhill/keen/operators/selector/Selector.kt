@@ -6,9 +6,6 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.chromosomes
+package cl.ravenhill.keen.operators.selector
 
-import cl.ravenhill.keen.genes.Gene
-
-
-abstract class AbstractChromosome<T>(override val genes: List<Gene<T>>) : Chromosome<T>
+interface Selector<DNA>

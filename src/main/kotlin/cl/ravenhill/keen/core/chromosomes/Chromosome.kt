@@ -6,10 +6,10 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.chromosomes
+package cl.ravenhill.keen.core.chromosomes
 
 import cl.ravenhill.keen.Verifiable
-import cl.ravenhill.keen.genes.Gene
+import cl.ravenhill.keen.core.genes.Gene
 
 /**
  * Sequence of genes.
@@ -26,7 +26,7 @@ interface Chromosome<DNA> : Verifiable {
 
     val genes: List<Gene<DNA>>
 
-    override fun verify() = genes.all { it.verify() }
+    override fun verify() = genes.isNotEmpty() && genes.all { it.verify() }
 
     val size: Int
         get() = genes.size

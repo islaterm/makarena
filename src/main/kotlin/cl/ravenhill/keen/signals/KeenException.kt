@@ -6,7 +6,7 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen
+package cl.ravenhill.keen.signals
 
 
 class KeenException(message: String) : Exception(message)

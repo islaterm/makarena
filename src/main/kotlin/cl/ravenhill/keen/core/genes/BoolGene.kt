@@ -6,7 +6,7 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.genes
+package cl.ravenhill.keen.core.genes
 
 /**
  * A boolean gene.
