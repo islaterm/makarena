@@ -6,7 +6,10 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.signals
+package cl.ravenhill.keen.operators.alterers
 
 
-open class KeenException(message: String) : Exception(message)
+class Mutator<DNA>(override val probability: Double) : Alterer<DNA> {
+    override fun toString() = "Mutator { " +
+            "probability: $probability }"
+}

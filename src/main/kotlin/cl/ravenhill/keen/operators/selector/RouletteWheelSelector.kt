@@ -8,4 +8,9 @@
 
 package cl.ravenhill.keen.operators.selector
 
-class RouletteWheelSelector<DNA> : Selector<DNA>
+class RouletteWheelSelector<DNA>(
+    sorted: Boolean = false
+) : AbstractProbabilitySelector<DNA>(sorted) {
+    override fun toString() = "RouletteWheelSelector { " +
+            "sorted: $sorted }"
+}

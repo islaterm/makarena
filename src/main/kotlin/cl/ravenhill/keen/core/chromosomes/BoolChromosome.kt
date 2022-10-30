@@ -47,6 +47,10 @@ class BoolChromosome(genes: List<BoolGene>) : AbstractChromosome<Boolean>(genes)
     }
 
     override fun hashCode() = Objects.hash(BoolChromosome::class, genes)
+
+    override fun toString() =
+        genes.map { if (it == BoolGene.True) "1" else "0" }.chunked(8)
+            .joinToString("|") { it.joinToString("") }
 }
 
 fun ByteArray.toTwosComplement(): ByteArray {

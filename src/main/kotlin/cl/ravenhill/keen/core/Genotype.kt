@@ -18,17 +18,24 @@ package cl.ravenhill.keen.core
 
 import cl.ravenhill.keen.Verifiable
 import cl.ravenhill.keen.core.chromosomes.Chromosome
+import cl.ravenhill.keen.signals.GenotypeConfigurationException
 
 
-class Genotype<DNA>(
-    chromosome: Chromosome<DNA>,
-    vararg chromosomes: Chromosome<DNA>
-) :
-    Verifiable {
-    private val chromosomes: List<Chromosome<DNA>> =
-        listOf(chromosome, *chromosomes)
+class Genotype<DNA> private constructor(private val chromosomes: List<Chromosome<DNA>>) :
+        Verifiable {
 
-    override fun verify() = chromosomes.all { it.verify() }
+    override fun verify() = chromosomes.isNotEmpty() && chromosomes.all { it.verify() }
 
-    override fun toString() = chromosomes.joinToString(", ", prefix = "[", postfix = "]")
+    class GenotypeBuilder<DNA> {
+
+        lateinit var chromosomes: List<Chromosome.ChromosomeBuilder<DNA>>
+
+        fun build() = if (!this::chromosomes.isInitialized) {
+            throw GenotypeConfigurationException("Chromosomes must be initialized.")
+        } else if (chromosomes.isEmpty()) {
+            throw GenotypeConfigurationException("Chromosomes must not be empty.")
+        } else {
+            Genotype(chromosomes.map { it.build() })
+        }
+    }
 }

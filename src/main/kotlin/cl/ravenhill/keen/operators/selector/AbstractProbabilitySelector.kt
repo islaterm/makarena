@@ -6,12 +6,7 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen
+package cl.ravenhill.keen.operators.selector
 
 
-/**
- * Documentation
- */
-fun <T> T.pprint() {
-    println(this.toString().replace("{ ", "{\n    ").replace("}", "\n}").replace(", ", ",\n    "))
-}
+abstract class AbstractProbabilitySelector<DNA>(protected val sorted: Boolean) : Selector<DNA>

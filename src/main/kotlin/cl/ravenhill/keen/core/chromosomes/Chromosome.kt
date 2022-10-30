@@ -30,4 +30,8 @@ interface Chromosome<DNA> : Verifiable {
 
     val size: Int
         get() = genes.size
+
+    interface ChromosomeBuilder<DNA> {
+        fun build(): Chromosome<DNA>
+    }
 }

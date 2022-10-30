@@ -16,33 +16,19 @@
 
 package cl.ravenhill.keen.core
 
-import cl.ravenhill.keen.core.chromosomes.Chromosome
-import cl.ravenhill.keen.operators.selector.Selector
-import cl.ravenhill.keen.operators.selector.TournamentSelector
-import cl.ravenhill.keen.signals.Require
-
 class Engine<DNA>(
-    private val genotype: Genotype<DNA>,
-    private val fitnessFunction: (Genotype<DNA>) -> Comparable<*>,
-    builder: Engine<DNA>.() -> Unit
+    private val fitnessFunction: (Genotype<DNA>) -> Number,
+    private val genotype: Genotype.GenotypeBuilder<DNA>,
+    private val populationSize: Int
 ) {
-    init {
-        builder()
+    fun createPopulation() = (0 until populationSize).map { genotype.build() }
+
+    class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Number) {
+
+        var populationSize: Int = 50
+
+        lateinit var genotype: Genotype.GenotypeBuilder<DNA>
+
+        fun build() = Engine(fitnessFunction, genotype, populationSize)
     }
-
-    var selector: Selector<DNA> = TournamentSelector(3)
-    var populationSize: Int = 50
-        set(value) {
-            Require.Parameter("population size", value) atLeast 1
-            field = value
-        }
-
-    constructor(
-        fitnessFunction: (Genotype<DNA>) -> Comparable<*>,
-        chromosome: Chromosome<DNA>,
-        vararg chromosomes: Chromosome<DNA>,
-        builder: Engine<DNA>.() -> Unit = {}
-    ) : this(Genotype(chromosome, *chromosomes), fitnessFunction, builder)
-
-    override fun toString() = "Engine { genotype: $genotype, populationSize: $populationSize }"
 }

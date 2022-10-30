@@ -9,4 +9,5 @@
 package cl.ravenhill.keen.signals
 
 
-open class KeenException(message: String) : Exception(message)
+class GenotypeConfigurationException(detail: String) :
+        KeenException("Genotype configuration error: $detail")
