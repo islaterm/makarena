@@ -34,19 +34,34 @@ fun evaluate(b: Board) = when (b.winner) {
 fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
     minimax(board, depth, isMax, Int.MIN_VALUE, Int.MAX_VALUE)
 
+/**
+ * Recursively evaluates all possible moves and returns the score of the best move.
+ * This version of the function also takes `alpha` and `beta` values to prune the search tree.
+ * The function will not evaluate any move that is guaranteed to be worse than the best move
+ * already found by the maximizer.
+ *
+ * @param board         The board to evaluate
+ * @param depth         The maximum depth of the tree to evaluate
+ * @param isMaximizing  `true` if the current player is the maximizer, `false` otherwise
+ * @param alpha         the best value that the maximizer currently can guarantee at that level or
+ *                      above.
+ * @param beta          the best value that the minimizer currently can guarantee at that level or
+ *                      above.
+ *
+ * @return The score of the best move
+ */
 fun minimax(board: Board, depth: Int, isMaximizing: Boolean, alpha: Int, beta: Int): Int =
     evaluate(board).let { score ->  // First we evaluate the score of the board
-        if (score == 10 || score == -10 || !board.checkMovesLeft()) {
+        if (score == 10 || score == -10 || !board.checkMovesLeft() || depth == 0) {
             score   // If the game is over we return the score
         } else {
             var best = (if (isMaximizing) Int.MIN_VALUE else Int.MAX_VALUE)
-            var newAlpha = alpha
-            var newBeta = beta
+            var (newAlpha, newBeta) = alpha to beta
             // If we are maximizing: best is lower bound; if we are minimizing: best is upper bound
             (if (isMaximizing) best::coerceAtLeast else best::coerceAtMost).let { bound ->
                 board.possibleMoves.forEach {
                     board.simulateMove(it) {
-                        best = bound(minimax(board, depth + 1, !isMaximizing))
+                        best = bound(minimax(board, depth - 1, !isMaximizing))
                         if (isMaximizing) {
                             newAlpha = max(alpha, best)
                         } else {
@@ -72,7 +87,7 @@ fun findBestMove(board: Board): Move {
     var bestMove: TicTacToeMove = TicTacToeMove.EmptyMove()
     board.possibleMoves.forEach { move ->
         board.simulateMove(move) {
-            it.score = minimax(board, 0, false)
+            it.score = minimax(board, Int.MAX_VALUE, false)
             if (it.score > bestMove.score) {
                 bestMove = it
             }
