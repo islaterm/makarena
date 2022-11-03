@@ -6,9 +6,11 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.operators.alterers
+package cl.ravenhill.keen.limits
+
+import cl.ravenhill.keen.core.Engine
 
 
-class SinglePointCrossover<DNA>(override val probability: Double) : Alterer<DNA> {
-    override fun toString() = "SinglePointCrossover { probability: $probability }"
+class SteadyGenerations(private val n: Int) : Limit {
+    override fun invoke(engine: Engine<*>) = engine.steadyGenerations >= n
 }

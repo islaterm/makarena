@@ -8,4 +8,8 @@
 
 package cl.ravenhill.keen.operators.selector
 
-interface Selector<DNA>
+import cl.ravenhill.keen.core.Genotype
+
+interface Selector<DNA> {
+    operator fun invoke(population: List<Genotype<DNA>>, count: Int): List<Genotype<DNA>>
+}

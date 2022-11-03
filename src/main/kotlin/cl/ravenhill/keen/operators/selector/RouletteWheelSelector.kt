@@ -8,9 +8,17 @@
 
 package cl.ravenhill.keen.operators.selector
 
+import cl.ravenhill.keen.core.Genotype
+
 class RouletteWheelSelector<DNA>(
     sorted: Boolean = false
 ) : AbstractProbabilitySelector<DNA>(sorted) {
+
+    override fun probabilities(population: List<Genotype<DNA>>, count: Int): List<Double> {
+        val rawFitness = population.map { it.fitness.toDouble() }
+        return rawFitness.map { (it - rawFitness.min()) / rawFitness.sum() }
+    }
+
     override fun toString() = "RouletteWheelSelector { " +
             "sorted: $sorted }"
 }

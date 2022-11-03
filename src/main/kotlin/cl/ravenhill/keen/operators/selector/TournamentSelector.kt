@@ -8,4 +8,10 @@
 
 package cl.ravenhill.keen.operators.selector
 
-class TournamentSelector<DNA>(i: Int) : Selector<DNA>
+import cl.ravenhill.keen.core.Genotype
+
+class TournamentSelector<DNA>(i: Int) : Selector<DNA> {
+    override fun invoke(population: List<Genotype<DNA>>, count: Int): List<Genotype<DNA>> {
+        TODO("Not yet implemented")
+    }
+}

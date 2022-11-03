@@ -51,6 +51,15 @@ class BoolChromosome(genes: List<BoolGene>) : AbstractChromosome<Boolean>(genes)
     override fun toString() =
         genes.map { if (it == BoolGene.True) "1" else "0" }.chunked(8)
             .joinToString("|") { it.joinToString("") }
+
+    class Builder(private val size: Int, private val truesProbability: Double) :
+            Chromosome.ChromosomeBuilder<Boolean> {
+        override fun build() = BoolChromosome(size, truesProbability)
+
+        override fun toString(): String {
+            return "BoolChromosome.Builder { size: $size, truesProbability: $truesProbability }"
+        }
+    }
 }
 
 fun ByteArray.toTwosComplement(): ByteArray {
