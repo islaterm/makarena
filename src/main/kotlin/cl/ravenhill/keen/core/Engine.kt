@@ -8,10 +8,12 @@
 
 package cl.ravenhill.keen.core
 
+import cl.ravenhill.keen.limits.GenerationCount
 import cl.ravenhill.keen.limits.Limit
 import cl.ravenhill.keen.operators.alterers.Alterer
 import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
+import cl.ravenhill.keen.util.Maximizer
 
 class Engine<DNA>(
     fitnessFunction: (Genotype<DNA>) -> Double,
@@ -24,7 +26,10 @@ class Engine<DNA>(
         genotype.fitnessFunction = fitnessFunction
     }
 
-    var limits = mutableListOf<Limit>()
+    var generation: Int = 0
+        private set
+
+    private var limits = mutableListOf<Limit>()
     var population: List<Genotype<DNA>> = emptyList()
         private set
     var steadyGenerations = 0
@@ -34,7 +39,7 @@ class Engine<DNA>(
         population = (0 until populationSize).map { genotype.build() }
     }
 
-    fun select(n: Int) = selector(population, n)
+    fun select(n: Int) = selector(population, n, Maximizer())
 
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
 
@@ -55,8 +60,14 @@ class Engine<DNA>(
 
     fun evolve(function: Engine<DNA>.() -> Unit) {
         createPopulation()
-        while (limits.none { it(this) }) {
-
+        if (limits.isEmpty()) { // If no limits are set, use a default one
+            limits += GenerationCount(100)
         }
+        while (limits.none { it(this) }) {  // While none of the limits are met
+            population = select(populationSize)     // Select the population
+            generation++                            // Increment the generation
+        }
+        println(generation)
+        println(population)
     }
 }
