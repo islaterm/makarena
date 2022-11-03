@@ -15,6 +15,19 @@ import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.util.Maximizer
 
+/**
+ * Fundamental class of the library. It is the engine that will run the evolution process.
+ *
+ * @param DNA   The type of the DNA of the Genotype
+ * @property genotype           The genotype that will be used to create the population
+ * @property populationSize     The size of the population
+ * @property selector           The selector that will be used to select the individuals
+ * @property alterers           The alterers that will be used to alter the population
+ * @property generation         The current generation
+ * @property limits             The limits that will be used to stop the evolution
+ * @property population         The current population
+ * @property steadyGenerations  The number of generations that the fitness has not changed
+ */
 class Engine<DNA>(
     fitnessFunction: (Genotype<DNA>) -> Double,
     private val genotype: Genotype.GenotypeBuilder<DNA>,
@@ -22,6 +35,7 @@ class Engine<DNA>(
     private val selector: Selector<DNA>,
     private val alterers: List<Alterer<DNA>>
 ) {
+
     init {
         genotype.fitnessFunction = fitnessFunction
     }

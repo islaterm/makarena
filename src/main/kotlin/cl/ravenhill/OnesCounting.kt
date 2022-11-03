@@ -14,7 +14,6 @@ import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
 import cl.ravenhill.keen.operators.alterers.Mutator
 import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
-import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
 import io.jenetics.BitChromosome
 import io.jenetics.BitGene
 import io.jenetics.engine.EvolutionResult.toBestPhenotype
@@ -42,15 +41,14 @@ fun main() {
             chromosomes = listOf(BoolChromosome.Builder(20, 0.15))
         }
         populationSize = 10
-        selector = RouletteWheelSelector()
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
     }
     println(engine)
     engine.createPopulation()
     println(engine.select(10))
-//    engine.evolve {
+    engine.evolve {
 //        limits.add(SteadyGenerations(7))
-//    }
+    }
     val jEngine = JEngine.builder(::jCount, BitChromosome.of(20, 0.15))
         .populationSize(500)
         .selector(JRouletteWheelSelector())

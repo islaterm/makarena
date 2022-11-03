@@ -9,9 +9,27 @@
 package cl.ravenhill.keen.operators.selector
 
 import cl.ravenhill.keen.core.Genotype
+import cl.ravenhill.keen.core.KeenCore
+import cl.ravenhill.keen.util.Optimizer
+import kotlin.random.asKotlinRandom
 
-class TournamentSelector<DNA>(i: Int) : Selector<DNA> {
-    override fun invoke(population: List<Genotype<DNA>>, count: Int): List<Genotype<DNA>> {
-        TODO("Not yet implemented")
+class TournamentSelector<DNA>(private val i: Int) : Selector<DNA> {
+    override fun invoke(
+        population: List<Genotype<DNA>>,
+        count: Int,
+        optimizer: Optimizer
+    ): List<Genotype<DNA>> {
+        val selection = mutableListOf<Genotype<DNA>>()
+        for (i in 0 until count) {
+            var fittest = population.random(KeenCore.generator.asKotlinRandom())
+            for (j in 0 until i) {
+                val challenger = population.random(KeenCore.generator.asKotlinRandom())
+                if (optimizer(challenger.fitness, fittest.fitness)) {
+                    fittest = challenger
+                }
+            }
+            selection.add(fittest)
+        }
+        return selection
     }
 }

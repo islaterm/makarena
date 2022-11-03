@@ -10,18 +10,23 @@ package cl.ravenhill.keen
 
 import cl.ravenhill.keen.core.Engine
 import cl.ravenhill.keen.core.Genotype
-import cl.ravenhill.keen.core.chromosomes.BoolChromosome
 
+/**
+ * Builder methods for Keen core classes.
+ */
 object Builders {
 
+    /**
+     * Creates a new [Engine] with the given ``fitnessFunction`` and ``init`` block.
+     */
     fun <DNA> engine(
         fitnessFunction: (Genotype<DNA>) -> Double,
         init: Engine.Builder<DNA>.() -> Unit
     ) = Engine.Builder(fitnessFunction).apply(init).build()
 
+    /**
+     * Creates a new [Genotype] with the given ``init`` block.
+     */
     fun <DNA> genotype(init: Genotype.GenotypeBuilder<DNA>.() -> Unit) =
         Genotype.GenotypeBuilder<DNA>().apply(init)
-
-    fun boolChromosome(size: Int, truesProbability: Double) =
-        BoolChromosome.Builder(size, truesProbability)
 }
