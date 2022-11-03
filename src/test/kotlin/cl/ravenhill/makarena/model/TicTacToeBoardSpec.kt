@@ -1,7 +1,7 @@
 package cl.ravenhill.makarena.model
 
-import cl.ravenhill.makarena.strategy.TicTacToeMark
-import cl.ravenhill.makarena.strategy.TicTacToeMark.*
+import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark
+import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark.*
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.shouldBe

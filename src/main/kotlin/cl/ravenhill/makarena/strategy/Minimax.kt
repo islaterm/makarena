@@ -8,6 +8,7 @@
 package cl.ravenhill.makarena.strategy
 
 import cl.ravenhill.makarena.model.TicTacToeBoard
+import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark
 import kotlin.math.max
 import kotlin.math.min
 

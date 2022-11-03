@@ -8,7 +8,7 @@
 package cl.ravenhill.makarena.model
 
 import cl.ravenhill.makarena.MakarenaException
-import cl.ravenhill.makarena.strategy.TicTacToeMark
+import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
 
@@ -92,7 +92,7 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
     fun simulateMove(move: TicTacToeMove, block: (TicTacToeMove) -> Unit) {
         makeMove(move.row, move.column)
         block(move)
-        makeMove(move.row, move.column)
+        this[move.row][move.column] = TicTacToeMark.Empty
     }
 
     private fun makeMove(row: Int, column: Int) {
