@@ -60,10 +60,17 @@ class Engine<DNA> private constructor(
 
     /**
      * Engine builder.
+     *
+     * @param DNA   The type of the DNA of the Genotype.
+     *
+     * @property populationSize The size of the population.
+     *                          It must be greater than 0.
+     *                          Default value is 50.
      */
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
         var alterers: List<Alterer<DNA>> = emptyList()
         var selector: Selector<DNA> = TournamentSelector(3)
+
         var populationSize: Int = 50
             set(value) = if (value > 0) {
                 field = value
