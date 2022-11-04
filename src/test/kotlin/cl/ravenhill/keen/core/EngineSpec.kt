@@ -11,6 +11,7 @@ package cl.ravenhill.keen.core
 import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
+import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.WordSpec
@@ -83,6 +84,21 @@ class EngineSpec : WordSpec({
         "alterers" should {
             "default to an empty list if not specified" {
                 engine.alterers.isEmpty() shouldBe true
+            }
+        }
+
+        "selector" should {
+            "default to a TournamentSelector(3) if not specified" {
+                engine.selector shouldBe TournamentSelector(3)
+            }
+
+            "use the given value if given" {
+                val selector = TournamentSelector<Boolean>(5)
+                engine = engine({ 0.0 }) {
+                    this.genotype = genotype
+                    this.selector = selector
+                }
+                engine.selector shouldBe selector
             }
         }
     }

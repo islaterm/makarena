@@ -32,4 +32,16 @@ class TournamentSelector<DNA>(private val i: Int) : Selector<DNA> {
         }
         return selection
     }
+
+    override fun equals(other: Any?) = when {
+        other === this -> true
+        other !is TournamentSelector<*> -> false
+        other::class != this::class -> false
+        other.i != this.i -> false
+        else -> true
+    }
+
+    override fun toString(): String {
+        return "TournamentSelector { i: $i }"
+    }
 }

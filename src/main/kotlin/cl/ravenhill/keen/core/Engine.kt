@@ -32,7 +32,7 @@ class Engine<DNA> private constructor(
     fitnessFunction: (Genotype<DNA>) -> Double,
     private val genotype: Genotype.Builder<DNA>,
     val populationSize: Int,
-    private val selector: Selector<DNA>,
+    val selector: Selector<DNA>,
     val alterers: List<Alterer<DNA>>
 ) {
 
@@ -66,9 +66,15 @@ class Engine<DNA> private constructor(
      * @property populationSize The size of the population.
      *                          It must be greater than 0.
      *                          Default value is 50.
+     * @property selector       The selector that will be used to select the individuals.
+     *                          Default value is ``TournamentSelector(3)``.
+     * @property alterers       The alterers that will be used to alter the population.
+     *                          Default value is an empty list.
      */
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
+
         var alterers: List<Alterer<DNA>> = emptyList()
+
         var selector: Selector<DNA> = TournamentSelector(3)
 
         var populationSize: Int = 50
