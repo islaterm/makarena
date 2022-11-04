@@ -8,9 +8,9 @@
 package cl.ravenhill.makarena.model
 
 import cl.ravenhill.makarena.MakarenaException
-import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark
 import cl.ravenhill.makarena.strategy.TicTacToeMove
 import cl.ravenhill.makarena.strategy.player
+import cl.ravenhill.makarena.strategy.ttt.TicTacToeMark
 
 /**
  * A 2D Mutable list, or matrix if you prefer.
@@ -26,6 +26,8 @@ typealias MutableList2D<T> = MutableList<MutableList<T>>
  * @property currentPlayer  The player that is currently playing.
  */
 class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacToeMark>) {
+    var hasWinner: Boolean = false
+        private set
     private val _size = rows.size
     private val columns: MutableList2D<TicTacToeMark>
         get() = MutableList(_size) { i -> MutableList(_size) { j -> rows[j][i] } }
@@ -59,7 +61,11 @@ class TicTacToeBoard private constructor(private val rows: MutableList2D<TicTacT
                 }
             return searchWinnerIn(this.rows).takeIf { it != TicTacToeMark.Empty }
                 ?: searchWinnerIn(this.columns).takeIf { it != TicTacToeMark.Empty }
-                ?: searchWinnerIn(this.diagonals)
+                ?: searchWinnerIn(this.diagonals).also {
+                    if (it != TicTacToeMark.Empty) {
+                        this.hasWinner = true
+                    }
+                }
         }
 
 

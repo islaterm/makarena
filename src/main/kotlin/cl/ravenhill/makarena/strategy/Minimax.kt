@@ -53,7 +53,7 @@ fun minimax(board: Board, depth: Int, isMax: Boolean): Int =
  */
 fun minimax(board: Board, depth: Int, isMaximizing: Boolean, alpha: Int, beta: Int): Int =
     evaluate(board).let { score ->  // First we evaluate the score of the board
-        if (score == 10 || score == -10 || !board.checkMovesLeft() || depth == 0) {
+        if (board.hasWinner || !board.checkMovesLeft() || depth == 0) {
             score   // If the game is over we return the score
         } else {
             var best = (if (isMaximizing) Int.MIN_VALUE else Int.MAX_VALUE)
