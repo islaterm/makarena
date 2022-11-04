@@ -25,7 +25,7 @@ class Genotype<DNA> private constructor(
 
     override fun toString() = " [ ${chromosomes.joinToString(" | ")} ] "
 
-    class GenotypeBuilder<DNA> {
+    class Builder<DNA> {
 
         lateinit var fitnessFunction: (Genotype<DNA>) -> Double
         lateinit var chromosomes: List<Chromosome.ChromosomeBuilder<DNA>>

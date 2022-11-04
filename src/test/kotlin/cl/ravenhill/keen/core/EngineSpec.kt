@@ -24,13 +24,13 @@ import io.kotest.property.checkAll
 
 class EngineSpec : WordSpec({
     lateinit var engine: Engine<Boolean>
-    lateinit var genotype: Genotype.GenotypeBuilder<Boolean>
+    lateinit var genotype: Genotype.Builder<Boolean>
 
     beforeEach {
         genotype = genotype {
             chromosomes = listOf(BoolChromosome.Builder(20, 0.15))
         }
-        engine = engine<Boolean>({ 0.0 }) {
+        engine = engine({ 0.0 }) {
             this.genotype = genotype
         }
     }
@@ -77,6 +77,12 @@ class EngineSpec : WordSpec({
                     }.message shouldContain
                             "Engine configuration error: Population size must be positive"
                 }
+            }
+        }
+
+        "alterers" should {
+            "default to an empty list if not specified" {
+                engine.alterers.isEmpty() shouldBe true
             }
         }
     }

@@ -27,6 +27,6 @@ object Builders {
     /**
      * Creates a new [Genotype] with the given ``init`` block.
      */
-    fun <DNA> genotype(init: Genotype.GenotypeBuilder<DNA>.() -> Unit) =
-        Genotype.GenotypeBuilder<DNA>().apply(init)
+    fun <DNA> genotype(init: Genotype.Builder<DNA>.() -> Unit) =
+        Genotype.Builder<DNA>().apply(init)
 }

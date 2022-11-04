@@ -30,10 +30,10 @@ import cl.ravenhill.keen.util.Maximizer
  */
 class Engine<DNA> private constructor(
     fitnessFunction: (Genotype<DNA>) -> Double,
-    private val genotype: Genotype.GenotypeBuilder<DNA>,
+    private val genotype: Genotype.Builder<DNA>,
     val populationSize: Int,
     private val selector: Selector<DNA>,
-    private val alterers: List<Alterer<DNA>>
+    val alterers: List<Alterer<DNA>>
 ) {
 
     init {
@@ -78,7 +78,7 @@ class Engine<DNA> private constructor(
                 throw EngineConfigurationException("Population size must be positive")
             }
 
-        lateinit var genotype: Genotype.GenotypeBuilder<DNA>
+        lateinit var genotype: Genotype.Builder<DNA>
 
         fun build() = Engine(fitnessFunction, genotype, populationSize, selector, alterers)
     }
