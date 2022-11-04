@@ -8,11 +8,29 @@
 
 package cl.ravenhill.keen.core
 
+import cl.ravenhill.keen.Builders.engine
+import cl.ravenhill.keen.Builders.genotype
+import cl.ravenhill.keen.core.chromosomes.BoolChromosome
 import io.kotest.core.spec.style.WordSpec
+import io.kotest.matchers.shouldBe
 
 
 class EngineSpec : WordSpec({
-    "Engine" When {
+    lateinit var engine: Engine<Boolean>
 
+    beforeEach {
+        engine = engine<Boolean>({ 0.0 }) {
+            genotype = genotype {
+                chromosomes = listOf(BoolChromosome.Builder(20, 0.15))
+            }
+        }
+    }
+
+    "Engine" When {
+        "created" should {
+            "start with generation 0" {
+                engine.generation shouldBe 0
+            }
+        }
     }
 })
