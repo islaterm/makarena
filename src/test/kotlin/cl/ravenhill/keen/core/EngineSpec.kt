@@ -50,6 +50,32 @@ class EngineSpec : WordSpec({
                 engine.steadyGenerations shouldBe 0
             }
         }
+
+        "creating a population" should {
+            "be of the set size" {
+                checkAll(Arb.positiveInt(10_000)) { size ->
+                    engine = engine({ 0.0 }) {
+                        this.genotype = genotype
+                        populationSize = size
+                    }
+                    engine.createPopulation()
+                    engine.population.size shouldBe size
+                }
+            }
+        }
+
+        "selecting individuals" should {
+            "be of the set size" {
+                checkAll(Arb.positiveInt(100)) { size ->
+                    engine = engine({ 0.0 }) {
+                        this.genotype = genotype
+                        populationSize = 1000
+                    }
+                    engine.createPopulation()
+                    engine.select(size).size shouldBe size
+                }
+            }
+        }
     }
 
     "Engine builder" When {

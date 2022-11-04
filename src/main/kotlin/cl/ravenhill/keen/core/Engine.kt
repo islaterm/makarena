@@ -52,11 +52,11 @@ class Engine<DNA> private constructor(
     /** The limits that will be used to stop the evolution  */
     private var limits = mutableListOf<Limit>()
 
-    fun createPopulation() {
+    internal fun createPopulation() {
         population = (0 until populationSize).map { genotype.build() }
     }
 
-    fun select(n: Int) = selector(population, n, Maximizer())
+    internal fun select(n: Int) = selector(population, n, Maximizer())
 
     /**
      * Engine builder.
