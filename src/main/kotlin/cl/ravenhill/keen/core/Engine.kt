@@ -13,6 +13,7 @@ import cl.ravenhill.keen.limits.Limit
 import cl.ravenhill.keen.operators.alterers.Alterer
 import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
+import cl.ravenhill.keen.signals.EngineConfigurationException
 import cl.ravenhill.keen.util.Maximizer
 
 /**
@@ -24,14 +25,13 @@ import cl.ravenhill.keen.util.Maximizer
  * @property selector           The selector that will be used to select the individuals
  * @property alterers           The alterers that will be used to alter the population
  * @property generation         The current generation
- * @property limits             The limits that will be used to stop the evolution
  * @property population         The current population
  * @property steadyGenerations  The number of generations that the fitness has not changed
  */
-class Engine<DNA>(
+class Engine<DNA> private constructor(
     fitnessFunction: (Genotype<DNA>) -> Double,
     private val genotype: Genotype.GenotypeBuilder<DNA>,
-    private val populationSize: Int,
+    val populationSize: Int,
     private val selector: Selector<DNA>,
     private val alterers: List<Alterer<DNA>>
 ) {
@@ -43,12 +43,14 @@ class Engine<DNA>(
 
     var generation: Int = 0
         private set
-
-    private var limits = mutableListOf<Limit>()
-    var population: List<Genotype<DNA>> = emptyList()
-        private set
     var steadyGenerations = 0
         private set
+
+    var population: List<Genotype<DNA>> = emptyList()
+        private set
+
+    /** The limits that will be used to stop the evolution  */
+    private var limits = mutableListOf<Limit>()
 
     fun createPopulation() {
         population = (0 until populationSize).map { genotype.build() }
@@ -56,11 +58,18 @@ class Engine<DNA>(
 
     fun select(n: Int) = selector(population, n, Maximizer())
 
+    /**
+     * Engine builder.
+     */
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
-
         var alterers: List<Alterer<DNA>> = emptyList()
         var selector: Selector<DNA> = TournamentSelector(3)
         var populationSize: Int = 50
+            set(value) = if (value > 0) {
+                field = value
+            } else {
+                throw EngineConfigurationException("Population size must be positive")
+            }
 
         lateinit var genotype: Genotype.GenotypeBuilder<DNA>
 
