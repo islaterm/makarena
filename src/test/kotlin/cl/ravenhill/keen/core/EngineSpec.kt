@@ -31,6 +31,10 @@ class EngineSpec : WordSpec({
             "start with generation 0" {
                 engine.generation shouldBe 0
             }
+
+            "start with an empty population" {
+                engine.population.size shouldBe 0
+            }
         }
     }
 })

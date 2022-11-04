@@ -37,6 +37,7 @@ class Engine<DNA>(
 ) {
 
     init {
+        // We need to set the genotype's fitness function to evolve the population
         genotype.fitnessFunction = fitnessFunction
     }
 
