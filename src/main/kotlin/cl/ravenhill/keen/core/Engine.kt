@@ -15,6 +15,7 @@ import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
 import cl.ravenhill.keen.util.Maximizer
+import cl.ravenhill.keen.util.Optimizer
 
 /**
  * Fundamental class of the library. It is the engine that will run the evolution process.
@@ -38,7 +39,8 @@ class Engine<DNA> private constructor(
     val alterers: List<Alterer<DNA>>,
     private val limits: List<Limit>,
     val survivorSelector: Selector<DNA>,
-    val survivors: Int
+    val survivors: Int,
+    private val optimizer: Optimizer
 ) {
 
     init {
@@ -55,8 +57,14 @@ class Engine<DNA> private constructor(
     var population: List<Genotype<DNA>> = emptyList()
         private set
 
-    val fittest: Genotype<DNA>?
-        get() = population.maxByOrNull { it.fitness }
+    val fittest: Genotype<DNA>
+        get() = population.reduce { acc, genotype ->
+            if (optimizer(
+                    genotype.fitness,
+                    acc.fitness
+                )
+            ) genotype else acc
+        }
     // endregion    --------------------------------------------------------------------------------
 
     fun evolve() {
@@ -85,8 +93,8 @@ class Engine<DNA> private constructor(
     }
 
     internal fun select(n: Int): List<Genotype<DNA>> {
-        population = survivorSelector(population, survivors, Maximizer())
-        population = population + selector(population, n - survivors, Maximizer())
+        val newPopulation = survivorSelector(population, survivors, optimizer)
+        population = newPopulation + selector(population, n - survivors, optimizer)
         return population.shuffled().take(n)
     }
 
@@ -106,6 +114,7 @@ class Engine<DNA> private constructor(
      */
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
 
+        // region : PROPERTIES  --------------------------------------------------------------------
         var limits: List<Limit> = listOf(GenerationCount(100))
 
         var alterers: List<Alterer<DNA>> = emptyList()
@@ -123,7 +132,11 @@ class Engine<DNA> private constructor(
                 throw EngineConfigurationException { "Population size must be positive" }
             }
 
+        var optimizer: Optimizer = Maximizer()
+
         lateinit var genotype: Genotype.Builder<DNA>
+        // endregion    ----------------------------------------------------------------------------
+
         fun build() = Engine(
             fitnessFunction,
             genotype,
@@ -132,7 +145,8 @@ class Engine<DNA> private constructor(
             alterers,
             limits,
             survivorSelector,
-            survivors
+            survivors,
+            optimizer
         )
     }
 

@@ -8,7 +8,6 @@
 
 package cl.ravenhill.keen.core
 
-import cl.ravenhill.keen.Verifiable
 import cl.ravenhill.keen.core.chromosomes.Chromosome
 import cl.ravenhill.keen.signals.GenotypeConfigurationException
 
@@ -16,7 +15,7 @@ import cl.ravenhill.keen.signals.GenotypeConfigurationException
 class Genotype<DNA> private constructor(
     val chromosomes: List<Chromosome<DNA>>,
     private val fitnessFunction: (Genotype<DNA>) -> Double
-) : Verifiable {
+) : GeneticMaterial {
     override fun verify() = chromosomes.isNotEmpty() && chromosomes.all { it.verify() }
 
     val fitness: Double

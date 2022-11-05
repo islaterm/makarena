@@ -8,8 +8,14 @@
 
 package cl.ravenhill
 
+import cl.ravenhill.keen.Builders.engine
+import cl.ravenhill.keen.Builders.genotype
+import cl.ravenhill.keen.core.Genotype
+import cl.ravenhill.keen.core.chromosomes.DoubleChromosome
+import cl.ravenhill.keen.operators.alterers.Mutator
+import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
+import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
 import io.jenetics.MeanAlterer
-import io.jenetics.Mutator
 import io.jenetics.Optimize
 import io.jenetics.engine.Codecs
 import io.jenetics.engine.EvolutionResult.toBestPhenotype
@@ -18,6 +24,7 @@ import io.jenetics.engine.Limits.bySteadyFitness
 import io.jenetics.util.DoubleRange
 import kotlin.math.cos
 import kotlin.math.sin
+import io.jenetics.Mutator as JeneticsMutator
 import io.jenetics.engine.Engine as JEngine
 
 /**
@@ -27,7 +34,12 @@ import io.jenetics.engine.Engine as JEngine
 /**
  * The function to minimize.
  */
-fun fitnessFunction(x: Double) = cos(0.5 + sin(x)) * cos(x)
+fun jfitnessFunction(x: Double) = cos(0.5 + sin(x)) * cos(x)
+
+fun fitnessFunction(x: Genotype<Double>): Double {
+    val value = x.chromosomes.first().genes.first().dna
+    return cos(0.5 + sin(value)) * cos(value)
+}
 
 /**
  * Calculates the minimum of the real function:
@@ -36,13 +48,22 @@ fun fitnessFunction(x: Double) = cos(0.5 + sin(x)) * cos(x)
  * ```
  */
 fun main() {
-//    val engine = engine()
+    val engine = engine(::fitnessFunction) {
+        genotype = genotype {
+            chromosomes = listOf(DoubleChromosome.Builder(1, 0.0..(2 * Math.PI)))
+        }
+        populationSize = 500
+        survivors = (populationSize * 0.2).toInt()
+        survivorSelector = RouletteWheelSelector()
+        alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
+    }
+
     val jengine =
-        JEngine.builder(::fitnessFunction, Codecs.ofScalar(DoubleRange.of(0.0, 2 * Math.PI)))
+        JEngine.builder(::jfitnessFunction, Codecs.ofScalar(DoubleRange.of(0.0, 2 * Math.PI)))
             .populationSize(500)
             .optimize(Optimize.MINIMUM)
             .alterers(
-                Mutator(0.03),
+                JeneticsMutator(0.03),
                 MeanAlterer(0.6)
             ).build()
 

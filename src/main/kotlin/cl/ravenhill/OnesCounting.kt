@@ -15,16 +15,7 @@ import cl.ravenhill.keen.core.chromosomes.BoolChromosome
 import cl.ravenhill.keen.operators.alterers.Mutator
 import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
 import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
-import io.jenetics.BitChromosome
-import io.jenetics.BitGene
-import io.jenetics.Genotype as JGenotype
 
-
-/**
- * Documentation
- */
-fun jCount(genotype: JGenotype<BitGene>) =
-    (genotype.chromosome().`as`(BitChromosome::class.java).bitCount())
 
 fun count(genotype: Genotype<Boolean>): Double =
     genotype.chromosomes[0].genes.count { it.dna }.toDouble()
@@ -40,5 +31,5 @@ fun main() {
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
     }
     engine.evolve()
-    println("${engine.fittest} -> ${engine.fittest?.fitness}")
+    println("${engine.fittest} -> ${engine.fittest.fitness}")
 }

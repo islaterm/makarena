@@ -16,7 +16,7 @@
 
 package cl.ravenhill.keen.core.genes
 
-import cl.ravenhill.keen.Verifiable
+import cl.ravenhill.keen.core.GeneticMaterial
 
 /**
  * Atomic unit of a chromosome.
@@ -24,7 +24,7 @@ import cl.ravenhill.keen.Verifiable
  * @param DNA   The type of the gene's value.
  * @property dna        The gene's value.
  */
-interface Gene<DNA> : Verifiable {
+interface Gene<DNA> : GeneticMaterial {
 
     val dna: DNA
 

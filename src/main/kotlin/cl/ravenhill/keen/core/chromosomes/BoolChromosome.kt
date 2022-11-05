@@ -28,12 +28,12 @@ class BoolChromosome(genes: List<BoolGene>) : AbstractChromosome<Boolean>(genes)
         }
     )
 
+    override fun verify() = genes.isNotEmpty()
+
     /**
      * Returns the number of true genes in this chromosome.
      */
     fun trues() = genes.count { it == BoolGene.True }
-
-    override fun verify() = genes.isNotEmpty()
 
     @Suppress("UNCHECKED_CAST")
     override fun copy(genes: List<Gene<Boolean>>) =

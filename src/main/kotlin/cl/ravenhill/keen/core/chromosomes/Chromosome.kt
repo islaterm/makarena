@@ -8,7 +8,7 @@
 
 package cl.ravenhill.keen.core.chromosomes
 
-import cl.ravenhill.keen.Verifiable
+import cl.ravenhill.keen.core.GeneticMaterial
 import cl.ravenhill.keen.core.genes.Gene
 
 /**
@@ -22,7 +22,7 @@ import cl.ravenhill.keen.core.genes.Gene
  *
  * @author <a href="https://github.com/r8vnhill">R8V</a>
  */
-interface Chromosome<DNA> : Verifiable {
+interface Chromosome<DNA> : GeneticMaterial {
 
     val genes: List<Gene<DNA>>
 

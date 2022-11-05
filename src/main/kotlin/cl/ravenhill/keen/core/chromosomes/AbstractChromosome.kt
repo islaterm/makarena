@@ -11,6 +11,6 @@ package cl.ravenhill.keen.core.chromosomes
 import cl.ravenhill.keen.core.genes.Gene
 
 
-abstract class AbstractChromosome<T>(override val genes: List<Gene<T>>) : Chromosome<T> {
+abstract class AbstractChromosome<DNA>(override val genes: List<Gene<DNA>>) : Chromosome<DNA> {
     override fun toString() = genes.joinToString(separator = ", ", prefix = "[", postfix = "]")
 }
