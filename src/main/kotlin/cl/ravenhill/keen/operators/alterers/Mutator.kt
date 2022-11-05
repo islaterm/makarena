@@ -8,8 +8,33 @@
 
 package cl.ravenhill.keen.operators.alterers
 
+import cl.ravenhill.keen.core.Genotype
+import cl.ravenhill.keen.core.KeenCore
+import cl.ravenhill.keen.core.chromosomes.Chromosome
+import cl.ravenhill.keen.core.genes.Gene
+
 
 class Mutator<DNA>(override val probability: Double) : Alterer<DNA> {
+    override fun invoke(population: List<Genotype<DNA>>): List<Genotype<DNA>> {
+        return population.map { genotype ->
+            val chromosomes = mutableListOf<Chromosome<DNA>>()
+            genotype.chromosomes.forEach { chromosome ->
+                val genes = mutableListOf<Gene<DNA>>()
+                chromosome.genes.forEach { gene ->
+                    genes.add(
+                        if (KeenCore.generator.nextDouble() < probability) {
+                            gene.mutate()
+                        } else {
+                            gene
+                        }
+                    )
+                }
+                chromosomes.add(chromosome.copy(genes))
+            }
+            genotype.copy(chromosomes)
+        }
+    }
+
     override fun toString() = "Mutator { " +
             "probability: $probability }"
 }

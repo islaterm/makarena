@@ -8,6 +8,10 @@
 
 package cl.ravenhill.keen.operators.alterers
 
+import cl.ravenhill.keen.core.Genotype
+
 interface Alterer<DNA> {
     val probability: Double
+
+    operator fun invoke(population: List<Genotype<DNA>>): List<Genotype<DNA>>
 }

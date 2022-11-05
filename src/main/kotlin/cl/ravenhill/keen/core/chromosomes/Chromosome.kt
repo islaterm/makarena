@@ -27,6 +27,12 @@ interface Chromosome<DNA> : Verifiable {
     val genes: List<Gene<DNA>>
 
     override fun verify() = genes.isNotEmpty() && genes.all { it.verify() }
+    operator fun get(index: Int) = genes[index]
+
+    /**
+     * Returns a new chromosome with the given ``genes``.
+     */
+    fun copy(genes: List<Gene<DNA>>): Chromosome<DNA>
 
     val size: Int
         get() = genes.size

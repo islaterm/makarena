@@ -27,4 +27,9 @@ import cl.ravenhill.keen.Verifiable
 interface Gene<DNA> : Verifiable {
 
     val dna: DNA
+
+    /**
+     * Creates a new gene with a mutated value.
+     */
+    fun mutate(): Gene<DNA>
 }

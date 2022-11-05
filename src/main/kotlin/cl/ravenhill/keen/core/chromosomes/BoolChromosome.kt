@@ -10,6 +10,7 @@ package cl.ravenhill.keen.core.chromosomes
 
 import cl.ravenhill.keen.core.KeenCore
 import cl.ravenhill.keen.core.genes.BoolGene
+import cl.ravenhill.keen.core.genes.Gene
 import java.util.Objects
 
 /**
@@ -34,9 +35,9 @@ class BoolChromosome(genes: List<BoolGene>) : AbstractChromosome<Boolean>(genes)
 
     override fun verify() = genes.isNotEmpty()
 
-    fun toByteArray() = ByteArray(genes.size) { i -> if (genes[i] == BoolGene.True) 1 else 0 }
-
-    fun toTwosComplement() = toByteArray().toTwosComplement()
+    @Suppress("UNCHECKED_CAST")
+    override fun copy(genes: List<Gene<Boolean>>) =
+        BoolChromosome(genes as List<BoolGene>)
 
     override fun equals(other: Any?) = when {
         this === other -> true
@@ -60,8 +61,4 @@ class BoolChromosome(genes: List<BoolGene>) : AbstractChromosome<Boolean>(genes)
             return "BoolChromosome.Builder { size: $size, truesProbability: $truesProbability }"
         }
     }
-}
-
-fun ByteArray.toTwosComplement(): ByteArray {
-    TODO("Not yet needed")
 }

@@ -52,11 +52,35 @@ class Engine<DNA> private constructor(
     /** The limits that will be used to stop the evolution  */
     private var limits = mutableListOf<Limit>()
 
+    fun evolve() {
+        createPopulation()
+        if (limits.isEmpty()) { // If no limits are set, use a default one
+            limits += GenerationCount(100)
+        }
+        while (limits.none { it(this) }) {  // While none of the limits are met
+            population = select(populationSize)     // Select the population
+            population = alter(population)          // Alter the population
+            generation++                            // Increment the generation
+        }
+    }
+
+    private fun alter(population: List<Genotype<DNA>>): List<Genotype<DNA>> {
+        var alteredPopulation = population.toMutableList()
+        alterers.forEach { alterer ->
+            alteredPopulation = alterer(alteredPopulation).filter { it.verify() }.toMutableList()
+        }
+        if (alteredPopulation.size != populationSize) {
+            alteredPopulation.addAll(population.take(populationSize - alteredPopulation.size))
+        }
+        return alteredPopulation
+    }
+
     internal fun createPopulation() {
         population = (0 until populationSize).map { genotype.build() }
     }
 
     internal fun select(n: Int) = selector(population, n, Maximizer())
+
 
     /**
      * Engine builder.
@@ -85,7 +109,6 @@ class Engine<DNA> private constructor(
             }
 
         lateinit var genotype: Genotype.Builder<DNA>
-
         fun build() = Engine(fitnessFunction, genotype, populationSize, selector, alterers)
     }
 
@@ -94,17 +117,4 @@ class Engine<DNA> private constructor(
                 "genotype: $genotype, " +
                 "selector: $selector , " +
                 "alterers: $alterers }"
-
-    fun evolve(function: Engine<DNA>.() -> Unit) {
-        createPopulation()
-        if (limits.isEmpty()) { // If no limits are set, use a default one
-            limits += GenerationCount(100)
-        }
-        while (limits.none { it(this) }) {  // While none of the limits are met
-            population = select(populationSize)     // Select the population
-            generation++                            // Increment the generation
-        }
-        println(generation)
-        println(population)
-    }
 }

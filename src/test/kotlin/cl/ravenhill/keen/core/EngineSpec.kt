@@ -76,6 +76,17 @@ class EngineSpec : WordSpec({
                 }
             }
         }
+
+        "evolving" should {
+            "stop at 100 generations if no limits are specified" {
+                engine = engine({ 0.0 }) {
+                    this.genotype = genotype
+                    populationSize = 1000
+                }
+                engine.evolve()
+                engine.generation shouldBe 100
+            }
+        }
     }
 
     "Engine builder" When {

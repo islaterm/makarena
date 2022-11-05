@@ -17,13 +17,19 @@ class Genotype<DNA> private constructor(
     val chromosomes: List<Chromosome<DNA>>,
     private val fitnessFunction: (Genotype<DNA>) -> Double
 ) : Verifiable {
-
     override fun verify() = chromosomes.isNotEmpty() && chromosomes.all { it.verify() }
 
     val fitness: Double
         get() = fitnessFunction(this)
 
     override fun toString() = " [ ${chromosomes.joinToString(" | ")} ] "
+    fun map(transform: (List<Chromosome<DNA>>) -> List<Chromosome<DNA>>) =
+        Genotype(transform(chromosomes), fitnessFunction)
+
+    /**
+     * Returns a new genotype with the given ``chromosomes``.
+     */
+    fun copy(chromosomes: List<Chromosome<DNA>>) = Genotype(chromosomes, fitnessFunction)
 
     class Builder<DNA> {
 

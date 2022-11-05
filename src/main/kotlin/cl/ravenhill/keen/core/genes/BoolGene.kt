@@ -8,6 +8,8 @@
 
 package cl.ravenhill.keen.core.genes
 
+import cl.ravenhill.keen.core.KeenCore
+
 /**
  * A boolean gene.
  */
@@ -24,6 +26,12 @@ sealed class BoolGene : Gene<Boolean> {
     fun toInt() = if (dna) 1 else 0
 
     override fun toString() = "$dna"
+
+    override fun mutate() = if (KeenCore.generator.nextBoolean()) {
+        True
+    } else {
+        False
+    }
 
     /**
      * A true gene.

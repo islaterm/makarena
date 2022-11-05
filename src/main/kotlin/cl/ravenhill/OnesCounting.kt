@@ -46,9 +46,7 @@ fun main() {
     println(engine)
     engine.createPopulation()
     println(engine.select(10))
-    engine.evolve {
-//        limits.add(SteadyGenerations(7))
-    }
+    engine.evolve()
     val jEngine = JEngine.builder(::jCount, BitChromosome.of(20, 0.15))
         .populationSize(500)
         .selector(JRouletteWheelSelector())
