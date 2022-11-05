@@ -26,6 +26,7 @@ import cl.ravenhill.keen.util.Maximizer
  * @property alterers           The alterers that will be used to alter the population
  * @property generation         The current generation
  * @property population         The current population
+ * @property limits             The limits that will be used to stop the evolution
  * @property steadyGenerations  The number of generations that the fitness has not changed
  */
 class Engine<DNA> private constructor(
@@ -33,7 +34,8 @@ class Engine<DNA> private constructor(
     private val genotype: Genotype.Builder<DNA>,
     val populationSize: Int,
     val selector: Selector<DNA>,
-    val alterers: List<Alterer<DNA>>
+    val alterers: List<Alterer<DNA>>,
+    private val limits: List<Limit>
 ) {
 
     init {
@@ -49,14 +51,8 @@ class Engine<DNA> private constructor(
     var population: List<Genotype<DNA>> = emptyList()
         private set
 
-    /** The limits that will be used to stop the evolution  */
-    private var limits = mutableListOf<Limit>()
-
     fun evolve() {
         createPopulation()
-        if (limits.isEmpty()) { // If no limits are set, use a default one
-            limits += GenerationCount(100)
-        }
         while (limits.none { it(this) }) {  // While none of the limits are met
             population = select(populationSize)     // Select the population
             population = alter(population)          // Alter the population
@@ -97,6 +93,8 @@ class Engine<DNA> private constructor(
      */
     class Builder<DNA>(private val fitnessFunction: (Genotype<DNA>) -> Double) {
 
+        var limits: List<Limit> = listOf(GenerationCount(100))
+
         var alterers: List<Alterer<DNA>> = emptyList()
 
         var selector: Selector<DNA> = TournamentSelector(3)
@@ -109,7 +107,7 @@ class Engine<DNA> private constructor(
             }
 
         lateinit var genotype: Genotype.Builder<DNA>
-        fun build() = Engine(fitnessFunction, genotype, populationSize, selector, alterers)
+        fun build() = Engine(fitnessFunction, genotype, populationSize, selector, alterers, limits)
     }
 
     override fun toString() =

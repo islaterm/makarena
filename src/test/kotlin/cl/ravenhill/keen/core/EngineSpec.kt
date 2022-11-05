@@ -11,6 +11,7 @@ package cl.ravenhill.keen.core
 import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
+import cl.ravenhill.keen.limits.GenerationCount
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
 import io.kotest.assertions.throwables.shouldThrow
@@ -85,6 +86,17 @@ class EngineSpec : WordSpec({
                 }
                 engine.evolve()
                 engine.generation shouldBe 100
+            }
+
+            "stop at the specified generation limit" {
+                checkAll(Arb.positiveInt(100)) { generations ->
+                    engine = engine({ 0.0 }) {
+                        this.genotype = genotype
+                        limits = listOf(GenerationCount(generations))
+                    }
+                    engine.evolve()
+                    engine.generation shouldBe generations
+                }
             }
         }
     }
