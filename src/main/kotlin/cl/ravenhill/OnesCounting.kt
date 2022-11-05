@@ -14,16 +14,10 @@ import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
 import cl.ravenhill.keen.operators.alterers.Mutator
 import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
+import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
 import io.jenetics.BitChromosome
 import io.jenetics.BitGene
-import io.jenetics.engine.EvolutionResult.toBestPhenotype
-import io.jenetics.engine.EvolutionStatistics
-import io.jenetics.engine.Limits.bySteadyFitness
 import io.jenetics.Genotype as JGenotype
-import io.jenetics.Mutator as JMutator
-import io.jenetics.RouletteWheelSelector as JRouletteWheelSelector
-import io.jenetics.SinglePointCrossover as JSinglePointCrossover
-import io.jenetics.engine.Engine as JEngine
 
 
 /**
@@ -40,26 +34,11 @@ fun main() {
         genotype = genotype {
             chromosomes = listOf(BoolChromosome.Builder(20, 0.15))
         }
-        populationSize = 10
+        populationSize = 500
+        survivors = (populationSize * 0.2).toInt()
+        survivorSelector = RouletteWheelSelector()
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
     }
-    println(engine)
-    engine.createPopulation()
-    println(engine.select(10))
     engine.evolve()
-    val jEngine = JEngine.builder(::jCount, BitChromosome.of(20, 0.15))
-        .populationSize(500)
-        .selector(JRouletteWheelSelector())
-        .alterers(
-            JMutator(0.55),
-            JSinglePointCrossover(0.06)
-        ).build()
-    val statistics = EvolutionStatistics.ofNumber<Int>()
-    val best = jEngine.stream()
-        .limit(bySteadyFitness(7))
-        .limit(100)
-        .peek(statistics)
-        .collect(toBestPhenotype())
-    println(statistics)
-    println(best)
+    println("${engine.fittest} -> ${engine.fittest?.fitness}")
 }

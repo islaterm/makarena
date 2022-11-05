@@ -70,7 +70,7 @@ class EngineSpec : WordSpec({
                 checkAll(Arb.positiveInt(100)) { size ->
                     engine = engine({ 0.0 }) {
                         this.genotype = genotype
-                        populationSize = 1000
+                        populationSize = size
                     }
                     engine.createPopulation()
                     engine.select(size).size shouldBe size

@@ -28,6 +28,7 @@ import cl.ravenhill.keen.util.Maximizer
  * @property population         The current population
  * @property limits             The limits that will be used to stop the evolution
  * @property steadyGenerations  The number of generations that the fitness has not changed
+ * @property fittest            The fittest individual of the current population
  */
 class Engine<DNA> private constructor(
     fitnessFunction: (Genotype<DNA>) -> Double,
@@ -35,7 +36,9 @@ class Engine<DNA> private constructor(
     val populationSize: Int,
     val selector: Selector<DNA>,
     val alterers: List<Alterer<DNA>>,
-    private val limits: List<Limit>
+    private val limits: List<Limit>,
+    val survivorSelector: Selector<DNA>,
+    val survivors: Int
 ) {
 
     init {
@@ -43,6 +46,7 @@ class Engine<DNA> private constructor(
         genotype.fitnessFunction = fitnessFunction
     }
 
+    // region : PROPERTIES  ------------------------------------------------------------------------
     var generation: Int = 0
         private set
     var steadyGenerations = 0
@@ -51,9 +55,13 @@ class Engine<DNA> private constructor(
     var population: List<Genotype<DNA>> = emptyList()
         private set
 
+    val fittest: Genotype<DNA>?
+        get() = population.maxByOrNull { it.fitness }
+    // endregion    --------------------------------------------------------------------------------
+
     fun evolve() {
         createPopulation()
-        while (limits.none { it(this) }) {  // While none of the limits are met
+        while (limits.none { it(this) }) { // While none of the limits are met
             population = select(populationSize)     // Select the population
             population = alter(population)          // Alter the population
             generation++                            // Increment the generation
@@ -72,10 +80,15 @@ class Engine<DNA> private constructor(
     }
 
     internal fun createPopulation() {
-        population = (0 until populationSize).map { genotype.build() }
+        population =
+            (0 until populationSize).map { genotype.build() }.sortedByDescending { it.fitness }
     }
 
-    internal fun select(n: Int) = selector(population, n, Maximizer())
+    internal fun select(n: Int): List<Genotype<DNA>> {
+        population = survivorSelector(population, survivors, Maximizer())
+        population = population + selector(population, n - survivors, Maximizer())
+        return population.shuffled().take(n)
+    }
 
 
     /**
@@ -99,6 +112,10 @@ class Engine<DNA> private constructor(
 
         var selector: Selector<DNA> = TournamentSelector(3)
 
+        var survivorSelector: Selector<DNA> = selector
+
+        var survivors: Int = 20
+
         var populationSize: Int = 50
             set(value) = if (value > 0) {
                 field = value
@@ -107,7 +124,16 @@ class Engine<DNA> private constructor(
             }
 
         lateinit var genotype: Genotype.Builder<DNA>
-        fun build() = Engine(fitnessFunction, genotype, populationSize, selector, alterers, limits)
+        fun build() = Engine(
+            fitnessFunction,
+            genotype,
+            populationSize,
+            selector,
+            alterers,
+            limits,
+            survivorSelector,
+            survivors
+        )
     }
 
     override fun toString() =

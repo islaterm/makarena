@@ -12,13 +12,13 @@ import io.jenetics.MeanAlterer
 import io.jenetics.Mutator
 import io.jenetics.Optimize
 import io.jenetics.engine.Codecs
-import io.jenetics.engine.Engine
 import io.jenetics.engine.EvolutionResult.toBestPhenotype
 import io.jenetics.engine.EvolutionStatistics
 import io.jenetics.engine.Limits.bySteadyFitness
 import io.jenetics.util.DoubleRange
 import kotlin.math.cos
 import kotlin.math.sin
+import io.jenetics.engine.Engine as JEngine
 
 /**
  * Example of using the Jenetics library to calculate the minimum of a function.
@@ -36,8 +36,9 @@ fun fitnessFunction(x: Double) = cos(0.5 + sin(x)) * cos(x)
  * ```
  */
 fun main() {
-    val engine =
-        Engine.builder(::fitnessFunction, Codecs.ofScalar(DoubleRange.of(0.0, 2 * Math.PI)))
+//    val engine = engine()
+    val jengine =
+        JEngine.builder(::fitnessFunction, Codecs.ofScalar(DoubleRange.of(0.0, 2 * Math.PI)))
             .populationSize(500)
             .optimize(Optimize.MINIMUM)
             .alterers(
@@ -47,7 +48,7 @@ fun main() {
 
     val statistics = EvolutionStatistics.ofNumber<Double>()
 
-    val best = engine.stream()
+    val best = jengine.stream()
         .limit(bySteadyFitness(7))
         .limit(100)
         .peek(statistics)
