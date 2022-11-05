@@ -9,5 +9,5 @@
 package cl.ravenhill.keen.signals
 
 
-class EngineConfigurationException(lazyMessage: () -> String) :
-        KeenException("Engine configuration error:", lazyMessage)
+class LimitConfigurationException(lazyMessage: () -> String) :
+        KeenException("Genotype configuration error:", lazyMessage)

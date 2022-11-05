@@ -9,5 +9,5 @@
 package cl.ravenhill.keen.signals
 
 
-class GenotypeConfigurationException(detail: String) :
-        KeenException("Genotype configuration error: $detail")
+class GenotypeConfigurationException(lazyMessage: () -> String) :
+        KeenException("Genotype configuration error: ", lazyMessage)

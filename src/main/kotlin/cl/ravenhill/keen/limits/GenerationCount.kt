@@ -9,8 +9,17 @@
 package cl.ravenhill.keen.limits
 
 import cl.ravenhill.keen.core.Engine
+import cl.ravenhill.keen.signals.LimitConfigurationException
 
 class GenerationCount(private val i: Int) : Limit {
+    init {
+        if (i < 0) {
+            throw LimitConfigurationException {
+                "Generation count must not be negative, but was $i"
+            }
+        }
+    }
+
     override fun invoke(engine: Engine<*>): Boolean {
         return engine.generation >= i
     }

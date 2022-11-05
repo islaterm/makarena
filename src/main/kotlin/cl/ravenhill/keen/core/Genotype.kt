@@ -37,9 +37,9 @@ class Genotype<DNA> private constructor(
         lateinit var chromosomes: List<Chromosome.ChromosomeBuilder<DNA>>
 
         fun build() = if (!this::chromosomes.isInitialized) {
-            throw GenotypeConfigurationException("Chromosomes must be initialized.")
+            throw GenotypeConfigurationException { "Chromosomes must be initialized." }
         } else if (chromosomes.isEmpty()) {
-            throw GenotypeConfigurationException("Chromosomes must not be empty.")
+            throw GenotypeConfigurationException { "Chromosomes must not be empty." }
         } else {
             Genotype(chromosomes.map { it.build() }, fitnessFunction)
         }

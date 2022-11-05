@@ -9,4 +9,5 @@
 package cl.ravenhill.keen.signals
 
 
-open class KeenException(message: String) : Exception(message)
+open class KeenException(prefix: String, lazyMessage: () -> String) :
+        Exception("$prefix ${lazyMessage()}")

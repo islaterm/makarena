@@ -103,7 +103,7 @@ class Engine<DNA> private constructor(
             set(value) = if (value > 0) {
                 field = value
             } else {
-                throw EngineConfigurationException("Population size must be positive")
+                throw EngineConfigurationException { "Population size must be positive" }
             }
 
         lateinit var genotype: Genotype.Builder<DNA>
