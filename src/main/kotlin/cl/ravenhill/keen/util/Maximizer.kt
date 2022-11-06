@@ -11,4 +11,6 @@ package cl.ravenhill.keen.util
 
 class Maximizer : Optimizer {
     override fun invoke(a: Double, b: Double) = a > b
+
+    override fun toString() = "Maximizer"
 }

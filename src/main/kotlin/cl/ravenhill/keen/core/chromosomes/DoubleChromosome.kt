@@ -14,6 +14,13 @@ import cl.ravenhill.keen.core.genes.Gene
 import kotlin.random.asKotlinRandom
 
 
+/**
+ * A chromosome that contains a list of [DoubleGene]s.
+ *
+ * @param genes The list of genes that this chromosome will contain.
+ *
+ * @author <a href="https://www.github.com/r8vnhill">R8V</a>
+ */
 class DoubleChromosome private constructor(
     genes: List<DoubleGene>
 ) : AbstractChromosome<Double>(genes) {
