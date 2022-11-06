@@ -13,7 +13,7 @@ import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.DoubleChromosome
 import cl.ravenhill.keen.operators.Mutator
-import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
+import cl.ravenhill.keen.operators.crossover.MeanCrossover
 import cl.ravenhill.keen.util.Minimizer
 import io.jenetics.Optimize
 import io.jenetics.engine.Codecs
@@ -55,9 +55,9 @@ fun main() {
         populationSize = 500
         optimizer = Minimizer()
         survivors = (populationSize * 0.2).toInt()
-        alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
+        alterers = listOf(Mutator(0.03), MeanCrossover(0.6))
     }
-
+    println(engine)
     val jengine =
         JEngine.builder(::jfitnessFunction, Codecs.ofScalar(DoubleRange.of(0.0, 2 * Math.PI)))
             .populationSize(500)

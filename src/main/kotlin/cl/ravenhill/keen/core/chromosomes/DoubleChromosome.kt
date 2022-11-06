@@ -32,6 +32,11 @@ class DoubleChromosome private constructor(
 
         override fun build() = DoubleChromosome(size, range)
 
+        override fun toString(): String {
+            return "DoubleChromosome.Builder { " +
+                    "size: $size, " +
+                    "range: $range }"
+        }
     }
 
     override fun verify() = genes.first().verify()

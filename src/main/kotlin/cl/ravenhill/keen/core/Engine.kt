@@ -165,5 +165,6 @@ class Engine<DNA> private constructor(
         "Engine { populationSize: $populationSize, " +
                 "genotype: $genotype, " +
                 "selector: $selector , " +
-                "alterers: $alterers }"
+                "alterers: $alterers," +
+                "optimizer: $optimizer }"
 }

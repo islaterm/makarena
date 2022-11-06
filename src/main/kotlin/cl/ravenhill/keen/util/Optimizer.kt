@@ -8,6 +8,13 @@
 
 package cl.ravenhill.keen.util
 
+/**
+ * Generic optimization strategy to determine which of two values is better.
+ */
 interface Optimizer {
+
+    /**
+     * Returns true if the first value is better than the second one.
+     */
     operator fun invoke(a: Double, b: Double): Boolean
 }

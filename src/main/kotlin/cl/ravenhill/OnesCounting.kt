@@ -25,7 +25,7 @@ fun count(genotype: Genotype<Boolean>): Double =
 fun main() {
     val engine = engine(::count) {
         genotype = genotype {
-            chromosomes = listOf(BoolChromosome.Builder(20, 0.15))
+            chromosomes = listOf(BoolChromosome.Builder(24, 0.15))
         }
         populationSize = 500
         survivors = (populationSize * 0.2).toInt()

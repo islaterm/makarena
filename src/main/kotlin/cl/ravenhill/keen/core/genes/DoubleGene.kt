@@ -20,9 +20,7 @@ class DoubleGene(override val dna: Double, private val range: ClosedFloatingPoin
         return DoubleGene(dna + (KeenCore.generator.nextDouble() * (max - min) + min), range)
     }
 
-    override fun copy(dna: Double): Gene<Double> {
-        TODO("Not yet implemented")
-    }
+    override fun copy(dna: Double) = DoubleGene(dna, range)
 
     override fun verify() = dna in range
 

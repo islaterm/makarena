@@ -14,7 +14,16 @@ import cl.ravenhill.keen.core.chromosomes.Chromosome
 import cl.ravenhill.keen.core.genes.Gene
 
 
-class MeanAlterer<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(probability) {
+/**
+ * Performs a crossover between two genotypes using the mean of the genes.
+ *
+ * @param DNA   The type of the DNA.
+ *              Must be a [Number] type.
+ * @param probability   The probability of this crossover to be applied.
+ *
+ * @author <a href="https://www.github.com/r8vnhill">R8V</a>
+ */
+class MeanCrossover<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(probability) {
 
     override fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA> {
         val chromosomes = mutableListOf<Chromosome<DNA>>()
@@ -36,4 +45,6 @@ class MeanAlterer<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(pr
         }
         return mates.first.copy(chromosomes)
     }
+
+    override fun toString() = "MeanCrossover { probability: $probability }"
 }
