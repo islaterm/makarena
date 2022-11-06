@@ -16,9 +16,8 @@ import cl.ravenhill.keen.core.genes.Gene
  *
  * @param DNA   The type of the genes' values.
  *
- * @property genes      The genes of the chromosome.
- * @property isValid    Whether the chromosome is valid or not.
- * @property size       The size of the chromosome.
+ * @property genes  The genes of the chromosome.
+ * @property size   The size of the chromosome.
  *
  * @author <a href="https://github.com/r8vnhill">R8V</a>
  */
@@ -26,6 +25,10 @@ interface Chromosome<DNA> : GeneticMaterial {
 
     val genes: List<Gene<DNA>>
 
+    val size: Int
+        get() = genes.size
+
+    /// {@inheritDoc}
     override fun verify() = genes.isNotEmpty() && genes.all { it.verify() }
 
     /**
@@ -38,10 +41,16 @@ interface Chromosome<DNA> : GeneticMaterial {
      */
     fun copy(genes: List<Gene<DNA>>): Chromosome<DNA>
 
-    val size: Int
-        get() = genes.size
-
+    /**
+     * Builder for [Chromosome]s.
+     *
+     * @param DNA   The type of the genes' values.
+     */
     interface ChromosomeBuilder<DNA> {
+
+        /**
+         * Builds a new chromosome.
+         */
         fun build(): Chromosome<DNA>
     }
 }

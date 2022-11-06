@@ -11,6 +11,11 @@ package cl.ravenhill.keen.core.chromosomes
 import cl.ravenhill.keen.core.genes.Gene
 
 
+/**
+ * Abstract collection of genes.
+ *
+ * This class defines a basic string representation of a generic chromosome.
+ */
 abstract class AbstractChromosome<DNA>(override val genes: List<Gene<DNA>>) : Chromosome<DNA> {
     override fun toString() = genes.joinToString(separator = ", ", prefix = "[", postfix = "]")
 }

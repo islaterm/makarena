@@ -16,6 +16,7 @@ import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
 import cl.ravenhill.keen.util.Maximizer
 import cl.ravenhill.keen.util.Optimizer
+import kotlin.properties.Delegates
 
 /**
  * Fundamental class of the library. It is the engine that will run the evolution process.
@@ -65,6 +66,15 @@ class Engine<DNA> private constructor(
                 )
             ) genotype else acc
         }
+
+    var bestFitness: Double by Delegates.observable(0.0) { _, old, new ->
+        if (old == new) {
+            steadyGenerations++
+        } else {
+            steadyGenerations = 0
+        }
+    }
+        private set
     // endregion    --------------------------------------------------------------------------------
 
     fun evolve() {
@@ -73,6 +83,7 @@ class Engine<DNA> private constructor(
             population = select(populationSize)     // Select the population
             population = alter(population)          // Alter the population
             generation++                            // Increment the generation
+            bestFitness = fittest.fitness           // Update the best fitness
         }
     }
 

@@ -21,4 +21,6 @@ abstract class AbstractCrossover<DNA>(override val probability: Double) : Altere
             crossover(it to mate)
         }
     }
+
+    abstract fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA>
 }

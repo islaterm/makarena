@@ -12,6 +12,8 @@ import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
+import cl.ravenhill.keen.limits.GenerationCount
+import cl.ravenhill.keen.limits.SteadyGenerations
 import cl.ravenhill.keen.operators.Mutator
 import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
 import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
@@ -29,7 +31,9 @@ fun main() {
         survivors = (populationSize * 0.2).toInt()
         survivorSelector = RouletteWheelSelector()
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
+        limits = listOf(SteadyGenerations(7), GenerationCount(100))
     }
     engine.evolve()
     println("${engine.fittest} -> ${engine.fittest.fitness}")
+    println("Generations: ${engine.generation}")
 }
