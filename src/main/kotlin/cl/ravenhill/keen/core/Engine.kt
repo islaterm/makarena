@@ -10,7 +10,7 @@ package cl.ravenhill.keen.core
 
 import cl.ravenhill.keen.limits.GenerationCount
 import cl.ravenhill.keen.limits.Limit
-import cl.ravenhill.keen.operators.alterers.Alterer
+import cl.ravenhill.keen.operators.Alterer
 import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException

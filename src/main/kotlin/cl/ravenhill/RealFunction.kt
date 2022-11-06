@@ -12,10 +12,9 @@ import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.DoubleChromosome
-import cl.ravenhill.keen.operators.alterers.Mutator
-import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
-import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
-import io.jenetics.MeanAlterer
+import cl.ravenhill.keen.operators.Mutator
+import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
+import cl.ravenhill.keen.util.Minimizer
 import io.jenetics.Optimize
 import io.jenetics.engine.Codecs
 import io.jenetics.engine.EvolutionResult.toBestPhenotype
@@ -24,6 +23,7 @@ import io.jenetics.engine.Limits.bySteadyFitness
 import io.jenetics.util.DoubleRange
 import kotlin.math.cos
 import kotlin.math.sin
+import io.jenetics.MeanAlterer as JeneticsMeanAlterer
 import io.jenetics.Mutator as JeneticsMutator
 import io.jenetics.engine.Engine as JEngine
 
@@ -53,8 +53,8 @@ fun main() {
             chromosomes = listOf(DoubleChromosome.Builder(1, 0.0..(2 * Math.PI)))
         }
         populationSize = 500
+        optimizer = Minimizer()
         survivors = (populationSize * 0.2).toInt()
-        survivorSelector = RouletteWheelSelector()
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
     }
 
@@ -64,7 +64,7 @@ fun main() {
             .optimize(Optimize.MINIMUM)
             .alterers(
                 JeneticsMutator(0.03),
-                MeanAlterer(0.6)
+                JeneticsMeanAlterer(0.6)
             ).build()
 
     val statistics = EvolutionStatistics.ofNumber<Double>()

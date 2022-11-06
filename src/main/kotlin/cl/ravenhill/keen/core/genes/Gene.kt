@@ -32,4 +32,9 @@ interface Gene<DNA> : GeneticMaterial {
      * Creates a new gene with a mutated value.
      */
     fun mutate(): Gene<DNA>
+
+    /**
+     * Creates a new gene with the given value.
+     */
+    fun copy(dna: DNA): Gene<DNA>
 }

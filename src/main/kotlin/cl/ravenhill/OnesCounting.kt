@@ -12,8 +12,8 @@ import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.BoolChromosome
-import cl.ravenhill.keen.operators.alterers.Mutator
-import cl.ravenhill.keen.operators.alterers.SinglePointCrossover
+import cl.ravenhill.keen.operators.Mutator
+import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
 import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
 
 
