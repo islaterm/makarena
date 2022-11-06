@@ -101,6 +101,7 @@ class Engine<DNA> private constructor(
     internal fun createPopulation() {
         population =
             (0 until populationSize).map { genotype.build() }.sortedByDescending { it.fitness }
+        bestFitness = fittest.fitness
     }
 
     internal fun select(n: Int): List<Genotype<DNA>> {

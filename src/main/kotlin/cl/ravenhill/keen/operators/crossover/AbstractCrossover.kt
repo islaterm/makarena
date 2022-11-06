@@ -10,6 +10,7 @@ package cl.ravenhill.keen.operators.crossover
 
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.KeenCore
+import cl.ravenhill.keen.core.chromosomes.Chromosome
 import cl.ravenhill.keen.operators.Alterer
 import kotlin.random.asKotlinRandom
 
@@ -37,5 +38,15 @@ abstract class AbstractCrossover<DNA>(override val probability: Double) : Altere
      * @param mates The pair of Genotypes to crossover
      * @return  The new Genotype
      */
-    abstract fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA>
+    open fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA> {
+        val offspring = mutableListOf<Chromosome<DNA>>()
+        for (i in mates.first.chromosomes.indices) {
+            crossover(mates.first.chromosomes[i] to mates.second.chromosomes[i]).let {
+                offspring.add(it)
+            }
+        }
+        return mates.first.copy(offspring)
+    }
+
+    protected abstract fun crossover(mates: Pair<Chromosome<DNA>, Chromosome<DNA>>): Chromosome<DNA>
 }

@@ -27,14 +27,14 @@ class MeanCrossover<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(
 
     override fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA> {
         val chromosomes = mutableListOf<Chromosome<DNA>>()
-        mates.first.chromosomes.forEach { chromosome ->
+        mates.first.chromosomes.forEachIndexed { i, chromosome ->
             val genes = mutableListOf<Gene<DNA>>()
             chromosome.genes.forEachIndexed { index, gene ->
                 @Suppress("UNCHECKED_CAST")
                 genes.add(
                     gene.copy(
                         if (KeenCore.generator.nextDouble() < probability) {
-                            (gene.dna.toDouble() + mates.second.chromosomes[index].genes[index].dna.toDouble()) / 2
+                            (gene.dna.toDouble() + mates.second.chromosomes[i].genes[index].dna.toDouble()) / 2
                         } else {
                             gene.dna
                         } as DNA
@@ -44,6 +44,10 @@ class MeanCrossover<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(
             chromosomes.add(chromosome.copy(genes))
         }
         return mates.first.copy(chromosomes)
+    }
+
+    override fun crossover(mates: Pair<Chromosome<DNA>, Chromosome<DNA>>): Chromosome<DNA> {
+        TODO("Not yet implemented")
     }
 
     override fun toString() = "MeanCrossover { probability: $probability }"

@@ -12,11 +12,22 @@ import cl.ravenhill.keen.core.chromosomes.Chromosome
 import cl.ravenhill.keen.signals.GenotypeConfigurationException
 
 
+/**
+ * A Genotype is a collection of chromosomes.
+ *
+ * @param DNA   The type of the DNA of the Genotype
+ * @property chromosomes        The chromosomes of the Genotype
+ * @property fitnessFunction    The fitness function of the Genotype
+ * @property size               The size of the Genotype (number of chromosomes)
+ * @property fitness            The fitness of the Genotype
+ */
 class Genotype<DNA> private constructor(
     val chromosomes: List<Chromosome<DNA>>,
     private val fitnessFunction: (Genotype<DNA>) -> Double
 ) : GeneticMaterial {
     override fun verify() = chromosomes.isNotEmpty() && chromosomes.all { it.verify() }
+
+    val size: Int = chromosomes.size
 
     val fitness: Double
         get() = fitnessFunction(this)
