@@ -9,6 +9,12 @@
 package cl.ravenhill.keen.util
 
 
+/**
+ * [Optimizer] that prioritizes the minimum of two values.
+ */
 class Minimizer : Optimizer {
+
     override fun invoke(a: Double, b: Double) = a < b
+
+    override fun toString() = "Minimizer"
 }

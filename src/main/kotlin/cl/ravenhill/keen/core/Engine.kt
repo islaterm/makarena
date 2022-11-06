@@ -40,7 +40,7 @@ class Engine<DNA> private constructor(
     val alterers: List<Alterer<DNA>>,
     private val limits: List<Limit>,
     val survivorSelector: Selector<DNA>,
-    val survivors: Int,
+    private val survivors: Int,
     private val optimizer: Optimizer
 ) {
 
@@ -162,9 +162,13 @@ class Engine<DNA> private constructor(
     }
 
     override fun toString() =
-        "Engine { populationSize: $populationSize, " +
+        "Engine { " +
+                "populationSize: $populationSize, " +
                 "genotype: $genotype, " +
-                "selector: $selector , " +
-                "alterers: $alterers," +
-                "optimizer: $optimizer }"
+                "selector: $selector, " +
+                "alterers: $alterers, " +
+                "optimizer: $optimizer, " +
+                "survivors: $survivors, " +
+                "survivorSelector: $survivorSelector " +
+                "}"
 }

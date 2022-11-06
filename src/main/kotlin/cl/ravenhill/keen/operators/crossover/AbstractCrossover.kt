@@ -14,7 +14,16 @@ import cl.ravenhill.keen.operators.Alterer
 import kotlin.random.asKotlinRandom
 
 
+/**
+ * Abstract class for crossover operators.
+ *
+ * @param DNA   The type of the DNA of the Genotype
+ * @property probability    The probability of crossover
+ *
+ * @constructor Creates a new crossover operator
+ */
 abstract class AbstractCrossover<DNA>(override val probability: Double) : Alterer<DNA> {
+
     override fun invoke(population: List<Genotype<DNA>>): List<Genotype<DNA>> {
         return population.map {
             val mate = population.random(KeenCore.generator.asKotlinRandom())
@@ -22,5 +31,11 @@ abstract class AbstractCrossover<DNA>(override val probability: Double) : Altere
         }
     }
 
+    /**
+     * Performs the crossover operation
+     *
+     * @param mates The pair of Genotypes to crossover
+     * @return  The new Genotype
+     */
     abstract fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA>
 }
