@@ -9,7 +9,11 @@
 package cl.ravenhill.keen.util
 
 
+/**
+ * [Optimizer] that prioritizes the maximum of two values.
+ */
 class Maximizer : Optimizer {
+
     override fun invoke(a: Double, b: Double) = a > b
 
     override fun toString() = "Maximizer"
