@@ -17,7 +17,7 @@ import cl.ravenhill.keen.limits.SteadyGenerations
 import cl.ravenhill.keen.operators.Mutator
 import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
 import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
-import cl.ravenhill.keen.statistics.StatisticCollector
+import cl.ravenhill.keen.util.statistics.StatisticCollector
 
 
 fun count(genotype: Genotype<Boolean>): Double =

@@ -44,7 +44,7 @@ class Genotype<DNA> private constructor(
     class Builder<DNA> {
 
         lateinit var fitnessFunction: (Genotype<DNA>) -> Double
-        lateinit var chromosomes: List<Chromosome.ChromosomeBuilder<DNA>>
+        lateinit var chromosomes: List<Chromosome.Builder<DNA>>
 
         fun build() = if (!this::chromosomes.isInitialized) {
             throw GenotypeConfigurationException { "Chromosomes must be initialized." }
@@ -54,8 +54,6 @@ class Genotype<DNA> private constructor(
             Genotype(chromosomes.map { it.build() }, fitnessFunction)
         }
 
-        override fun toString(): String {
-            return "GenotypeBuilder { chromosomes: $chromosomes }"
-        }
+        override fun toString() = "GenotypeBuilder { chromosomes: $chromosomes }"
     }
 }

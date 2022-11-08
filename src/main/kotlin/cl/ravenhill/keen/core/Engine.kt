@@ -14,9 +14,10 @@ import cl.ravenhill.keen.operators.Alterer
 import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
-import cl.ravenhill.keen.statistics.StatisticCollector
+import cl.ravenhill.keen.util.statistics.StatisticCollector
 import cl.ravenhill.keen.util.Maximizer
 import cl.ravenhill.keen.util.Optimizer
+import java.time.Clock
 import kotlin.properties.Delegates
 
 /**
@@ -86,25 +87,27 @@ class Engine<DNA> private constructor(
         }
         statistics.stream().parallel().forEach { it.bestFitness = new }
     }
+
+    private val clock = Clock.systemDefaultZone()
     // endregion    --------------------------------------------------------------------------------
 
     fun evolve() {
-        val evolutionStartTime = System.currentTimeMillis()
+        val evolutionStartTime = clock.millis()
         createPopulation()
         while (limits.none { it(this) }) { // While none of the limits are met
-            val initialTime = System.currentTimeMillis()
+            val initialTime = clock.millis()
             population = select(populationSize)     // Select the population
             population = alter(population)          // Alter the population
             generation++                            // Increment the generation
             bestFitness = fittest.fitness           // Update the best fitness
-            statistics.stream().parallel().forEach { it.generationTimes.add(System.currentTimeMillis() - initialTime) }
+            statistics.stream().parallel().forEach { it.generationTimes.add(clock.millis() - initialTime) }
         }
         statistics.stream().parallel()
-            .forEach { it.evolutionTime = System.currentTimeMillis() - evolutionStartTime }
+            .forEach { it.evolutionTime = clock.millis() - evolutionStartTime }
     }
 
     private fun alter(population: List<Genotype<DNA>>): List<Genotype<DNA>> {
-        val initialTime = System.currentTimeMillis()
+        val initialTime = clock.millis()
         var alteredPopulation = population.toMutableList()
         alterers.forEach { alterer ->
             alteredPopulation = alterer(alteredPopulation).filter { it.verify() }.toMutableList()
@@ -113,7 +116,7 @@ class Engine<DNA> private constructor(
             alteredPopulation.addAll(population.take(populationSize - alteredPopulation.size))
         }
         statistics.stream().parallel()
-            .forEach { it.alterTime.add(System.currentTimeMillis() - initialTime) }
+            .forEach { it.alterTime.add(clock.millis() - initialTime) }
         return alteredPopulation
     }
 
@@ -124,11 +127,11 @@ class Engine<DNA> private constructor(
     }
 
     internal fun select(n: Int): List<Genotype<DNA>> {
-        val initialTime = System.currentTimeMillis()
+        val initialTime = clock.millis()
         val newPopulation = survivorSelector(population, survivors, optimizer)
         population = newPopulation + selector(population, n - survivors, optimizer)
         statistics.stream().parallel()
-            .forEach { it.selectionTime.add(System.currentTimeMillis() - initialTime) }
+            .forEach { it.selectionTime.add(clock.millis() - initialTime) }
         return population.shuffled().take(n)
     }
 

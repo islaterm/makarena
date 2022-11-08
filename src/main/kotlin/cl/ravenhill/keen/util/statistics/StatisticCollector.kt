@@ -6,7 +6,7 @@
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
 
-package cl.ravenhill.keen.statistics
+package cl.ravenhill.keen.util.statistics
 
 import cl.ravenhill.keen.core.Genotype
 import org.jetbrains.kotlinx.dataframe.math.mean

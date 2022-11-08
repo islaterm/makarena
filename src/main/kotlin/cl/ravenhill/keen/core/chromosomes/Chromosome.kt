@@ -46,7 +46,7 @@ interface Chromosome<DNA> : GeneticMaterial {
      *
      * @param DNA   The type of the genes' values.
      */
-    interface ChromosomeBuilder<DNA> {
+    interface Builder<DNA> {
 
         /**
          * Builds a new chromosome.

@@ -33,12 +33,10 @@ sealed class BoolGene : Gene<Boolean> {
         False
     }
 
-    override fun copy(dna: Boolean): Gene<Boolean> {
-        return if (dna) {
-            True
-        } else {
-            False
-        }
+    override fun copy(dna: Boolean) = if (dna) {
+        True
+    } else {
+        False
     }
 
     /**

@@ -35,7 +35,7 @@ class DoubleChromosome private constructor(
     )
 
     class Builder(private val size: Int, private val range: ClosedFloatingPointRange<Double>) :
-            Chromosome.ChromosomeBuilder<Double> {
+        Chromosome.Builder<Double> {
 
         override fun build() = DoubleChromosome(size, range)
 

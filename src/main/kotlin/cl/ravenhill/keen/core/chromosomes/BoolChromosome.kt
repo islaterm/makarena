@@ -76,7 +76,7 @@ class BoolChromosome private constructor(genes: List<BoolGene>) :
      * @constructor Creates a new builder for [BoolChromosome]s.
      */
     class Builder(private val size: Int, private val truesProbability: Double) :
-            Chromosome.ChromosomeBuilder<Boolean> {
+        Chromosome.Builder<Boolean> {
 
         /// {@inheritDoc}
         override fun build() = BoolChromosome(size, truesProbability)
