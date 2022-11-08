@@ -8,7 +8,6 @@
 
 package cl.ravenhill.keen.operators.crossover
 
-import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.KeenCore
 import cl.ravenhill.keen.core.chromosomes.Chromosome
 import cl.ravenhill.keen.core.genes.Gene
@@ -25,29 +24,23 @@ import cl.ravenhill.keen.core.genes.Gene
  */
 class MeanCrossover<DNA : Number>(probability: Double) : AbstractCrossover<DNA>(probability) {
 
-    override fun crossover(mates: Pair<Genotype<DNA>, Genotype<DNA>>): Genotype<DNA> {
-        val chromosomes = mutableListOf<Chromosome<DNA>>()
-        mates.first.chromosomes.forEachIndexed { i, chromosome ->
-            val genes = mutableListOf<Gene<DNA>>()
-            chromosome.genes.forEachIndexed { index, gene ->
-                @Suppress("UNCHECKED_CAST")
-                genes.add(
-                    gene.copy(
-                        if (KeenCore.generator.nextDouble() < probability) {
-                            (gene.dna.toDouble() + mates.second.chromosomes[i].genes[index].dna.toDouble()) / 2
-                        } else {
-                            gene.dna
-                        } as DNA
-                    )
-                )
-            }
-            chromosomes.add(chromosome.copy(genes))
+    override fun crossover(mates: Pair<Chromosome<DNA>, Chromosome<DNA>>): Chromosome<DNA> {
+        val genes = mutableListOf<Gene<DNA>>()
+        for (i in mates.first.genes.indices) {
+            crossover(mates.first.genes[i] to mates.second.genes[i]).let { genes.add(it) }
         }
-        return mates.first.copy(chromosomes)
+        return mates.first.copy(genes)
     }
 
-    override fun crossover(mates: Pair<Chromosome<DNA>, Chromosome<DNA>>): Chromosome<DNA> {
-        TODO("Not yet implemented")
+    private fun crossover(genes: Pair<Gene<DNA>, Gene<DNA>>): Gene<DNA> {
+        @Suppress("UNCHECKED_CAST")
+        return genes.first.copy(
+            if (KeenCore.generator.nextDouble() < probability) {
+                (genes.first.dna.toDouble() + genes.second.dna.toDouble()) / 2
+            } else {
+                genes.first.dna
+            } as DNA
+        )
     }
 
     override fun toString() = "MeanCrossover { probability: $probability }"

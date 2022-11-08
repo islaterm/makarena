@@ -48,5 +48,10 @@ abstract class AbstractCrossover<DNA>(override val probability: Double) : Altere
         return mates.first.copy(offspring)
     }
 
+    /**
+     * Performs a crossover between two chromosomes and returns the new chromosome.
+     *
+     * @param mates The pair of chromosomes to crossover
+     */
     protected abstract fun crossover(mates: Pair<Chromosome<DNA>, Chromosome<DNA>>): Chromosome<DNA>
 }
