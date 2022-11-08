@@ -5,7 +5,6 @@
  * You should have received a copy of the license along with this
  *  work. If not, see <https://creativecommons.org/licenses/by/4.0/>.
  */
-
 package cl.ravenhill
 
 import cl.ravenhill.keen.Builders.engine

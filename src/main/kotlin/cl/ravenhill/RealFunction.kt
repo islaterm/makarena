@@ -44,5 +44,7 @@ fun main() {
         alterers = listOf(Mutator(0.03), MeanCrossover(0.6))
     }
     engine.evolve()
-    println("${engine.fittest} -> ${engine.fittest.fitness}")
+    engine.statistics.forEach {
+        println(it)
+    }
 }
