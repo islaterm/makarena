@@ -17,6 +17,7 @@ import cl.ravenhill.keen.limits.SteadyGenerations
 import cl.ravenhill.keen.operators.Mutator
 import cl.ravenhill.keen.operators.crossover.SinglePointCrossover
 import cl.ravenhill.keen.operators.selector.RouletteWheelSelector
+import cl.ravenhill.keen.statistics.StatisticCollector
 
 
 fun count(genotype: Genotype<Boolean>): Double =
@@ -31,9 +32,10 @@ fun main() {
         survivors = (populationSize * 0.2).toInt()
         survivorSelector = RouletteWheelSelector()
         alterers = listOf(Mutator(0.55), SinglePointCrossover(0.06))
-        limits = listOf(SteadyGenerations(7), GenerationCount(100))
+        limits = listOf(SteadyGenerations(20), GenerationCount(100))
     }
     engine.evolve()
-    println("${engine.fittest} -> ${engine.fittest.fitness}")
-    println("Generations: ${engine.generation}")
+    engine.statistics.forEach {
+        println(it)
+    }
 }

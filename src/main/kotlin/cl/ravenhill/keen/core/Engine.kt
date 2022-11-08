@@ -14,6 +14,7 @@ import cl.ravenhill.keen.operators.Alterer
 import cl.ravenhill.keen.operators.selector.Selector
 import cl.ravenhill.keen.operators.selector.TournamentSelector
 import cl.ravenhill.keen.signals.EngineConfigurationException
+import cl.ravenhill.keen.statistics.StatisticCollector
 import cl.ravenhill.keen.util.Maximizer
 import cl.ravenhill.keen.util.Optimizer
 import kotlin.properties.Delegates
@@ -41,7 +42,8 @@ class Engine<DNA> private constructor(
     private val limits: List<Limit>,
     val survivorSelector: Selector<DNA>,
     private val survivors: Int,
-    private val optimizer: Optimizer
+    private val optimizer: Optimizer,
+    val statistics: List<StatisticCollector<DNA>>
 ) {
 
     init {
@@ -50,44 +52,56 @@ class Engine<DNA> private constructor(
     }
 
     // region : PROPERTIES  ------------------------------------------------------------------------
-    var generation: Int = 0
+    var generation: Int by Delegates.observable(0) { _, _, new ->
+        statistics.stream().parallel().forEach { it.generation = new }
+    }
         private set
-    var steadyGenerations = 0
+
+    var steadyGenerations by Delegates.observable(0) { _, _, new ->
+        statistics.stream().parallel().forEach { it.steadyGenerations = new }
+    }
         private set
 
     var population: List<Genotype<DNA>> = emptyList()
         private set
 
-    val fittest: Genotype<DNA>
-        get() = population.reduce { acc, genotype ->
-            if (optimizer(
-                    genotype.fitness,
-                    acc.fitness
-                )
-            ) genotype else acc
+    private val fittest: Genotype<DNA>
+        get() {
+            val fittest = population.reduce { acc, genotype ->
+                if (optimizer(
+                        genotype.fitness,
+                        acc.fitness
+                    )
+                ) genotype else acc
+            }
+            statistics.stream().parallel().forEach { it.fittest = fittest }
+            return fittest
         }
 
-    var bestFitness: Double by Delegates.observable(0.0) { _, old, new ->
+    private var bestFitness: Double by Delegates.observable(0.0) { _, old, new ->
         if (old == new) {
             steadyGenerations++
         } else {
             steadyGenerations = 0
         }
+        statistics.stream().parallel().forEach { it.bestFitness = new }
     }
-        private set
     // endregion    --------------------------------------------------------------------------------
 
     fun evolve() {
         createPopulation()
         while (limits.none { it(this) }) { // While none of the limits are met
+            val initialTime = System.currentTimeMillis()
             population = select(populationSize)     // Select the population
             population = alter(population)          // Alter the population
             generation++                            // Increment the generation
             bestFitness = fittest.fitness           // Update the best fitness
+            statistics.stream().parallel().forEach { it.generationTimes.add(System.currentTimeMillis() - initialTime) }
         }
     }
 
     private fun alter(population: List<Genotype<DNA>>): List<Genotype<DNA>> {
+        val initialTime = System.currentTimeMillis()
         var alteredPopulation = population.toMutableList()
         alterers.forEach { alterer ->
             alteredPopulation = alterer(alteredPopulation).filter { it.verify() }.toMutableList()
@@ -95,6 +109,8 @@ class Engine<DNA> private constructor(
         if (alteredPopulation.size != populationSize) {
             alteredPopulation.addAll(population.take(populationSize - alteredPopulation.size))
         }
+        statistics.stream().parallel()
+            .forEach { it.alterTime.add(System.currentTimeMillis() - initialTime) }
         return alteredPopulation
     }
 
@@ -104,8 +120,11 @@ class Engine<DNA> private constructor(
     }
 
     internal fun select(n: Int): List<Genotype<DNA>> {
+        val initialTime = System.currentTimeMillis()
         val newPopulation = survivorSelector(population, survivors, optimizer)
         population = newPopulation + selector(population, n - survivors, optimizer)
+        statistics.stream().parallel()
+            .forEach { it.selectionTime.add(System.currentTimeMillis() - initialTime) }
         return population.shuffled().take(n)
     }
 
@@ -146,6 +165,8 @@ class Engine<DNA> private constructor(
         var optimizer: Optimizer = Maximizer()
 
         lateinit var genotype: Genotype.Builder<DNA>
+
+        var statistics = listOf(StatisticCollector<DNA>())
         // endregion    ----------------------------------------------------------------------------
 
         fun build() = Engine(
@@ -157,7 +178,8 @@ class Engine<DNA> private constructor(
             limits,
             survivorSelector,
             survivors,
-            optimizer
+            optimizer,
+            statistics
         )
     }
 
