@@ -33,7 +33,7 @@ fun main() {
             survivors = (500 * 0.2).toInt()
             optimizer = Minimizer()
             alterers = listOf(Mutator(0.03), MeanCrossover(0.6))
-            limits = listOf(Match { this.bestFitness < 1e-3 })
+            limits = listOf(Match { this.bestFitness < 1e-5 })
         }
     }
     engine.evolve()

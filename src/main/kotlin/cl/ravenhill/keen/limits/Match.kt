@@ -11,6 +11,6 @@ package cl.ravenhill.keen.limits
 import cl.ravenhill.keen.core.Engine
 
 
-class Match(private val predicate: Engine<*>.() -> Boolean) : Limit {
+open class Match(private val predicate: Engine<*>.() -> Boolean) : Limit {
     override fun invoke(engine: Engine<*>) = predicate(engine)
 }

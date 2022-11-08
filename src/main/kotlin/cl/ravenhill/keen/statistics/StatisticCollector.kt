@@ -13,6 +13,7 @@ import org.jetbrains.kotlinx.dataframe.math.mean
 
 
 class StatisticCollector<DNA> {
+    var evolutionTime: Long = Long.MAX_VALUE
     var generationTimes: MutableList<Long> = mutableListOf()
     val alterTime: MutableList<Long> = mutableListOf()
     var selectionTime: MutableList<Long> = mutableListOf()
@@ -32,9 +33,10 @@ class StatisticCollector<DNA> {
         |--> Max: ${alterTime.maxOrNull()} ms
         |--> Min: ${alterTime.minOrNull()} ms
         ---------- Evolution Results ----------
-        |--> Average time: ${generationTimes.mean()} ms
-        |--> Max time: ${generationTimes.maxOrNull()} ms
-        |--> Min time: ${generationTimes.minOrNull()} ms
+        |--> Total time: $evolutionTime ms
+        |--> Average generation time: ${generationTimes.mean()} ms
+        |--> Max generation time: ${generationTimes.maxOrNull()} ms
+        |--> Min generation time: ${generationTimes.minOrNull()} ms
         |--> Generation: $generation
         |--> Steady generations: $steadyGenerations
         |--> Fittest: $fittest

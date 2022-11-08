@@ -8,8 +8,4 @@
 
 package cl.ravenhill.keen.limits
 
-import cl.ravenhill.keen.core.Engine
-
-class TargetFitness(private val d: Double) : Limit {
-    override fun invoke(engine: Engine<*>) = engine.bestFitness == d
-}
+class TargetFitness(private val d: Double) : Match({ bestFitness == d })

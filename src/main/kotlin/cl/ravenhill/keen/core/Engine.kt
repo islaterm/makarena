@@ -89,6 +89,7 @@ class Engine<DNA> private constructor(
     // endregion    --------------------------------------------------------------------------------
 
     fun evolve() {
+        val evolutionStartTime = System.currentTimeMillis()
         createPopulation()
         while (limits.none { it(this) }) { // While none of the limits are met
             val initialTime = System.currentTimeMillis()
@@ -98,6 +99,8 @@ class Engine<DNA> private constructor(
             bestFitness = fittest.fitness           // Update the best fitness
             statistics.stream().parallel().forEach { it.generationTimes.add(System.currentTimeMillis() - initialTime) }
         }
+        statistics.stream().parallel()
+            .forEach { it.evolutionTime = System.currentTimeMillis() - evolutionStartTime }
     }
 
     private fun alter(population: List<Genotype<DNA>>): List<Genotype<DNA>> {

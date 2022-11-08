@@ -8,9 +8,15 @@
 
 package cl.ravenhill.keen.limits
 
-import cl.ravenhill.keen.core.Engine
+import cl.ravenhill.keen.signals.LimitConfigurationException
 
 
-class SteadyGenerations(private val n: Int) : Limit {
-    override fun invoke(engine: Engine<*>) = engine.steadyGenerations >= n
+class SteadyGenerations(private val n: Int) : Match({ steadyGenerations >= n }) {
+    init {
+        if (n < 0) {
+            throw LimitConfigurationException {
+                "Steady generations must not be negative, but was $n"
+            }
+        }
+    }
 }
