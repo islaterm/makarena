@@ -11,7 +11,7 @@ import cl.ravenhill.keen.Builders.engine
 import cl.ravenhill.keen.Builders.genotype
 import cl.ravenhill.keen.core.Genotype
 import cl.ravenhill.keen.core.chromosomes.DoubleChromosome
-import cl.ravenhill.keen.limits.GenerationCount
+import cl.ravenhill.keen.limits.Match
 import cl.ravenhill.keen.operators.Mutator
 import cl.ravenhill.keen.operators.crossover.MeanCrossover
 import cl.ravenhill.keen.util.Minimizer
@@ -33,11 +33,9 @@ fun main() {
             survivors = (500 * 0.2).toInt()
             optimizer = Minimizer()
             alterers = listOf(Mutator(0.03), MeanCrossover(0.6))
-            limits = listOf(GenerationCount(1000))
+            limits = listOf(Match { this.bestFitness < 1e-3 })
         }
     }
-    println(engine)
     engine.evolve()
-    println("${engine.fittest} -> ${engine.fittest.fitness}")
-    println(engine.generation)
+    engine.statistics.forEach { println(it) }
 }
